@@ -39,6 +39,9 @@
                                     <constraint firstAttribute="height" constant="44" id="XHc-hi-L7l"/>
                                 </constraints>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ciJ-D0-Hnv"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="udacity" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-LT-ivI">
                                 <rect key="frame" x="250" y="70" width="100" height="100"/>

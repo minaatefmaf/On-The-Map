@@ -21,6 +21,28 @@ class LoginViewController: UIViewController {
         self.configureUI()
     }
 
+    @IBAction func loginButtonTouch(sender: BorderedButton) {
+        if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
+            
+        } else {
+            self.displayError("Empty Email or Password.")
+        }
+    }
+    
+    func displayError(errorString: String?) {
+        if let errorString = errorString {
+            // Prepare the Alert view controller with the error message to display
+            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default) { action in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            alert.addAction(dismissAction)
+            dispatch_async(dispatch_get_main_queue(), {
+                // Display the Alert view controller
+                self.presentViewController (alert, animated: true, completion: nil)
+            })
+        }
+    }
     
     func configureUI() {
         // Configure background gradient
