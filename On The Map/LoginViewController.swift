@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
     
@@ -36,13 +36,13 @@ class LoginViewController: UIViewController {
         // Configure email textfield
         let emailTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);
         let emailTextFieldPaddingView = UIView(frame: emailTextFieldPaddingViewFrame)
-        userNameTextField.leftView = emailTextFieldPaddingView
-        userNameTextField.leftViewMode = .Always
-        userNameTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
-        userNameTextField.backgroundColor = UIColor(red: 0.973, green: 0.719, blue: 0.512, alpha:1.0)
-        userNameTextField.textColor = UIColor(red: 0.977, green: 0.350, blue: 0.125, alpha: 1.0)
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: userNameTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        userNameTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
+        emailTextField.leftView = emailTextFieldPaddingView
+        emailTextField.leftViewMode = .Always
+        emailTextField.font = UIFont(name: "AvenirNext-Medium", size: 17.0)
+        emailTextField.backgroundColor = UIColor(red: 0.973, green: 0.719, blue: 0.512, alpha:1.0)
+        emailTextField.textColor = UIColor(red: 0.977, green: 0.350, blue: 0.125, alpha: 1.0)
+        emailTextField.attributedPlaceholder = NSAttributedString(string: emailTextField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        emailTextField.tintColor = UIColor(red: 0.0, green:0.502, blue:0.839, alpha: 1.0)
         
         // Configure password textfield
         let passwordTextFieldPaddingViewFrame = CGRectMake(0.0, 0.0, 13.0, 0.0);

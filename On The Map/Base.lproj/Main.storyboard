@@ -86,9 +86,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailTextField" destination="KhM-ve-Hlz" id="TL8-Mh-Uui"/>
                         <outlet property="loginButton" destination="ypo-Xj-0CP" id="Tpv-3E-k7h"/>
                         <outlet property="passwordTextField" destination="cbr-0D-uZB" id="ATG-ku-zV9"/>
-                        <outlet property="userNameTextField" destination="KhM-ve-Hlz" id="lH3-ZY-HQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
