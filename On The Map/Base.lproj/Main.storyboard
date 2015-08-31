@@ -32,7 +32,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypo-Xj-0CP">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypo-Xj-0CP" customClass="BorderedButton" customModule="On_The_Map" customModuleProvider="target">
                                 <rect key="frame" x="16" y="336" width="568" height="44"/>
                                 <color key="backgroundColor" red="0.92549019607843142" green="0.3529411764705882" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -85,6 +85,11 @@
                             <constraint firstItem="BDh-LT-ivI" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="50" id="zGB-Gj-Aqq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="ypo-Xj-0CP" id="Tpv-3E-k7h"/>
+                        <outlet property="passwordTextField" destination="cbr-0D-uZB" id="ATG-ku-zV9"/>
+                        <outlet property="userNameTextField" destination="KhM-ve-Hlz" id="lH3-ZY-HQm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

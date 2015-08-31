@@ -8,17 +8,17 @@
 
 import UIKit
 
-let borderedButtonHeight : CGFloat = 44.0
-let borderedButtonCornerRadius : CGFloat = 4.0
-let padBorderedButtonExtraPadding : CGFloat = 20.0
+// Constants for styling and configuration
+let borderedButtonHeight: CGFloat = 44.0
+let borderedButtonCornerRadius: CGFloat = 4.0
 let phoneBorderedButtonExtraPadding : CGFloat = 14.0
 
 class BorderedButton: UIButton {
     
     // MARK: - Properties
     
-    var backingColor : UIColor? = nil
-    var highlightedBackingColor : UIColor? = nil
+    var backingColor: UIColor? = nil
+    var highlightedBackingColor: UIColor? = nil
     
     // MARK: - Constructors
     
@@ -32,7 +32,7 @@ class BorderedButton: UIButton {
     
     // MARK: - Setters
     
-    private func setBackingColor(backingColor : UIColor) -> Void {
+    private func setBackingColor(backingColor: UIColor) -> Void {
         if (self.backingColor != nil) {
             self.backingColor = backingColor;
             self.backgroundColor = backingColor;
@@ -63,10 +63,10 @@ class BorderedButton: UIButton {
     
     override func sizeThatFits(size: CGSize) -> CGSize {
         let userInterfaceIdiom = UIDevice.currentDevice().userInterfaceIdiom
-        let extraButtonPadding : CGFloat = 14.0
+        let extraButtonPadding: CGFloat = phoneBorderedButtonExtraPadding
         var sizeThatFits = CGSizeZero
         sizeThatFits.width = super.sizeThatFits(size).width + extraButtonPadding
-        sizeThatFits.height = 44.0
+        sizeThatFits.height = borderedButtonHeight
         return sizeThatFits
         
     }
