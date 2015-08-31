@@ -16,6 +16,7 @@
 		2EDE9DEA1B92C38F00A687B6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */; };
 		2EDE9DEB1B92C38F00A687B6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */; };
 		2EDE9DEC1B92C38F00A687B6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */; };
+		2EF86E611B94E99700144789 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF86E601B94E99700144789 /* BorderedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		2EF86E601B94E99700144789 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		2EF86E5D1B94405800144789 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2EF86E601B94E99700144789 /* BorderedButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			files = (
 				2EDE9DC91B92B95400A687B6 /* LoginViewController.swift in Sources */,
 				2EDE9DC71B92B95400A687B6 /* AppDelegate.swift in Sources */,
+				2EF86E611B94E99700144789 /* BorderedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
