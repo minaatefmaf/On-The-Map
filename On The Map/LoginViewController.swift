@@ -44,6 +44,13 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func signUpForUdacity(sender: UIButton) {
+        // Open a link to the udacity page in safari
+        if let requestUrl = NSURL(string: "https://www.udacity.com/account/auth#!/signup") {
+            UIApplication.sharedApplication().openURL(requestUrl)
+        }
+    }
+    
     func configureUI() {
         // Configure background gradient
         self.view.backgroundColor = UIColor.clearColor()
