@@ -16,6 +16,10 @@
 		2EDE9DEA1B92C38F00A687B6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */; };
 		2EDE9DEB1B92C38F00A687B6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */; };
 		2EDE9DEC1B92C38F00A687B6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */; };
+		2EED6C3D1B95E4840013A443 /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */; };
+		2EED6C3F1B95E4C30013A443 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */; };
+		2EED6C411B95E53E0013A443 /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C401B95E53E0013A443 /* UdacityUser.swift */; };
+		2EED6C431B95E56C0013A443 /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C421B95E56C0013A443 /* UdacityConvenience.swift */; };
 		2EF86E611B94E99700144789 /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF86E601B94E99700144789 /* BorderedButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +47,10 @@
 		2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
+		2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
+		2EED6C401B95E53E0013A443 /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
+		2EED6C421B95E56C0013A443 /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
 		2EF86E601B94E99700144789 /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,9 +140,29 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		2EED6C3A1B95E05A0013A443 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				2EED6C3B1B95E0670013A443 /* Udacity */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		2EED6C3B1B95E0670013A443 /* Udacity */ = {
+			isa = PBXGroup;
+			children = (
+				2EED6C401B95E53E0013A443 /* UdacityUser.swift */,
+				2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */,
+				2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */,
+				2EED6C421B95E56C0013A443 /* UdacityConvenience.swift */,
+			);
+			name = Udacity;
+			sourceTree = "<group>";
+		};
 		2EF86E5C1B94404A00144789 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2EED6C3A1B95E05A0013A443 /* Clients */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -267,8 +295,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EED6C411B95E53E0013A443 /* UdacityUser.swift in Sources */,
+				2EED6C3F1B95E4C30013A443 /* UdacityClient.swift in Sources */,
 				2EDE9DC91B92B95400A687B6 /* LoginViewController.swift in Sources */,
+				2EED6C3D1B95E4840013A443 /* UdacityConstants.swift in Sources */,
 				2EDE9DC71B92B95400A687B6 /* AppDelegate.swift in Sources */,
+				2EED6C431B95E56C0013A443 /* UdacityConvenience.swift in Sources */,
 				2EF86E611B94E99700144789 /* BorderedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
