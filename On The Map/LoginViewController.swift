@@ -13,6 +13,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     //var uniqueKey: String? = nil
     //var userData: UdacityUser? = nil
@@ -23,21 +24,34 @@ class LoginViewController: UIViewController {
         // Configure the UI
         self.configureUI()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        //
+        activityIndicator.hidden = true
+        if self.activityIndicator.isAnimating() {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        // So email and password fields are empty again on logging out
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
+    }
 
     @IBAction func loginButtonTouch(sender: BorderedButton) {
         if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
+            //
+            self.activityIndicator.hidden = false
+            self.activityIndicator.startAnimating()
             
             UdacityClient.sharedInstance().authenticateAndGetUserData(self, username: emailTextField.text!, password: passwordTextField.text!) { (success, uniqueKey: String?, userData: UdacityUser?, errorString) in
 
                 if success {
-                    println("Logged in (Y)")
                     if let uniqueKey = uniqueKey,
-                    let userData = userData {
-                        println(uniqueKey)
-                        println(userData.firstName)
-                        println(userData.lastName)
+                        let userData = userData {
+                            self.completeLogin(uniqueKey, userData: userData)
                     }
-                    //    self.completeLogin()
                 } else {
                     self.displayError(errorString)
                 }
@@ -50,13 +64,15 @@ class LoginViewController: UIViewController {
     }
     
     func completeLogin(uniqueKey: String, userData: UdacityUser) {
-        dispatch_async(dispatch_get_main_queue(), {
+        /* dispatch_async(dispatch_get_main_queue(), {
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ManagerNavigationController") as! UINavigationController
             self.presentViewController(controller, animated: true, completion: nil)
-        })
-        // So email and password fields are empty again on logging out
-        self.emailTextField.text = ""
-        self.passwordTextField.text = ""
+        }) */
+        
+        println("Logged in (Y)")
+                println(uniqueKey)
+                println(userData.firstName)
+                println(userData.lastName)
     }
     
     func displayError(errorString: String?) {
@@ -68,6 +84,10 @@ class LoginViewController: UIViewController {
             }
             alert.addAction(dismissAction)
             dispatch_async(dispatch_get_main_queue(), {
+                if self.activityIndicator.isAnimating(){
+                    self.activityIndicator.hidden = true
+                    self.activityIndicator.stopAnimating()
+                }
                 // Display the Alert view controller
                 self.presentViewController (alert, animated: true, completion: nil)
             })
@@ -123,6 +143,7 @@ class LoginViewController: UIViewController {
         
         loginButton.layer.masksToBounds = true
         loginButton.layer.cornerRadius = borderedButtonCornerRadius
+        
     }
 }
 

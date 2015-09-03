@@ -70,12 +70,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="uYt-OG-kYY">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.54117647058823526" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ypo-Xj-0CP" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="4QA-gW-aUp"/>
                             <constraint firstItem="KhM-ve-Hlz" firstAttribute="top" secondItem="RbR-Mj-Ska" secondAttribute="bottom" constant="17" id="4bZ-hh-gKF"/>
                             <constraint firstItem="a3Q-al-yVK" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="Ahl-3O-xWz"/>
+                            <constraint firstAttribute="centerX" secondItem="uYt-OG-kYY" secondAttribute="centerX" id="Crb-3E-zhP"/>
                             <constraint firstItem="a3Q-al-yVK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="HeE-kY-xnW"/>
                             <constraint firstItem="RbR-Mj-Ska" firstAttribute="top" secondItem="BDh-LT-ivI" secondAttribute="bottom" constant="15" id="ICd-yH-Rbn"/>
                             <constraint firstItem="ypo-Xj-0CP" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="Jcj-vx-ezn"/>
@@ -85,6 +89,7 @@
                             <constraint firstAttribute="centerX" secondItem="BDh-LT-ivI" secondAttribute="centerX" id="WGz-M4-OPg"/>
                             <constraint firstItem="cbr-0D-uZB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="aRZ-Fg-jPu"/>
                             <constraint firstAttribute="centerX" secondItem="RbR-Mj-Ska" secondAttribute="centerX" id="dp8-LN-Y19"/>
+                            <constraint firstAttribute="centerY" secondItem="uYt-OG-kYY" secondAttribute="centerY" id="f34-W7-cFl"/>
                             <constraint firstItem="cbr-0D-uZB" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="gXa-SB-YPU"/>
                             <constraint firstItem="ypo-Xj-0CP" firstAttribute="top" secondItem="cbr-0D-uZB" secondAttribute="bottom" constant="10" id="thq-fq-23C"/>
                             <constraint firstItem="KhM-ve-Hlz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="vLy-WQ-SZb"/>
@@ -92,6 +97,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="uYt-OG-kYY" id="W17-Qi-NaA"/>
                         <outlet property="emailTextField" destination="KhM-ve-Hlz" id="TL8-Mh-Uui"/>
                         <outlet property="loginButton" destination="ypo-Xj-0CP" id="Tpv-3E-k7h"/>
                         <outlet property="passwordTextField" destination="cbr-0D-uZB" id="ATG-ku-zV9"/>
