@@ -7,5 +7,15 @@
 //
 
 struct UdacityUser {
+    var firstName = ""
+    var lastName = ""
     
+    // Construct a UdacityUser from a dictionary
+    init(firstName: String, lastName: String) {
+        
+        self.firstName = firstName
+        self.lastName = lastName
+    
+    }
+
 }

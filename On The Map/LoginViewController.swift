@@ -14,6 +14,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: BorderedButton!
     
+    //var uniqueKey: String? = nil
+    //var userData: UdacityUser? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,9 +27,31 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTouch(sender: BorderedButton) {
         if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
             
+            UdacityClient.sharedInstance().authenticateAndGetUserData(self, username: emailTextField.text!, password: passwordTextField.text!) { (success, uniqueKey: String?, userData: UdacityUser?, errorString) in
+                if success {
+                    println("Logged in (Y)")
+                    if let uniqueKey = uniqueKey {
+                        println(uniqueKey)
+                    }
+                    //    self.completeLogin()
+                } else {
+                    self.displayError(errorString)
+                }
+            }
+
         } else {
             self.displayError("Empty Email or Password.")
         }
+    }
+    
+    func completeLogin(uniqueKey: String, userData: UdacityUser) {
+        dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ManagerNavigationController") as! UINavigationController
+            self.presentViewController(controller, animated: true, completion: nil)
+        })
+        // So email and password fields are empty again on logging out
+        self.emailTextField.text = ""
+        self.passwordTextField.text = ""
     }
     
     func displayError(errorString: String?) {
