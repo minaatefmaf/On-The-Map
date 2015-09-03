@@ -23,19 +23,28 @@ extension UdacityClient {
     func authenticateAndGetUserData(hostViewController: UIViewController, username: String, password: String, completionHandler: (success: Bool, uniqueKey: String?, userData: UdacityUser?, errorString: String?) -> Void) {
         
         // Chain completion handlers for each request so that they run one after the other
-        self.postSession(username, password: password) { (success, key, errorString) in
+        self.postSession(username, password: password) { (success, uniqueKey, errorString) in
             
             if success {
-                completionHandler(success: true, uniqueKey: key, userData: nil, errorString: nil)
+                self.getPublicUserData(uniqueKey) { (success, uniqueKey, userData, errorString) in
+                    
+                    if success {
+                        completionHandler(success: true, uniqueKey: uniqueKey, userData: userData, errorString: nil)
+                    } else {
+                        completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: errorString)
+                    }
+                    
+                }
+                //completionHandler(success: true, uniqueKey: uniqueKey, userData: nil, errorString: nil)
             } else {
                 completionHandler(success: false, uniqueKey: nil, userData: nil, errorString: errorString)
             }
         }
     }
     
-    func postSession(username: String, password: String, completionHandler: (success: Bool, key:String?, errorString: String?) -> Void) {
+    func postSession(username: String, password: String, completionHandler: (success: Bool, uniqueKey:String?, errorString: String?) -> Void) {
         
-        // 1. Specify parameters, method (if has {key}), and HTTP body (if POST)
+        // 1. Specify parameters, method
         let parameters = [String: String]()
         var mutableMethod : String = Methods.Session
         let jsonBody: [String: [String: String]] = [ "udacity": [
@@ -49,19 +58,48 @@ extension UdacityClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, key: nil, errorString: error.description)
+                completionHandler(success: false, uniqueKey: nil, errorString: error.description)
             } else {
                 if let resultsForSesion = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                     if let resultsForAccount = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
                         if resultsForAccount[UdacityClient.JSONResponseKeys.Registered] as! Int == 1 {
                             let key = resultsForAccount[UdacityClient.JSONResponseKeys.Key] as! String
-                            completionHandler(success: true, key: key, errorString: nil)
+                            completionHandler(success: true, uniqueKey: key, errorString: nil)
                         }
                     }
                 } else {
-                    completionHandler(success: false, key: nil, errorString: "Invalid Email or Password.")
+                    completionHandler(success: false, uniqueKey: nil, errorString: "Invalid Email or Password.")
                 }
             }
         }
+        
+    }
+    
+    func getPublicUserData(uniqueKey: String?, completionHandler:(success: Bool, uniqueKey: String?, userData: UdacityUser?, errorString: String?) -> Void) {
+        
+        // 1. Specify parameters, method (if has {key})
+        let parameters = [String: String]()
+        var mutableMethod: String = Methods.UserId
+        mutableMethod = UdacityClient.subtituteKeyInMethod(mutableMethod, key: UdacityClient.URLKeys.UserID, value: String(uniqueKey!))!
+        
+        // 2. Make the request
+        let task = taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+            
+            // 3. Send the desired value(s) to completion handler
+            if let error = error {
+                completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: error.description)
+            } else {
+                if let resultsForUser = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
+                    if let resultsForFirstName = resultsForUser[UdacityClient.JSONResponseKeys.FirstName] as? String,
+                    let resultsForAccountLastName = resultsForUser[UdacityClient.JSONResponseKeys.LastName] as? String {
+                        let userData = UdacityUser(firstName: resultsForFirstName, lastName: resultsForAccountLastName)
+                        completionHandler(success: true, uniqueKey: uniqueKey, userData: userData, errorString: nil)
+                        }
+                } else {
+                    completionHandler(success: true, uniqueKey: uniqueKey, userData: nil, errorString: "Unable to get user data.")
+                }
+            }
+        }
+        
     }
 }

@@ -24,6 +24,33 @@ class UdacityClient: NSObject {
     
     // MARK: - GET
     
+    func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        /* 1. Set the parameters */
+        var mutableParameters = parameters
+        
+        /* 2/3. Build the URL and configure the request */
+        let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
+        let url = NSURL(string: urlString)!
+        let request = NSURLRequest(URL: url)
+        
+        /* 4. Make the request */
+        let task = session.dataTaskWithRequest(request) {data, response, downloadError in
+            
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            if let error = downloadError {
+                let newError = UdacityClient.errorForData(data, response: response, error: error)
+                completionHandler(result: nil, error: downloadError)
+            } else {
+                UdacityClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
+            }
+        }
+        
+        /* 7. Start the request */
+        task.resume()
+        
+        return task
+    }
 
     
     // MARK: - POST
@@ -64,6 +91,15 @@ class UdacityClient: NSObject {
     // MARK: - DELETE
     
     // MARK: - Helpers
+    
+    // Helper: Substitute the key for the value that is contained within the method name
+    class func subtituteKeyInMethod(method: String, key: String, value: String) -> String? {
+        if method.rangeOfString("{\(key)}") != nil {
+            return method.stringByReplacingOccurrencesOfString("{\(key)}", withString: value)
+        } else {
+            return nil
+        }
+    }
     
     /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
     class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {

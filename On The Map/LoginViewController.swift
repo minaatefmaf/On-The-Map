@@ -28,15 +28,20 @@ class LoginViewController: UIViewController {
         if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
             
             UdacityClient.sharedInstance().authenticateAndGetUserData(self, username: emailTextField.text!, password: passwordTextField.text!) { (success, uniqueKey: String?, userData: UdacityUser?, errorString) in
+
                 if success {
                     println("Logged in (Y)")
-                    if let uniqueKey = uniqueKey {
+                    if let uniqueKey = uniqueKey,
+                    let userData = userData {
                         println(uniqueKey)
+                        println(userData.firstName)
+                        println(userData.lastName)
                     }
                     //    self.completeLogin()
                 } else {
                     self.displayError(errorString)
                 }
+                
             }
 
         } else {
