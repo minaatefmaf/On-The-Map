@@ -64,15 +64,20 @@ class LoginViewController: UIViewController {
     }
     
     func completeLogin(uniqueKey: String, userData: UdacityUser) {
-        /* dispatch_async(dispatch_get_main_queue(), {
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("ManagerNavigationController") as! UINavigationController
+        
+        // Save the user data & its unique id to the app delegate
+        (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData = userData
+        (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID = uniqueKey
+        
+         dispatch_async(dispatch_get_main_queue(), {
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("StudentsLocationsTabbedBar") as! UITabBarController
             self.presentViewController(controller, animated: true, completion: nil)
-        }) */
+        })
         
         println("Logged in (Y)")
-                println(uniqueKey)
+        /*        println(uniqueKey)
                 println(userData.firstName)
-                println(userData.lastName)
+                println(userData.lastName) */
     }
     
     func displayError(errorString: String?) {

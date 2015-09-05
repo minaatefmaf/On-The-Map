@@ -96,10 +96,37 @@ extension UdacityClient {
                         completionHandler(success: true, uniqueKey: uniqueKey, userData: userData, errorString: nil)
                         }
                 } else {
-                    completionHandler(success: true, uniqueKey: uniqueKey, userData: nil, errorString: "Unable to get user data.")
+                    completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: "Unable to get user data.")
                 }
             }
         }
         
     }
+    
+    func deleteSession() {
+        
+        // 1. Specify parameters, method
+        let parameters = [String: String]()
+        var mutableMethod : String = Methods.Session
+        
+        // 2. Make the request
+        let task = taskForDELETEMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+            
+            // 3. Send the desired value(s) to completion handler
+            if let error = error {
+                println(error.description)
+            } else {
+                if let resultsForSesion = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
+                   /* println("****************************")
+                    println("Deleting the session")
+                    println(resultsForSesion)
+                    println("****************************") */
+                } else {
+                   // println("Unable to delete the session.")
+                }
+            }
+        }
+
+    }
+    
 }
