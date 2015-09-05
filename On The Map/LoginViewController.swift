@@ -15,9 +15,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    //var uniqueKey: String? = nil
-    //var userData: UdacityUser? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +23,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        //
+        // Hide (and stop animating) the activity indicator
         activityIndicator.hidden = true
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
@@ -40,8 +37,10 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonTouch(sender: BorderedButton) {
+        // Attempt login only if there's an e-mail & a password
         if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
-            //
+            
+            // Show the activity indicator to let the user know htat the data is being processed
             self.activityIndicator.hidden = false
             self.activityIndicator.startAnimating()
             
@@ -73,11 +72,7 @@ class LoginViewController: UIViewController {
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("StudentsLocationsTabbedBar") as! UITabBarController
             self.presentViewController(controller, animated: true, completion: nil)
         })
-        
-        println("Logged in (Y)")
-        /*        println(uniqueKey)
-                println(userData.firstName)
-                println(userData.lastName) */
+
     }
     
     func displayError(errorString: String?) {

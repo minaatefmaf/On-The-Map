@@ -34,8 +34,7 @@ extension UdacityClient {
     // MARK: - Parameter Keys
     struct ParameterKeys {
         
-        static let SessionID = "session_id"
-
+        
     }
     
     // MARK: - URL Keys
@@ -55,15 +54,6 @@ extension UdacityClient {
     
     // MARK: - JSON Response Keys
     struct JSONResponseKeys {
-        
-        // MARK: General
-        static let StatusMessage = "status_message"
-        static let StatusCode = "status_code"
-        static let Error = "error"
-        
-        // MARK: Authorization
-        static let RequestToken = "request_token"
-        static let SessionID = "session_id"
         
         // MARK: Account - session
         static let Session = "session"

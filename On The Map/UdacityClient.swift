@@ -13,10 +13,6 @@ class UdacityClient: NSObject {
     // Shared session
     var session: NSURLSession
     
-    /* Authentication state */
-    //var uniqueKey: String? = nil
-    //var userData: UdacityUser? = nil
-    
     override init() {
         session = NSURLSession.sharedSession()
         super.init()
@@ -39,7 +35,6 @@ class UdacityClient: NSObject {
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             if let error = downloadError {
-                let newError = UdacityClient.errorForData(data, response: response, error: error)
                 completionHandler(result: nil, error: downloadError)
             } else {
                 UdacityClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
@@ -75,7 +70,6 @@ class UdacityClient: NSObject {
             
             // 5/6. Parse the data and use the data (happens in completion handler)
             if let error = downloadError {
-                let newError = UdacityClient.errorForData(data, response: response, error: error)
                 completionHandler(result: nil, error: downloadError)
             } else {
                 UdacityClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
@@ -115,7 +109,6 @@ class UdacityClient: NSObject {
             
             // 5/6. Parse the data and use the data (happens in completion handler)
             if let error = downloadError {
-                let newError = UdacityClient.errorForData(data, response: response, error: error)
                 completionHandler(result: nil, error: downloadError)
             } else {
                 UdacityClient.parseJSONWithCompletionHandler(data, completionHandler: completionHandler)
@@ -138,23 +131,6 @@ class UdacityClient: NSObject {
         } else {
             return nil
         }
-    }
-    
-    /* Helper: Given a response with error, see if a status_message is returned, otherwise return the previous error */
-    class func errorForData(data: NSData?, response: NSURLResponse?, error: NSError) -> NSError {
-        
-        if let parsedResult = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments, error: nil) as? [String : AnyObject] {
-            
-            if let errorMessage = parsedResult[UdacityClient.JSONResponseKeys.StatusMessage
-                ] as? String {
-                
-                let userInfo = [NSLocalizedDescriptionKey : errorMessage]
-                
-                return NSError(domain: "Udacity Error", code: 1, userInfo: userInfo)
-            }
-        }
-        
-        return error
     }
     
     // Helper: Given raw JSON, return a usable Foundation object

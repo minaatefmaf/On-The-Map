@@ -23,9 +23,12 @@ extension UdacityClient {
     func authenticateAndGetUserData(hostViewController: UIViewController, username: String, password: String, completionHandler: (success: Bool, uniqueKey: String?, userData: UdacityUser?, errorString: String?) -> Void) {
         
         // Chain completion handlers for each request so that they run one after the other
+        
+        // 1. POSTing (Creating) a Session
         self.postSession(username, password: password) { (success, uniqueKey, errorString) in
             
             if success {
+                // 2. GETting Public User Data
                 self.getPublicUserData(uniqueKey) { (success, uniqueKey, userData, errorString) in
                     
                     if success {
@@ -35,7 +38,6 @@ extension UdacityClient {
                     }
                     
                 }
-                //completionHandler(success: true, uniqueKey: uniqueKey, userData: nil, errorString: nil)
             } else {
                 completionHandler(success: false, uniqueKey: nil, userData: nil, errorString: errorString)
             }

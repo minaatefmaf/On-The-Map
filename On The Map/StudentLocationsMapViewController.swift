@@ -18,11 +18,6 @@ class StudentLocationsMapViewController: UIViewController {
         // Populate the userData & uniqueKey with the data from the login scene
         userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
         uniqueKey = (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID
-        
-        println("In the Map tab 😄")
-        println(uniqueKey)
-        println(userData.firstName)
-        println(userData.lastName)
     }
     
     @IBAction func logoutButton(sender: UIBarButtonItem) {
