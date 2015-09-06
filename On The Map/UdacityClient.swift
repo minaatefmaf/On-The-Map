@@ -22,18 +22,18 @@ class UdacityClient: NSObject {
     
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
-        /* 1. Set the parameters */
+        // 1. Set the parameters
         var mutableParameters = parameters
         
-        /* 2/3. Build the URL and configure the request */
+        // 2/3. Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
         let url = NSURL(string: urlString)!
         let request = NSURLRequest(URL: url)
         
-        /* 4. Make the request */
+        // 4. Make the request
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
             
-            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            // 5/6. Parse the data and use the data (happens in completion handler)
             if let error = downloadError {
                 completionHandler(result: nil, error: downloadError)
             } else {
@@ -41,12 +41,11 @@ class UdacityClient: NSObject {
             }
         }
         
-        /* 7. Start the request */
+        // 7. Start the request
         task.resume()
         
         return task
     }
-
     
     // MARK: - POST
     

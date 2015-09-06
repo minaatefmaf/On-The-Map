@@ -18,6 +18,30 @@ class StudentLocationsMapViewController: UIViewController {
         // Populate the userData & uniqueKey with the data from the login scene
         userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
         uniqueKey = (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID
+        
+        // ---- Get & Print the students data
+        ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
+            
+            if success {
+                if let StudentsLocations = StudentsLocations {
+                    for (number, StudentLocation) in enumerate(StudentsLocations) {
+                        println("\(number + 1): \(StudentLocation.firstName) \(StudentLocation.lastName)")
+                        println("latitude: \(StudentLocation.latitude), longitude: \(StudentLocation.longitude)")
+                        println("mapString: \(StudentLocation.mapString)")
+                        println("mediaURL: \(StudentLocation.mediaURL)")
+                        println("objectId: \(StudentLocation.objectId)")
+                        println("uniqueKey: \(StudentLocation.uniqueKey)")
+                        println("************************")
+                    }
+                } else {
+                    println("Map - get locations - success - else")
+                }
+            } else {
+                println(errorString)
+            }
+            
+        }
+        
     }
     
     @IBAction func logoutButton(sender: UIBarButtonItem) {

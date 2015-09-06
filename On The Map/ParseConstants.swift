@@ -11,7 +11,7 @@ extension ParseClient {
     // MARK: - Constants
     struct Constants {
         
-        // MARK: Udacity Facebook App ID
+        // MARK: Parse App ID & REST key
         static let ParseAppID: String = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let RESTAPIKey: String = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         
@@ -60,9 +60,10 @@ extension ParseClient {
     // MARK: - JSON Response Keys
     struct JSONResponseKeys {
 
+        static let Results = "results"
         static let UniqueKey = "uniqueKey"
         static let FirstName = "firstName"
-        static let Lastname = "lastName"
+        static let LastName = "lastName"
         static let Latitude = "latitude"
         static let Longitude = "longitude"
         static let MapString = "mapString"

@@ -22,7 +22,7 @@ struct StudentLocation {
         objectId = dictionary[ParseClient.JSONResponseKeys.ObjectId] as! String
         uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
         firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as! String
-        lastName = dictionary[ParseClient.JSONResponseKeys.Lastname] as! String
+        lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as! String
         mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
         mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
         latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as! Double
@@ -30,7 +30,7 @@ struct StudentLocation {
     }
     
     /* Helper: Given an array of dictionaries, convert them to an array of StudentLocation objects */
-    static func moviesFromResults(results: [[String : AnyObject]]) -> [StudentLocation] {
+    static func studentsLocationsFromResults(results: [[String: AnyObject]]) -> [StudentLocation] {
         var studentsLocations = [StudentLocation]()
         
         for result in results {
