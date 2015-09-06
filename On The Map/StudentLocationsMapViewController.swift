@@ -7,34 +7,56 @@
 //
 
 import UIKit
+import MapKit
 
-class StudentLocationsMapViewController: UIViewController {
+class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     // Varaibles to hold the user data & unique key
     var userData: UdacityUser!
     var uniqueKey: String!
     
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        
         // Populate the userData & uniqueKey with the data from the login scene
-        userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
-        uniqueKey = (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID
+        userData = appDelegate.udacityUserData
+        uniqueKey = appDelegate.userUniqueID
         
         self.loadStudentLocations()
-        while (UIApplication.sharedApplication().delegate as! AppDelegate).studentsLocations == nil {
+        while appDelegate.studentsLocations == nil {
             // Do nothing -> wait for the studentsLocations to be loaded.
         }
         
-       /* let studentsLocations = (UIApplication.sharedApplication().delegate as! AppDelegate).studentsLocations
+        let locations = appDelegate.studentsLocations!
+        // Create MKPointAnnotation for each dictionary in "locations".
+        var annotations = [MKPointAnnotation]()
         
-            for (number, StudentLocation) in enumerate(studentsLocations!) {
-            println("\(number + 1): \(StudentLocation.firstName) \(StudentLocation.lastName)")
-            println("latitude: \(StudentLocation.latitude), longitude: \(StudentLocation.longitude)")
-            println("mapString: \(StudentLocation.mapString)")
-            println("mediaURL: \(StudentLocation.mediaURL)")
-            println("objectId: \(StudentLocation.objectId)")
-            println("uniqueKey: \(StudentLocation.uniqueKey)")
-            println("************************")
-        } */
+        for studentLocation in locations {
+            
+            // The latitude and longitude are used to create a CLLocationCoordinates2D instance.
+            let coordinate = CLLocationCoordinate2D(latitude: studentLocation.latitude, longitude: studentLocation.longitude)
+            
+            let first = studentLocation.firstName
+            let last = studentLocation.lastName
+            let mediaURL = studentLocation.mediaURL
+            
+            // Create the annotation and set its coordiate, title, and subtitle properties
+            var annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(first) \(last)"
+            annotation.subtitle = mediaURL
+            
+            // Place the annotation in an array of annotations.
+            annotations.append(annotation)
+        }
+
+        // When the array is complete, we add the annotations to the map.
+        self.mapView.addAnnotations(annotations)
         
     }
     
@@ -76,6 +98,39 @@ class StudentLocationsMapViewController: UIViewController {
                 // Display the Alert view controller
                 self.presentViewController (alert, animated: true, completion: nil)
             })
+        }
+    }
+    
+    
+    // MARK: - MKMapViewDelegate
+    
+    // Create a view with a "right callout accessory view".
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinColor = .Red
+            pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    
+    /* This delegate method is implemented to respond to taps. It opens the system browser
+    to the URL specified in the annotationViews subtitle property. */
+    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if control == annotationView.rightCalloutAccessoryView {
+            UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
         }
     }
     

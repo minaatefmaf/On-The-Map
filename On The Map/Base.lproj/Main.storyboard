@@ -132,7 +132,7 @@
         <scene sceneID="QPH-0L-RlK">
             <objects>
                 <navigationController id="8Hx-7m-Pkt" userLabel="Map Tab" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="map" id="JjB-CW-M3a"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="JjB-CW-M3a" userLabel="Map"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5m-hN-gsz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -156,7 +156,21 @@
                     <view key="view" contentMode="scaleToFill" id="CG3-Vi-R8e">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mYh-vJ-RVt">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="m3E-Mw-SjK" id="WEg-qr-Jri"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9AK-3M-sAb" firstAttribute="top" secondItem="mYh-vJ-RVt" secondAttribute="bottom" constant="-49" id="Mcn-43-vaz"/>
+                            <constraint firstItem="mYh-vJ-RVt" firstAttribute="top" secondItem="fnl-DY-paD" secondAttribute="bottom" constant="-64" id="PFI-3T-8fT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mYh-vJ-RVt" secondAttribute="trailing" constant="-16" id="Smi-Vk-fvs"/>
+                            <constraint firstItem="mYh-vJ-RVt" firstAttribute="leading" secondItem="CG3-Vi-R8e" secondAttribute="leadingMargin" constant="-16" id="y1j-tf-Ntg"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="36f-7M-O5g">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="IPf-3f-heI">
@@ -165,6 +179,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="mYh-vJ-RVt" id="qhT-5d-dxs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AUl-DA-MY1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -174,7 +191,7 @@
         <scene sceneID="RyM-85-k37">
             <objects>
                 <navigationController id="d8N-49-p0d" userLabel="Table Tab" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="list" id="eU0-0d-i29"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list" id="eU0-0d-i29" userLabel="List"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aco-Rb-keV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -216,7 +233,7 @@
         <scene sceneID="qrm-uf-4eG">
             <objects>
                 <navigationController id="hbg-Kf-T2i" userLabel="Collection Tab" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="collection" id="dj2-hJ-s25"/>
+                    <tabBarItem key="tabBarItem" title="Collection" image="collection" id="dj2-hJ-s25" userLabel="Collection"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Em-g4-ATx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
