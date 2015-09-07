@@ -310,6 +310,58 @@
                     <view key="view" contentMode="scaleToFill" id="wC6-XE-8fh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h5X-uY-Cii">
+                                <rect key="frame" x="0.0" y="-9" width="600" height="600"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6hz-V3-MDj">
+                                    <size key="itemSize" width="164" height="131"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MapStringCollectionCell" id="7T7-xe-b0V" customClass="MapStringCollectionCell" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="164" height="131"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="JzA-BK-haS">
+                                                    <rect key="frame" x="57" y="73" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="BP4-kp-GZZ"/>
+                                                        <constraint firstAttribute="height" constant="50" id="OFG-7P-qCg"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Xa-DC-uyZ">
+                                                    <rect key="frame" x="8" y="65" width="148" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="centerY" secondItem="JzA-BK-haS" secondAttribute="centerY" constant="-32.5" id="75w-vf-bSa"/>
+                                            <constraint firstAttribute="centerX" secondItem="JzA-BK-haS" secondAttribute="centerX" id="Nlz-12-y2u"/>
+                                            <constraint firstItem="5Xa-DC-uyZ" firstAttribute="trailing" secondItem="7T7-xe-b0V" secondAttribute="trailingMargin" id="Rk0-xm-pln"/>
+                                            <constraint firstItem="5Xa-DC-uyZ" firstAttribute="leading" secondItem="7T7-xe-b0V" secondAttribute="leadingMargin" id="VtP-Cz-DmL"/>
+                                            <constraint firstItem="JzA-BK-haS" firstAttribute="top" secondItem="5Xa-DC-uyZ" secondAttribute="bottom" constant="8" id="boJ-Q7-jLG"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="mapStringLabel" destination="5Xa-DC-uyZ" id="FXU-Ox-Tsu"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="eOG-ud-NE2" id="lJt-Bz-5dC"/>
+                                    <outlet property="delegate" destination="eOG-ud-NE2" id="UdA-FL-aQX"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="ta8-lQ-efC">
@@ -319,6 +371,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="h5X-uY-Cii" id="5b3-TE-1uk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFp-GP-WjB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
