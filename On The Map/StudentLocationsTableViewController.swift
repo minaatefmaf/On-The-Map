@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StudentLocationsTableViewController: UIViewController {
+class StudentLocationsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // Varaibles to hold the user data & unique key
     var userData: UdacityUser!
