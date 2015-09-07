@@ -230,7 +230,42 @@
                     <view key="view" contentMode="scaleToFill" id="uhJ-d0-u4a">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RJe-UP-QxK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicTableCell" textLabel="kqr-2f-DLl" imageView="f5M-0Q-Gi5" style="IBUITableViewCellStyleDefault" id="UvB-EL-PpI">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UvB-EL-PpI" id="Oom-cY-QTp">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kqr-2f-DLl">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="pin" id="f5M-0Q-Gi5">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="HxA-w2-PBT" id="NhQ-fy-USj"/>
+                                    <outlet property="delegate" destination="HxA-w2-PBT" id="Qxr-Mw-MGs"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2he-VJ-OPp" firstAttribute="top" secondItem="RJe-UP-QxK" secondAttribute="bottom" constant="-49" id="1Ki-ui-efV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RJe-UP-QxK" secondAttribute="trailing" constant="-16" id="Isy-Ic-55R"/>
+                            <constraint firstItem="RJe-UP-QxK" firstAttribute="top" secondItem="jsf-xY-XoQ" secondAttribute="bottom" constant="-64" id="TNw-Ob-1vk"/>
+                            <constraint firstItem="RJe-UP-QxK" firstAttribute="leading" secondItem="uhJ-d0-u4a" secondAttribute="leadingMargin" constant="-16" id="vxc-bz-F12"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="tF8-te-bzI">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="ocd-tQ-wHd">
@@ -239,6 +274,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="RJe-UP-QxK" id="Brv-OV-KMB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kV1-ss-I07" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -291,6 +329,7 @@
         <image name="collection" width="30" height="30"/>
         <image name="list" width="32" height="32"/>
         <image name="map" width="32" height="32"/>
+        <image name="pin" width="32" height="32"/>
         <image name="udacity" width="256" height="256"/>
     </resources>
 </document>
