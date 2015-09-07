@@ -23,6 +23,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Add the right bar buttons
+        var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
+        var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
+        
         // Make sure the black view & the activity indicators are on
         blackView.hidden = false
         activityIndicator.startAnimating()
@@ -48,6 +53,14 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
         // Dismiss the view controller
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func refreshStudentLocations() {
+        
+    }
+    
+    func openInformationPostingView() {
+
     }
     
     func loadStudentLocations() {

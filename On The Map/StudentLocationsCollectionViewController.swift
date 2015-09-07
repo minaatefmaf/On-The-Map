@@ -18,6 +18,13 @@ class StudentLocationsCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Add the right bar buttons
+        var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
+        var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
+        
         // Populate the userData & uniqueKey with the data from the login scene
         userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
         uniqueKey = (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID
@@ -41,6 +48,13 @@ class StudentLocationsCollectionViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func refreshStudentLocations() {
+        
+    }
+    
+    func openInformationPostingView() {
+        
+    }
     
     func displayError(errorString: String?) {
         if let errorString = errorString {
