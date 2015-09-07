@@ -49,7 +49,11 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     func refreshStudentLocations() {
+        // Notify the Map tab to reload the data
+        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: self)
         
+        // Reload the rows and sections of the table view.
+        tableView.reloadData()
     }
     
     func openInformationPostingView() {

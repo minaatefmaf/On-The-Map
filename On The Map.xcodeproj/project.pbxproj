@@ -19,6 +19,7 @@
 		2EDE9DEA1B92C38F00A687B6 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */; };
 		2EDE9DEB1B92C38F00A687B6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */; };
 		2EDE9DEC1B92C38F00A687B6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */; };
+		2EEB30AC1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB30AB1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift */; };
 		2EED6C3D1B95E4840013A443 /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */; };
 		2EED6C3F1B95E4C30013A443 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */; };
 		2EED6C411B95E53E0013A443 /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C401B95E53E0013A443 /* UdacityUser.swift */; };
@@ -58,6 +59,7 @@
 		2EDE9DE71B92C38F00A687B6 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		2EEB30AB1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterKeys.swift; sourceTree = "<group>"; };
 		2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
 		2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		2EED6C401B95E53E0013A443 /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				2EED6C3A1B95E05A0013A443 /* Clients */,
+				2EEB30AB1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				2EED6C431B95E56C0013A443 /* UdacityConvenience.swift in Sources */,
 				2EF86E611B94E99700144789 /* BorderedButton.swift in Sources */,
 				2EF314C51B9BADAB00961D7A /* ParseConstants.swift in Sources */,
+				2EEB30AC1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift in Sources */,
 				2EF314C71B9BADBB00961D7A /* ParseClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

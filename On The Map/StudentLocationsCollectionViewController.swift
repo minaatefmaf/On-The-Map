@@ -33,7 +33,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        // Reload the rows and sections of the collection view.
+        // Reload the cells of the collection view.
         collectionView.reloadData()
     }
     
@@ -49,7 +49,11 @@ class StudentLocationsCollectionViewController: UIViewController {
     }
     
     func refreshStudentLocations() {
+        // Notify the Map tab to reload the data
+        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: self)
         
+        // Reload the cells of the collection view.
+        collectionView.reloadData()
     }
     
     func openInformationPostingView() {

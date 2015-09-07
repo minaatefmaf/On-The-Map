@@ -16,6 +16,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     var uniqueKey: String!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    // Variable to hold the old annotations
+    var oldAnnotations = [MKPointAnnotation]()
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -27,6 +30,10 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
         var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
+        
+        
+        // Add observer to the refresh notification
+        self.subscribeToRefreshNotifications()
         
         // Make sure the black view & the activity indicators are on
         blackView.hidden = false
@@ -56,7 +63,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func refreshStudentLocations() {
-        
+        self.loadStudentLocations()
     }
     
     func openInformationPostingView() {
@@ -65,6 +72,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     func loadStudentLocations() {
         
+        // Remove the previous annotaions
+        self.mapView.removeAnnotations(self.oldAnnotations)
+
         // Switch the black view & the activity indicators on.
         blackView.hidden = true
         activityIndicator.stopAnimating()
@@ -108,7 +118,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             // Place the annotation in an array of annotations.
             annotations.append(annotation)
         }
-        
+        // Save the annotations to be able to remove it on updating the map.
+        self.oldAnnotations = annotations
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotations(annotations)
         
@@ -173,4 +184,16 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+}
+
+extension StudentLocationsMapViewController {
+    
+    func subscribeToRefreshNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadStudentLocations", name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
+    }
+    
+   /* func unsubscribeToRefreshNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
+    } */
+
 }
