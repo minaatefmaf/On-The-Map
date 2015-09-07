@@ -41,6 +41,20 @@ class StudentLocationsCollectionViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    func displayError(errorString: String?) {
+        if let errorString = errorString {
+            // Prepare the Alert view controller with the error message to display
+            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+            alert.addAction(dismissAction)
+            dispatch_async(dispatch_get_main_queue(), {
+                // Display the Alert view controller
+                self.presentViewController (alert, animated: true, completion: nil)
+            })
+        }
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.appDelegate.studentsLocations!.count
     }
@@ -61,7 +75,11 @@ class StudentLocationsCollectionViewController: UIViewController {
         // Open the media url in safari
         let student = self.appDelegate.studentsLocations![indexPath.row]
         if let requestUrl = NSURL(string: student.mediaURL) {
-            UIApplication.sharedApplication().openURL(requestUrl)
+            if UIApplication.sharedApplication().canOpenURL(requestUrl) {
+                UIApplication.sharedApplication().openURL(requestUrl)
+            } else {
+                self.displayError("Invalid Link")
+            }
         }
     }
     

@@ -105,9 +105,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default) { action in
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
             alert.addAction(dismissAction)
             dispatch_async(dispatch_get_main_queue(), {
                 // Display the Alert view controller
@@ -145,7 +143,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {
+                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            } else {
+                self.displayError("Invalid Link")
+            }
         }
     }
     

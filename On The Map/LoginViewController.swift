@@ -79,9 +79,7 @@ class LoginViewController: UIViewController {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default) { action in
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
             alert.addAction(dismissAction)
             dispatch_async(dispatch_get_main_queue(), {
                 if self.activityIndicator.isAnimating(){
