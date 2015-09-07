@@ -202,6 +202,24 @@
             </objects>
             <point key="canvasLocation" x="2419" y="-322"/>
         </scene>
+        <!--Information Posting View Scene 1-->
+        <scene sceneID="1HE-MP-dJQ">
+            <objects>
+                <viewController storyboardIdentifier="InformationPostingViewConroller" id="gz7-MS-wtk" userLabel="Information Posting View Scene 1" customClass="InformationPostingViewConroller" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IKA-gV-Pnc"/>
+                        <viewControllerLayoutGuide type="bottom" id="5n5-O5-zwt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lr1-K7-mll">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AwA-iW-R1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3273" y="-322"/>
+        </scene>
         <!--Table Tab-->
         <scene sceneID="RyM-85-k37">
             <objects>

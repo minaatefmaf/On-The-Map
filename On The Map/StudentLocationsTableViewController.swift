@@ -57,7 +57,9 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     func openInformationPostingView() {
-        
+        // Open the information posting view
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
+        self.presentViewController(controller, animated: true, completion: nil)
     }
     
     func displayError(errorString: String?) {

@@ -20,6 +20,7 @@
 		2EDE9DEB1B92C38F00A687B6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */; };
 		2EDE9DEC1B92C38F00A687B6 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */; };
 		2EEB30AC1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB30AB1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift */; };
+		2EEB30AE1B9E246E00B0AAF6 /* InformationPostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEB30AD1B9E246E00B0AAF6 /* InformationPostingViewController.swift */; };
 		2EED6C3D1B95E4840013A443 /* UdacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */; };
 		2EED6C3F1B95E4C30013A443 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */; };
 		2EED6C411B95E53E0013A443 /* UdacityUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED6C401B95E53E0013A443 /* UdacityUser.swift */; };
@@ -60,6 +61,7 @@
 		2EDE9DE81B92C38F00A687B6 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		2EDE9DE91B92C38F00A687B6 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		2EEB30AB1B9E136300B0AAF6 /* NSNotificationCenterKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterKeys.swift; sourceTree = "<group>"; };
+		2EEB30AD1B9E246E00B0AAF6 /* InformationPostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPostingViewController.swift; sourceTree = "<group>"; };
 		2EED6C3C1B95E4840013A443 /* UdacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConstants.swift; sourceTree = "<group>"; };
 		2EED6C3E1B95E4C30013A443 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		2EED6C401B95E53E0013A443 /* UdacityUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityUser.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				2E2884A61B9A739C000A79B0 /* StudentLocationsTableViewController.swift */,
 				2E2884A81B9A73B1000A79B0 /* StudentLocationsCollectionViewController.swift */,
 				2EEEEE031B9D550A00AF452F /* MapStringCollectionCell.swift */,
+				2EEB30AD1B9E246E00B0AAF6 /* InformationPostingViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				2EDE9DC91B92B95400A687B6 /* LoginViewController.swift in Sources */,
 				2EEEEE041B9D550A00AF452F /* MapStringCollectionCell.swift in Sources */,
 				2E2884A91B9A73B1000A79B0 /* StudentLocationsCollectionViewController.swift in Sources */,
+				2EEB30AE1B9E246E00B0AAF6 /* InformationPostingViewController.swift in Sources */,
 				2EED6C3D1B95E4840013A443 /* UdacityConstants.swift in Sources */,
 				2EDE9DC71B92B95400A687B6 /* AppDelegate.swift in Sources */,
 				2EED6C431B95E56C0013A443 /* UdacityConvenience.swift in Sources */,
