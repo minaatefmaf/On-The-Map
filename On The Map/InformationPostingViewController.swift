@@ -13,8 +13,10 @@ class InformationPostingViewConroller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("I'm the InformationPostingViewConroller")
-
+    }
+    
+    @IBAction func cancelButton(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }
