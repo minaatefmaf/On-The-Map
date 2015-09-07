@@ -14,23 +14,18 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     // Varaibles to hold the user data & unique key
     var userData: UdacityUser!
     var uniqueKey: String!
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        
         // Populate the userData & uniqueKey with the data from the login scene
         userData = appDelegate.udacityUserData
         uniqueKey = appDelegate.userUniqueID
         
         self.loadStudentLocations()
-        while appDelegate.studentsLocations == nil {
-            // Do nothing -> wait for the studentsLocations to be loaded.
-        }
         
         let locations = appDelegate.studentsLocations!
         // Create MKPointAnnotation for each dictionary in "locations".
@@ -62,8 +57,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func logoutButton(sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
-        (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData = nil
-        (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID = nil
+        self.appDelegate.udacityUserData = nil
+        self.appDelegate.userUniqueID = nil
         
         UdacityClient.sharedInstance().deleteSession()
         
@@ -72,18 +67,24 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadStudentLocations() {
+        
         ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
             
             if success {
                 if let StudentsLocations = StudentsLocations {
                     // Save the students locations to the app delegate
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).studentsLocations = StudentsLocations
+                    self.appDelegate.studentsLocations = StudentsLocations
                 }
             } else {
                 self.displayError(errorString)
             }
             
         }
+
+        while self.appDelegate.studentsLocations == nil {
+            // Do nothing -> just make sure that the studentsLocations was successfully loaded.
+        }
+
     }
     
     func displayError(errorString: String?) {
