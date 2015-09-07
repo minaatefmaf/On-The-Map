@@ -163,12 +163,25 @@
                                     <outlet property="delegate" destination="m3E-Mw-SjK" id="WEg-qr-Jri"/>
                                 </connections>
                             </mapView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4pr-v8-jg2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="E8z-YA-tVn">
+                                <rect key="frame" x="281" y="281" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="4pr-v8-jg2" secondAttribute="trailing" constant="-16" id="Hcs-Vw-7jE"/>
+                            <constraint firstAttribute="centerY" secondItem="E8z-YA-tVn" secondAttribute="centerY" id="Jtf-Bk-WBM"/>
                             <constraint firstItem="9AK-3M-sAb" firstAttribute="top" secondItem="mYh-vJ-RVt" secondAttribute="bottom" constant="-49" id="Mcn-43-vaz"/>
                             <constraint firstItem="mYh-vJ-RVt" firstAttribute="top" secondItem="fnl-DY-paD" secondAttribute="bottom" constant="-64" id="PFI-3T-8fT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mYh-vJ-RVt" secondAttribute="trailing" constant="-16" id="Smi-Vk-fvs"/>
+                            <constraint firstItem="9AK-3M-sAb" firstAttribute="top" secondItem="4pr-v8-jg2" secondAttribute="bottom" constant="-49" id="eZG-U8-P66"/>
+                            <constraint firstAttribute="centerX" secondItem="E8z-YA-tVn" secondAttribute="centerX" id="qnO-FW-YR7"/>
+                            <constraint firstItem="4pr-v8-jg2" firstAttribute="top" secondItem="fnl-DY-paD" secondAttribute="bottom" constant="-64" id="vzB-5j-bpb"/>
+                            <constraint firstItem="4pr-v8-jg2" firstAttribute="leading" secondItem="CG3-Vi-R8e" secondAttribute="leadingMargin" constant="-16" id="wlB-M5-pwI"/>
                             <constraint firstItem="mYh-vJ-RVt" firstAttribute="leading" secondItem="CG3-Vi-R8e" secondAttribute="leadingMargin" constant="-16" id="y1j-tf-Ntg"/>
                         </constraints>
                     </view>
@@ -180,6 +193,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="E8z-YA-tVn" id="h8j-BD-ILR"/>
+                        <outlet property="blackView" destination="4pr-v8-jg2" id="EuN-Mj-4DL"/>
                         <outlet property="mapView" destination="mYh-vJ-RVt" id="qhT-5d-dxs"/>
                     </connections>
                 </viewController>

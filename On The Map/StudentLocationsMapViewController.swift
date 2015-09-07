@@ -17,15 +17,61 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var blackView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Make sure the black view & the activity indicators are on
+        blackView.hidden = false
+        activityIndicator.startAnimating()
+
         // Populate the userData & uniqueKey with the data from the login scene
         userData = appDelegate.udacityUserData
         uniqueKey = appDelegate.userUniqueID
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
         self.loadStudentLocations()
+    }
+    
+    @IBAction func logoutButton(sender: UIBarButtonItem) {
+        // Clear the user data saved in the app delegate
+        self.appDelegate.udacityUserData = nil
+        self.appDelegate.userUniqueID = nil
+        
+        UdacityClient.sharedInstance().deleteSession()
+        
+        // Dismiss the view controller
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func loadStudentLocations() {
+        
+        // Switch the black view & the activity indicators on.
+        blackView.hidden = true
+        activityIndicator.stopAnimating()
+        
+        ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
+            
+            if success {
+                if let StudentsLocations = StudentsLocations {
+                    // Save the students locations to the app delegate
+                    self.appDelegate.studentsLocations = StudentsLocations
+                }
+            } else {
+                self.displayError(errorString)
+            }
+            
+        }
+
+        while self.appDelegate.studentsLocations == nil {
+            // Do nothing -> just make sure that the studentsLocations was successfully loaded.
+        }
         
         let locations = appDelegate.studentsLocations!
         // Create MKPointAnnotation for each dictionary in "locations".
@@ -49,42 +95,10 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             // Place the annotation in an array of annotations.
             annotations.append(annotation)
         }
-
+        
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotations(annotations)
         
-    }
-    
-    @IBAction func logoutButton(sender: UIBarButtonItem) {
-        // Clear the user data saved in the app delegate
-        self.appDelegate.udacityUserData = nil
-        self.appDelegate.userUniqueID = nil
-        
-        UdacityClient.sharedInstance().deleteSession()
-        
-        // Dismiss the view controller
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func loadStudentLocations() {
-        
-        ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
-            
-            if success {
-                if let StudentsLocations = StudentsLocations {
-                    // Save the students locations to the app delegate
-                    self.appDelegate.studentsLocations = StudentsLocations
-                }
-            } else {
-                self.displayError(errorString)
-            }
-            
-        }
-
-        while self.appDelegate.studentsLocations == nil {
-            // Do nothing -> just make sure that the studentsLocations was successfully loaded.
-        }
-
     }
     
     func displayError(errorString: String?) {
@@ -133,6 +147,15 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         if control == annotationView.rightCalloutAccessoryView {
             UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
         }
+    }
+    
+    /* This delegate method is implemented to shutdown the black view & the activity indicator when the map finish rendering the view. */
+    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
+       
+        // Shutdown the black view & the activity indicator.
+        blackView.hidden = true
+        activityIndicator.stopAnimating()
+        
     }
     
 }
