@@ -286,9 +286,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aM5-AI-0oe" userLabel="Find Button Subview">
                                 <rect key="frame" x="0.0" y="500" width="600" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRK-Vn-EdZ">
-                                        <rect key="frame" x="233" y="31" width="132" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LRK-Vn-EdZ" customClass="CustomButton" customModule="On_The_Map" customModuleProvider="target">
+                                        <rect key="frame" x="199" y="31" width="200" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="ZBF-qt-jE1"/>
+                                        </constraints>
                                         <state key="normal" title="Find on the Map">
                                             <color key="titleColor" red="0.066666666669999999" green="0.4137148075" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -302,29 +305,28 @@
                                     <constraint firstAttribute="bottom" secondItem="LRK-Vn-EdZ" secondAttribute="bottom" constant="35" id="yB4-cb-f2n"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URm-A8-vfG" userLabel="Submit Button Subview">
-                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYA-T4-TDg">
-                                        <rect key="frame" x="271" y="33" width="58" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Submit">
-                                            <color key="titleColor" red="0.066666666669999999" green="0.4137148075" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="aK5-ap-f1V"/>
-                                    <constraint firstAttribute="centerX" secondItem="CYA-T4-TDg" secondAttribute="centerX" id="aWW-dg-q8m"/>
-                                    <constraint firstAttribute="centerY" secondItem="CYA-T4-TDg" secondAttribute="centerY" id="vNP-EC-H5T"/>
-                                </constraints>
-                            </view>
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MFk-62-jLh">
                                 <rect key="frame" x="0.0" y="200" width="600" height="400"/>
                             </mapView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="COo-wh-9mk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYA-T4-TDg" customClass="CustomButton" customModule="On_The_Map" customModuleProvider="target">
+                                <rect key="frame" x="250" y="531" width="100" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="gWM-OP-4WE"/>
+                                </constraints>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="0.066666666669999999" green="0.4137148075" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view hidden="YES" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URm-A8-vfG" userLabel="Submit Button Subview">
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="aK5-ap-f1V"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="COo-wh-9mk">
                                 <rect key="frame" x="290" y="340" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
@@ -345,9 +347,11 @@
                             <constraint firstItem="17C-Tc-4Ad" firstAttribute="top" secondItem="A8b-ti-vzv" secondAttribute="bottom" constant="8" id="QWg-gw-Hm1"/>
                             <constraint firstItem="17C-Tc-4Ad" firstAttribute="trailing" secondItem="lr1-K7-mll" secondAttribute="trailingMargin" id="UMg-yK-szB"/>
                             <constraint firstItem="MFk-62-jLh" firstAttribute="top" secondItem="A8b-ti-vzv" secondAttribute="bottom" id="ZCo-Ym-GMC"/>
+                            <constraint firstItem="5n5-O5-zwt" firstAttribute="top" secondItem="CYA-T4-TDg" secondAttribute="bottom" constant="35" id="Zw3-bq-I6I"/>
                             <constraint firstAttribute="trailingMargin" secondItem="A8b-ti-vzv" secondAttribute="trailing" constant="-8" id="bIO-Rk-8y8"/>
                             <constraint firstAttribute="centerY" secondItem="COo-wh-9mk" secondAttribute="centerY" constant="-50" id="biv-lT-gYU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MFk-62-jLh" secondAttribute="trailing" constant="-16" id="ddg-pi-x1n"/>
+                            <constraint firstAttribute="centerX" secondItem="CYA-T4-TDg" secondAttribute="centerX" id="idY-PE-THT"/>
                             <constraint firstItem="17C-Tc-4Ad" firstAttribute="leading" secondItem="lr1-K7-mll" secondAttribute="leadingMargin" id="kzC-PC-CML"/>
                             <constraint firstItem="5n5-O5-zwt" firstAttribute="top" secondItem="MFk-62-jLh" secondAttribute="bottom" id="ntv-XJ-iK6"/>
                             <constraint firstItem="5n5-O5-zwt" firstAttribute="top" secondItem="aM5-AI-0oe" secondAttribute="bottom" id="qfP-Pe-XDW"/>
@@ -356,6 +360,18 @@
                             <constraint firstAttribute="trailingMargin" secondItem="aM5-AI-0oe" secondAttribute="trailing" constant="-16" id="xRI-67-ZRr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="COo-wh-9mk" id="fEb-dI-Ugy"/>
+                        <outlet property="cancelButton" destination="ets-Wi-T8e" id="lyf-mi-jnL"/>
+                        <outlet property="findButonSubview" destination="aM5-AI-0oe" id="aJz-ID-MOh"/>
+                        <outlet property="findOnTheMapButton" destination="LRK-Vn-EdZ" id="RWQ-dW-GLG"/>
+                        <outlet property="labelsSubview" destination="elK-KK-3Um" id="RIF-0v-uk4"/>
+                        <outlet property="locationTextView" destination="17C-Tc-4Ad" id="dxI-NB-WDp"/>
+                        <outlet property="mapView" destination="MFk-62-jLh" id="iI1-q6-bmh"/>
+                        <outlet property="shareTextView" destination="A8b-ti-vzv" id="x34-fr-yNM"/>
+                        <outlet property="submitButton" destination="CYA-T4-TDg" id="eqi-9d-Acp"/>
+                        <outlet property="submitButtonSubview" destination="URm-A8-vfG" id="sgA-0t-CHz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AwA-iW-R1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
