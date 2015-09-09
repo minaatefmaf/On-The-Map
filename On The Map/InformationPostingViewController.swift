@@ -16,8 +16,8 @@ class InformationPostingViewConroller: UIViewController {
     @IBOutlet weak var submitButtonSubview: UIView!
     @IBOutlet weak var locationTextView: UITextView!
     @IBOutlet weak var shareTextView: UITextView!
-    @IBOutlet weak var findOnTheMapButton: CustomButton!
-    @IBOutlet weak var submitButton: CustomButton!
+    @IBOutlet weak var findOnTheMapButton: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -55,13 +55,13 @@ class InformationPostingViewConroller: UIViewController {
         findOnTheMapButton.backgroundColor = UIColor.whiteColor()
         findOnTheMapButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), forState: .Normal)
         findOnTheMapButton.layer.masksToBounds = true
-        findOnTheMapButton.layer.cornerRadius = customButtonCornerRadius
+        findOnTheMapButton.layer.cornerRadius = 10.0
         
         submitButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 18.0)
         submitButton.backgroundColor = UIColor.whiteColor()
         submitButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), forState: .Normal)
         submitButton.layer.masksToBounds = true
-        submitButton.layer.cornerRadius = customButtonCornerRadius
+        submitButton.layer.cornerRadius = 10.0
         
     }
     
