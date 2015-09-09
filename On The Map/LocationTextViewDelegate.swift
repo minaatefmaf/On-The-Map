@@ -10,7 +10,7 @@ import UIKit
 
 class LocationTextViewDelegate: NSObject, UITextViewDelegate {
     
-    // Should clear the initial value "TOP" when a user clicks the textfield for the first time.
+    // Should clear the initial value when a user clicks the textview for the first time.
     var firstEdit = true
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {

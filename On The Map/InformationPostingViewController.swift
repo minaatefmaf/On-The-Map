@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
+class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITextViewDelegate {
     
     @IBOutlet weak var labelsSubview: UIView!
     @IBOutlet weak var findButonSubview: UIView!
@@ -25,6 +25,12 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     // Add a reference to the delegate
     let locationTextViewDelegate = LocationTextViewDelegate()
     
+    // Should clear the initial value when a user clicks the textview for the first time.
+    var firstEdit = true
+    
+    // Variable to hold the old annotation
+    var oldAnnotation = MKPointAnnotation()
+    
     // A variable to hold the location's lat & long of the user's entered location
     var placemark: CLPlacemark! = nil
     
@@ -37,8 +43,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Assign each textfield to its proper delegate
+        // Assign each textview to its proper delegate
         locationTextView.delegate = locationTextViewDelegate
+        shareTextView.delegate = self
         
         // Configure the UI
         self.configureUI()
@@ -120,18 +127,25 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     
     func annotateTheLocation() {
         
+        // Remove the previous annotaion
+        self.mapView.removeAnnotation(self.oldAnnotation)
+        
         // let first = appDelegate.udacityUserData.firstName
         let first = "Mina"
         // let last = appDelegate.udacityUserData.lastName
         let last = "Atef"
-        let mediaURL = "https://www.linkedin.com/in/minaatefmaf"
         
         // Here we create the annotation and set its coordiate, title, and subtitle properties
         var annotation = MKPointAnnotation()
         annotation.coordinate = getTheCoordinate()
         annotation.title = "\(first) \(last)"
-        annotation.subtitle = mediaURL
+        // Update the pin's subtitle only when the user starts entering a link to share.
+        if(!firstEdit) {
+            annotation.subtitle = shareTextView.text
+        }
         
+        // Save the annotation to be able to remove it on updating the map.
+        self.oldAnnotation = annotation
         
         // When the array is complete, we add the annotations to the map.
         self.mapView.addAnnotation(annotation)
@@ -210,6 +224,45 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
             })
         }
     }
+    
+    
+    // MARK: - UITextViewDelegate
+
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        
+        // Should clear the initial value when a user clicks the textview for the first time.
+        if firstEdit {
+            textView.text = ""
+            
+            // The user can continue editing the text he entered so far!
+            firstEdit = false
+        }
+        
+        return true
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        var newText = textView.text as NSString
+        newText = newText.stringByReplacingCharactersInRange(range, withString: text)
+        
+        // resignFirstResponder() if return is pressed
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
+    
+    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+        
+        // Annotate the pin with the new link
+        annotateTheLocation()
+        
+        return true
+    }
+    
     
     func configureUI() {
         
