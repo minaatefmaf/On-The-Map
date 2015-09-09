@@ -60,7 +60,7 @@ extension UdacityClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, uniqueKey: nil, errorString: error.description)
+                completionHandler(success: false, uniqueKey: nil, errorString: error.localizedDescription)
             } else {
                 if let resultsForSesion = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                     if let resultsForAccount = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
@@ -89,7 +89,7 @@ extension UdacityClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: error.description)
+                completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: error.localizedDescription)
             } else {
                 if let resultsForUser = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
                     if let resultsForFirstName = resultsForUser[UdacityClient.JSONResponseKeys.FirstName] as? String,
@@ -116,7 +116,7 @@ extension UdacityClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                println(error.description)
+                println(error.localizedDescription)
             } else {
                 if let resultsForSesion = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                    /* println("****************************")

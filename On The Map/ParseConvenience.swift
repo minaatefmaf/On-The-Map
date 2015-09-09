@@ -24,7 +24,7 @@ extension ParseClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, studentLocations: nil, errorString: error.description)
+                completionHandler(success: false, studentLocations: nil, errorString: error.localizedDescription)
             } else {
                 if let results = JSONResult.valueForKey(ParseClient.JSONResponseKeys.Results) as? [[String: AnyObject]] {
                     let studentsLocations = StudentLocation.studentsLocationsFromResults(results)
