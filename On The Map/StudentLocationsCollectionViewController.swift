@@ -76,7 +76,13 @@ class StudentLocationsCollectionViewController: UIViewController {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.appDelegate.studentsLocations!.count
+        
+        if self.appDelegate.studentsLocations != nil {
+            return self.appDelegate.studentsLocations!.count
+        } else {
+            return 0
+        }
+    
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

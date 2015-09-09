@@ -76,7 +76,13 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.appDelegate.studentsLocations!.count
+        
+        if self.appDelegate.studentsLocations != nil {
+            return self.appDelegate.studentsLocations!.count
+        } else {
+            return 0
+        }
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

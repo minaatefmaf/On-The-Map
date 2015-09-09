@@ -87,16 +87,20 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                 if let StudentsLocations = StudentsLocations {
                     // Save the students locations to the app delegate
                     self.appDelegate.studentsLocations = StudentsLocations
+                    
+                    // Annotate the map view with the locations
+                    self.annotateTheMapWithLocations()
                 }
             } else {
                 self.displayError(errorString)
             }
             
         }
-
-        while self.appDelegate.studentsLocations == nil {
-            // Do nothing -> just make sure that the studentsLocations was successfully loaded.
-        }
+        
+        
+    }
+    
+    func annotateTheMapWithLocations() {
         
         let locations = appDelegate.studentsLocations!
         // Create MKPointAnnotation for each dictionary in "locations".
