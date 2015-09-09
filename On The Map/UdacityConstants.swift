@@ -31,12 +31,6 @@ extension UdacityClient {
         
     }
     
-    // MARK: - Parameter Keys
-    struct ParameterKeys {
-        
-        
-    }
-    
     // MARK: - URL Keys
     struct URLKeys {
         

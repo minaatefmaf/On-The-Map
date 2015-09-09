@@ -206,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF86E601B94E99700144789 /* BorderedButton.swift */,
+				2EEEEE031B9D550A00AF452F /* MapStringCollectionCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -217,7 +218,6 @@
 				2E2884A41B9A7350000A79B0 /* StudentLocationsMapViewController.swift */,
 				2E2884A61B9A739C000A79B0 /* StudentLocationsTableViewController.swift */,
 				2E2884A81B9A73B1000A79B0 /* StudentLocationsCollectionViewController.swift */,
-				2EEEEE031B9D550A00AF452F /* MapStringCollectionCell.swift */,
 				2EEB30AD1B9E246E00B0AAF6 /* InformationPostingViewController.swift */,
 				2EEFDFE01BA035B100F3C05C /* LocationTextViewDelegate.swift */,
 			);

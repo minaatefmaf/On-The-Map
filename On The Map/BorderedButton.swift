@@ -20,15 +20,6 @@ class BorderedButton: UIButton {
     var backingColor: UIColor? = nil
     var highlightedBackingColor: UIColor? = nil
     
-    // MARK: - Constructors
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
     
     // MARK: - Setters
     
@@ -59,15 +50,4 @@ class BorderedButton: UIButton {
         self.backgroundColor = self.backingColor
     }
     
-    // MARK: - Layout
-    
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        let userInterfaceIdiom = UIDevice.currentDevice().userInterfaceIdiom
-        let extraButtonPadding: CGFloat = phoneBorderedButtonExtraPadding
-        var sizeThatFits = CGSizeZero
-        sizeThatFits.width = super.sizeThatFits(size).width + extraButtonPadding
-        sizeThatFits.height = borderedButtonHeight
-        return sizeThatFits
-        
-    }
 }

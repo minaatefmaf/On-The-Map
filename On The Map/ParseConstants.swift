@@ -29,17 +29,6 @@ extension ParseClient {
         
     }
     
-    // MARK: - Parameter Keys
-    struct ParameterKeys {
-        
-        
-    }
-    
-    // MARK: - URL Keys
-    struct URLKeys {
-        
-        
-    }
     
     // MARK: - JSON Body Keys
     struct JSONBodyKeys {
