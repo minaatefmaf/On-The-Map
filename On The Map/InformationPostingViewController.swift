@@ -56,8 +56,14 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     }
     
     @IBAction func findLocationOnTheMap(sender: UIButton) {
-        let location = self.locationTextView.text
-        findOnMapFromLocation(location)
+        // Check first if the users has entered a location
+        if (self.locationTextView.text.isEmpty || self.locationTextView.text.isEqual("Enter Your Location Here")) {
+            displayError("Must Enter a Location.")
+        } else {
+            let location = self.locationTextView.text
+            findOnMapFromLocation(location)
+        }
+        
     }
     
     @IBAction func submit(sender: UIButton) {
@@ -118,7 +124,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
                 self.getLocationOnMap()
                 
             } else {
-                println(error.description)
+                self.displayError("Could Not Geocode the String.")
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.hidden = true
             }
             
         }
