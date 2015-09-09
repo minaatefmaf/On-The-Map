@@ -78,8 +78,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.removeAnnotations(self.oldAnnotations)
 
         // Switch the black view & the activity indicators on.
-        blackView.hidden = true
-        activityIndicator.stopAnimating()
+        blackView.hidden = false
+        activityIndicator.startAnimating()
         
         ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
             
@@ -126,8 +126,17 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         }
         // Save the annotations to be able to remove it on updating the map.
         self.oldAnnotations = annotations
-        // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotations(annotations)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+           
+            // When the array is complete, we add the annotations to the map.
+            self.mapView.addAnnotations(annotations)
+           
+            // Shutdown the black view & the activity indicator.
+            self.blackView.hidden = true
+            self.activityIndicator.stopAnimating()
+            
+        }
         
     }
     
@@ -180,15 +189,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-    
-    /* This delegate method is implemented to shutdown the black view & the activity indicator when the map finish rendering the view. */
-    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
-       
-        // Shutdown the black view & the activity indicator.
-        blackView.hidden = true
-        activityIndicator.stopAnimating()
-        
-    }
+
     
 }
 
