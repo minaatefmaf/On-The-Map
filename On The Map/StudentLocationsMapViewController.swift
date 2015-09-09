@@ -95,7 +95,13 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     self.annotateTheMapWithLocations()
                 }
             } else {
-                self.displayError(errorString)
+                
+                // Shutdown the black view & the activity indicator.
+                dispatch_async(dispatch_get_main_queue()) {
+                self.blackView.hidden = true
+                self.activityIndicator.stopAnimating()
+                }
+                
             }
             
         }
