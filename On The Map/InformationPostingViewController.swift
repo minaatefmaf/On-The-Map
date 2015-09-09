@@ -50,6 +50,9 @@ class InformationPostingViewConroller: UIViewController {
         
         // If the location text field have some location
         
+        // Start the activity indicator
+        self.activityIndicator.hidden = false
+        self.activityIndicator.startAnimating()
         
         // Get placemark for a given location (string)
         CLGeocoder().geocodeAddressString(addressString) {(placemarks, error) in
@@ -58,10 +61,13 @@ class InformationPostingViewConroller: UIViewController {
             if let placemark = placemarks?[0] as? CLPlacemark {
                 // Save the placemark in the global variable so other functions can access it
                 self.placemark = placemark
+
                 // Annotate the location
                 self.annotateTheLocation()
+                
                 // Prepare the scene for the map view
                 self.configureUIForSecondScene()
+                
                 // Get the location on the map view
                 self.getLocationOnMap()
                 
@@ -160,8 +166,9 @@ class InformationPostingViewConroller: UIViewController {
         submitButtonSubview.hidden = false
         submitButton.hidden = false
         
-        activityIndicator.hidden = false
-        activityIndicator.stopAnimating()
+        // Start the activity indicator
+        self.activityIndicator.hidden = false
+        self.activityIndicator.stopAnimating()
         
         cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }
