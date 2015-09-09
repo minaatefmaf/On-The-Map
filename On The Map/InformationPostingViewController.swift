@@ -22,6 +22,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // Add a reference to the delegate
+    let locationTextViewDelegate = LocationTextViewDelegate()
+    
     // A variable to hold the location's lat & long of the user's entered location
     var placemark: CLPlacemark! = nil
     
@@ -34,6 +37,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Assign each textfield to its proper delegate
+        locationTextView.delegate = locationTextViewDelegate
+        
         // Configure the UI
         self.configureUI()
     }
@@ -43,7 +49,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func findLocationOnTheMap(sender: UIButton) {
-        findOnMapFromLocation("Cairo, Egypt")
+        let location = self.locationTextView.text
+        findOnMapFromLocation(location)
     }
     
     @IBAction func submit(sender: UIButton) {
