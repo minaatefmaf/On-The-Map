@@ -25,6 +25,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     // A variable to hold the location's lat & long of the user's entered location
     var placemark: CLPlacemark! = nil
     
+    // Save the lat & long
+    var placemarkLatitude: Double! = nil
+    var placemarkLongitude: Double! = nil
+    
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -43,6 +47,23 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func submit(sender: UIButton) {
+        // Prepare the student data to be posted on the server
+        prepareStudentData()
+    }
+    
+    func prepareStudentData() {
+        
+        var userDataDictionary = [String: AnyObject]()
+        userDataDictionary["objectId"] = "" // We don't really need the actual value here
+        userDataDictionary["uniqueKey"] = appDelegate.userUniqueID
+        userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName
+        userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName
+        userDataDictionary["mapString"] = "Cairo, Egypt"
+        userDataDictionary["mediaURL"] = "https://www.linkedin.com/in/minaatefmaf"
+        userDataDictionary["latitude"] = self.placemarkLatitude
+        userDataDictionary["longitude"] = self.placemarkLongitude
+        
+        appDelegate.studentData = StudentLocation(dictionary: userDataDictionary)
         
     }
     
@@ -117,9 +138,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     
     func getTheCoordinate() -> CLLocationCoordinate2D {
     
-    let lat = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
-    let long = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
-    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    self.placemarkLatitude = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
+    self.placemarkLongitude = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
+    let coordinate = CLLocationCoordinate2D(latitude: self.placemarkLatitude, longitude: self.placemarkLongitude)
     
     return coordinate
     }
