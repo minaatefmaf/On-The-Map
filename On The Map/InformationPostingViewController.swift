@@ -115,4 +115,22 @@ class InformationPostingViewConroller: UIViewController {
         
     }
     
+    
+    func configureUIForSecondScene() {
+        
+        // Prepare the elements that will appear first & hide the others
+        labelsSubview.hidden = true
+        locationTextView.hidden = true
+        findButonSubview.hidden = true
+        shareTextView.hidden = false
+        mapView.hidden = false
+        submitButtonSubview.hidden = false
+        submitButton.hidden = false
+        
+        activityIndicator.hidden = false
+        activityIndicator.stopAnimating()
+        
+        cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+    }
+    
 }
