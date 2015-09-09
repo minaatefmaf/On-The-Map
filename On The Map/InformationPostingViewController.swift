@@ -46,18 +46,42 @@ class InformationPostingViewConroller: UIViewController {
     
     func findOnMapFromLocation(addressString: String) {
         
-        //let addressString: String! = "Cairo, Egypt"
+        // If the location text field have some location
+        
+        
+        // Get placemark for a given location (string)
         CLGeocoder().geocodeAddressString(addressString) {(placemarks, error) in
             
             // Grab the first placemark
             if let placemark = placemarks?[0] as? CLPlacemark {
+                // Save the placemark in the global variable so other functions can access it
                 self.placemark = placemark
+                // Get the location on the map view
+                self.getLocationOnMap()
                 
             } else {
                 println(error.description)
             }
             
         }
+        
+    }
+    
+    func getLocationOnMap() {
+        
+        let lat = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
+        let long = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        
+        let span = MKCoordinateSpanMake(0.001, 0.001)
+        let widerSpan = MKCoordinateSpanMake(0.01, 0.01)
+        
+        let region = MKCoordinateRegionMake(coordinate, widerSpan)
+        let widerRegion = MKCoordinateRegionMake(coordinate, span)
+        
+        // Call setRegion function twice for animating the zooming feature
+        self.mapView.setRegion(widerRegion, animated: true)
+        self.mapView.setRegion(region, animated: true)
         
     }
     
