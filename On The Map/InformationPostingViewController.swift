@@ -22,6 +22,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var tapRecognizer: UITapGestureRecognizer? = nil
+
     // Add a reference to the delegate
     let locationTextViewDelegate = LocationTextViewDelegate()
     
@@ -50,6 +52,19 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         // Configure the UI
         self.configureUI()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.addKeyboardDismissRecognizer()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.removeKeyboardDismissRecognizer()
+    }
+
     
     @IBAction func cancelButton(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -272,6 +287,23 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     }
     
     
+    // MARK: - Keyboard Fixes
+    
+    func addKeyboardDismissRecognizer() {
+        self.view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        self.view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    
+    // MARK: - UI Configurations
+    
     func configureUI() {
         
         // Prepare the elements that will appear first & hide the others
@@ -301,6 +333,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         // Prepare the map view
         mapView.scrollEnabled = false
         mapView.zoomEnabled = false
+        
+        /* Configure tap recognizer */
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
         
     }
     
