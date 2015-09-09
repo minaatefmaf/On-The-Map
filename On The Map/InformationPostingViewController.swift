@@ -137,8 +137,6 @@ class InformationPostingViewConroller: UIViewController {
         submitButtonSubview.hidden = true
         submitButton.hidden = true
         
-        
-        
         // Configure the buttons
         findOnTheMapButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 18.0)
         findOnTheMapButton.backgroundColor = UIColor.whiteColor()
@@ -151,6 +149,10 @@ class InformationPostingViewConroller: UIViewController {
         submitButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), forState: .Normal)
         submitButton.layer.masksToBounds = true
         submitButton.layer.cornerRadius = 10.0
+        
+        // Prepare the map view
+        mapView.scrollEnabled = false
+        mapView.zoomEnabled = false
         
     }
     
