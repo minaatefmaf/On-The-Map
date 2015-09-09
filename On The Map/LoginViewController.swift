@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -19,6 +19,10 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Assign the textfields to  delegates
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         // Configure the UI
         self.configureUI()
@@ -103,6 +107,14 @@ class LoginViewController: UIViewController {
         if let requestUrl = NSURL(string: "https://www.udacity.com/account/auth#!/signup") {
             UIApplication.sharedApplication().openURL(requestUrl)
         }
+    }
+    
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     
