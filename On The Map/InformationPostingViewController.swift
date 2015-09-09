@@ -82,19 +82,29 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     }
     
     @IBAction func submit(sender: UIButton) {
-/*        // Prepare the student data to be posted on the server
-        prepareStudentData()
         
-        // Post the location
-        ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData){ (success, errorString) in
+        // Check first if the users has entered a location
+        if (self.shareTextView.text.isEmpty || self.shareTextView.text.isEqual("Enter a Link to Share Here")) {
+            displayError("Must Enter a Link.")
+            // Check if the link is a valid link
+        } else if !UIApplication.sharedApplication().canOpenURL(NSURL(string: self.shareTextView.text)!) {
+            displayError("Invalid Link.")
+        } else {
             
-            if success {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            } else {
-                self.displayError(errorString)
-            }
+            // Prepare the student data to be posted on the server
+            prepareStudentData()
             
-        } */
+            // Post the location
+            ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData){ (success, errorString) in
+                
+                if success {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    self.displayError(errorString)
+                }
+            
+            } 
+        }
     }
     
     func prepareStudentData() {
@@ -104,8 +114,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         userDataDictionary["uniqueKey"] = appDelegate.userUniqueID
         userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName
         userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName
-        userDataDictionary["mapString"] = "Cairo, Egypt"
-        userDataDictionary["mediaURL"] = "https://www.linkedin.com/in/minaatefmaf"
+        userDataDictionary["mapString"] = self.locationTextView.text
+        userDataDictionary["mediaURL"] = self.shareTextView.text
         userDataDictionary["latitude"] = self.placemarkLatitude
         userDataDictionary["longitude"] = self.placemarkLongitude
         
@@ -153,10 +163,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         // Remove the previous annotaion
         self.mapView.removeAnnotation(self.oldAnnotation)
         
-        // let first = appDelegate.udacityUserData.firstName
-        let first = "Mina"
-        // let last = appDelegate.udacityUserData.lastName
-        let last = "Atef"
+        let first = appDelegate.udacityUserData.firstName
+        let last = appDelegate.udacityUserData.lastName
         
         // Here we create the annotation and set its coordiate, title, and subtitle properties
         var annotation = MKPointAnnotation()
