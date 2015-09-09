@@ -25,6 +25,8 @@ class InformationPostingViewConroller: UIViewController {
     // A variable to hold the location's lat & long of the user's entered location
     var placemark: CLPlacemark! = nil
     
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,6 +58,10 @@ class InformationPostingViewConroller: UIViewController {
             if let placemark = placemarks?[0] as? CLPlacemark {
                 // Save the placemark in the global variable so other functions can access it
                 self.placemark = placemark
+                // Annotate the location
+                self.annotateTheLocation()
+                // Prepare the scene for the map view
+                self.configureUIForSecondScene()
                 // Get the location on the map view
                 self.getLocationOnMap()
                 
@@ -67,11 +73,29 @@ class InformationPostingViewConroller: UIViewController {
         
     }
     
+    func annotateTheLocation() {
+        
+        // let first = appDelegate.udacityUserData.firstName
+        let first = "Mina"
+        // let last = appDelegate.udacityUserData.lastName
+        let last = "Atef"
+        let mediaURL = "mediaURL"
+        
+        // Here we create the annotation and set its coordiate, title, and subtitle properties
+        var annotation = MKPointAnnotation()
+        annotation.coordinate = getTheCoordinate()
+        annotation.title = "\(first) \(last)"
+        annotation.subtitle = mediaURL
+        
+        
+        // When the array is complete, we add the annotations to the map.
+        self.mapView.addAnnotation(annotation)
+
+    }
+    
     func getLocationOnMap() {
         
-        let lat = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
-        let long = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
-        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let coordinate = getTheCoordinate()
         
         let span = MKCoordinateSpanMake(0.001, 0.001)
         let widerSpan = MKCoordinateSpanMake(0.01, 0.01)
@@ -83,6 +107,15 @@ class InformationPostingViewConroller: UIViewController {
         self.mapView.setRegion(widerRegion, animated: true)
         self.mapView.setRegion(region, animated: true)
         
+    }
+    
+    func getTheCoordinate() -> CLLocationCoordinate2D {
+    
+    let lat = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
+    let long = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
+    let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    
+    return coordinate
     }
     
     func configureUI() {
