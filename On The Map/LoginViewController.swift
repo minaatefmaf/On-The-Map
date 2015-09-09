@@ -38,7 +38,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.addKeyboardDismissRecognizer()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool) {
         // So email and password fields are empty again on logging out
         self.emailTextField.text = ""
         self.passwordTextField.text = ""
