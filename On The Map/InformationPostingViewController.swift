@@ -47,7 +47,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func submit(sender: UIButton) {
-        // Prepare the student data to be posted on the server
+/*        // Prepare the student data to be posted on the server
         prepareStudentData()
         
         // Post the location
@@ -59,7 +59,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
                 self.displayError(errorString)
             }
             
-        }
+        } */
     }
     
     func prepareStudentData() {
