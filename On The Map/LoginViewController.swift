@@ -15,6 +15,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: BorderedButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var tapRecognizer: UITapGestureRecognizer? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,12 +30,16 @@ class LoginViewController: UIViewController {
         if self.activityIndicator.isAnimating() {
             self.activityIndicator.stopAnimating()
         }
+        
+        self.addKeyboardDismissRecognizer()
     }
     
     override func viewWillDisappear(animated: Bool) {
         // So email and password fields are empty again on logging out
         self.emailTextField.text = ""
         self.passwordTextField.text = ""
+        
+        self.removeKeyboardDismissRecognizer()
     }
 
     @IBAction func loginButtonTouch(sender: BorderedButton) {
@@ -99,6 +105,24 @@ class LoginViewController: UIViewController {
         }
     }
     
+    
+    // MARK: - Keyboard Fixes
+    
+    func addKeyboardDismissRecognizer() {
+        self.view.addGestureRecognizer(tapRecognizer!)
+    }
+    
+    func removeKeyboardDismissRecognizer() {
+        self.view.removeGestureRecognizer(tapRecognizer!)
+    }
+    
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+
+    
+    // MARK: - UI Configurations
+    
     func configureUI() {
         // Configure background gradient
         self.view.backgroundColor = UIColor.clearColor()
@@ -141,6 +165,10 @@ class LoginViewController: UIViewController {
         
         loginButton.layer.masksToBounds = true
         loginButton.layer.cornerRadius = borderedButtonCornerRadius
+        
+        /* Configure tap recognizer */
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer?.numberOfTapsRequired = 1
         
     }
 }
