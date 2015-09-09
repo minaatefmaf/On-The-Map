@@ -88,6 +88,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     // Save the students locations to the app delegate
                     self.appDelegate.studentsLocations = StudentsLocations
                     
+                    // Notify the other tabs to reload their ceels
+                    self.notifyOtherTabsToReloadCells()
+                    
                     // Annotate the map view with the locations
                     self.annotateTheMapWithLocations()
                 }
@@ -98,6 +101,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         }
         
         
+    }
+    
+    func notifyOtherTabsToReloadCells() {
+        // Notify the Table and the Collection tabs to reload their cells
+        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationCenterKeys.DataIsReloadedSuccessfully, object: self)
     }
     
     func annotateTheMapWithLocations() {

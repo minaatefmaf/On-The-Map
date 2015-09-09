@@ -20,6 +20,9 @@ class StudentLocationsCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Add observer to the reload notification
+        self.subscribeToReloadNotifications()
+        
         // Add the right bar buttons
         var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
         var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
@@ -108,5 +111,22 @@ class StudentLocationsCollectionViewController: UIViewController {
             }
         }
     }
+    
+}
+
+extension StudentLocationsCollectionViewController {
+    
+    func reloadCells() {
+        // Reload the cells of the collection view.
+        collectionView.reloadData()
+    }
+    
+    func subscribeToReloadNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadCells", name: NSNotificationCenterKeys.DataIsReloadedSuccessfully, object: nil)
+    }
+    
+    /* func unsubscribeToRefreshNotifications() {
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
+    } */
     
 }

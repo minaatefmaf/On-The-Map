@@ -20,6 +20,9 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Add observer to the reload notification
+        self.subscribeToReloadNotifications()
+        
         // Add the right bar buttons
         var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
         var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
@@ -108,4 +111,21 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         }
     }
 
+}
+
+extension StudentLocationsTableViewController {
+    
+    func reloadCells() {
+        // Reload the rows and sections of the table view.
+        tableView.reloadData()
+    }
+    
+    func subscribeToReloadNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadCells", name: NSNotificationCenterKeys.DataIsReloadedSuccessfully, object: nil)
+    }
+    
+    /* func unsubscribeToRefreshNotifications() {
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
+    } */
+    
 }

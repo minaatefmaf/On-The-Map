@@ -11,5 +11,6 @@ import Foundation
 class NSNotificationCenterKeys {
     
     static let RefreshButtonIsRealeasedNotification = "RefreshButtonIsRealeasedNotification"
+    static let DataIsReloadedSuccessfully = "DataIsReloadedSuccessfully"
     
 }
