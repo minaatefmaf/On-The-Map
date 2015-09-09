@@ -49,6 +49,17 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate {
     @IBAction func submit(sender: UIButton) {
         // Prepare the student data to be posted on the server
         prepareStudentData()
+        
+        // Post the location
+        ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData){ (success, errorString) in
+            
+            if success {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.displayError(errorString)
+            }
+            
+        }
     }
     
     func prepareStudentData() {

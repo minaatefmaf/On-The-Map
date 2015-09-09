@@ -37,4 +37,37 @@ extension ParseClient {
         
     }
     
+    
+    func postStudentLocation(userData: StudentLocation, completionHandler: (success: Bool, errorString: String?) -> Void) {
+        
+        // 1. Specify parameters, method
+        let parameters = [String: String]()
+        var mutableMethod  = ""
+        let jsonBody: [String: AnyObject] = [
+            ParseClient.JSONBodyKeys.UniqueKey: userData.uniqueKey,
+            ParseClient.JSONBodyKeys.FirstName: userData.firstName,
+            ParseClient.JSONBodyKeys.Lastname: userData.lastName,
+            ParseClient.JSONBodyKeys.MapString: userData.mapString,
+            ParseClient.JSONBodyKeys.MediaURL: userData.mediaURL,
+            ParseClient.JSONBodyKeys.Latitude: userData.latitude,
+            ParseClient.JSONBodyKeys.Longitude: userData.longitude,
+        ]
+        
+        // 2. Make the request
+        let task = taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
+            
+            // 3. Send the desired value(s) to completion handler
+            if let error = error {
+                completionHandler(success: false, errorString: error.localizedDescription)
+            } else {
+                if let resultsForObjectID = JSONResult.valueForKey(ParseClient.JSONResponseKeys.ObjectId) as? String {
+                    completionHandler(success: true, errorString: nil)
+                } else {
+                    completionHandler(success: false, errorString: "Failed to Post Location.")
+                }
+            }
+        }
+        
+    }
+    
 }
