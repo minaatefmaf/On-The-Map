@@ -22,6 +22,8 @@ class InformationPostingViewConroller: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // A variable to hold the location's lat & long of the user's entered location
+    var placemark: CLPlacemark! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,30 @@ class InformationPostingViewConroller: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func findLocationOnTheMap(sender: UIButton) {
+        findOnMapFromLocation("Cairo, Egypt")
+    }
+    
+    @IBAction func submit(sender: UIButton) {
+        
+    }
+    
+    func findOnMapFromLocation(addressString: String) {
+        
+        //let addressString: String! = "Cairo, Egypt"
+        CLGeocoder().geocodeAddressString(addressString) {(placemarks, error) in
+            
+            // Grab the first placemark
+            if let placemark = placemarks?[0] as? CLPlacemark {
+                self.placemark = placemark
+                
+            } else {
+                println(error.description)
+            }
+            
+        }
+        
+    }
     
     func configureUI() {
         
