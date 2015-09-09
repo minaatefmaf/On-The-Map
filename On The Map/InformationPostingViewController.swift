@@ -106,8 +106,8 @@ class InformationPostingViewConroller: UIViewController {
         let span = MKCoordinateSpanMake(0.001, 0.001)
         let widerSpan = MKCoordinateSpanMake(0.01, 0.01)
         
-        let region = MKCoordinateRegionMake(coordinate, widerSpan)
-        let widerRegion = MKCoordinateRegionMake(coordinate, span)
+        let region = MKCoordinateRegionMake(coordinate, span)
+        let widerRegion = MKCoordinateRegionMake(coordinate, widerSpan)
         
         // Call setRegion function twice for animating the zooming feature
         self.mapView.setRegion(widerRegion, animated: true)
