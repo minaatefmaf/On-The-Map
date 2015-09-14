@@ -86,7 +86,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         // Remove the previous annotaions
         self.mapView.removeAnnotations(self.oldAnnotations)
 
-        // Switch the black view & the activity indicators on.
+        // Switch the black view & the activity indicators on
         blackView.hidden = false
         activityIndicator.startAnimating()
         
@@ -104,8 +104,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     self.annotateTheMapWithLocations()
                 }
             } else {
-                
-                // Shutdown the black view & the activity indicator.
+                // Display an alert with the error for the user
+                self.displayError(errorString)
+                // Shutdown the black view & the activity indicator
                 dispatch_async(dispatch_get_main_queue()) {
                 self.blackView.hidden = true
                 self.activityIndicator.stopAnimating()
