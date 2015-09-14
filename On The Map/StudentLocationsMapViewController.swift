@@ -98,7 +98,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     self.appDelegate.studentsLocations = StudentsLocations
                     
                     // Notify the other tabs to reload their ceels
-                    self.notifyOtherTabsToReloadCells()
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.notifyOtherTabsToReloadCells()
+                    }
                     
                     // Annotate the map view with the locations
                     self.annotateTheMapWithLocations()
