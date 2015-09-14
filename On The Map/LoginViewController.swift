@@ -25,25 +25,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         
         // Configure the UI
-        self.configureUI()
+        configureUI()
     }
     
     override func viewWillAppear(animated: Bool) {
         // Hide (and stop animating) the activity indicator
         activityIndicator.hidden = true
-        if self.activityIndicator.isAnimating() {
-            self.activityIndicator.stopAnimating()
+        if activityIndicator.isAnimating() {
+            activityIndicator.stopAnimating()
         }
         
-        self.addKeyboardDismissRecognizer()
+        addKeyboardDismissRecognizer()
     }
     
     override func viewDidDisappear(animated: Bool) {
         // So email and password fields are empty again on logging out
-        self.emailTextField.text = ""
-        self.passwordTextField.text = ""
+        emailTextField.text = ""
+        passwordTextField.text = ""
         
-        self.removeKeyboardDismissRecognizer()
+        removeKeyboardDismissRecognizer()
     }
 
     @IBAction func loginButtonTouch(sender: BorderedButton) {
@@ -51,8 +51,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
             
             // Show the activity indicator to let the user know htat the data is being processed
-            self.activityIndicator.hidden = false
-            self.activityIndicator.startAnimating()
+            activityIndicator.hidden = false
+            activityIndicator.startAnimating()
             
             UdacityClient.sharedInstance().authenticateAndGetUserData(self, username: emailTextField.text!, password: passwordTextField.text!) { (success, uniqueKey: String?, userData: UdacityUser?, errorString) in
 
@@ -121,15 +121,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Keyboard Fixes
     
     func addKeyboardDismissRecognizer() {
-        self.view.addGestureRecognizer(tapRecognizer!)
+        view.addGestureRecognizer(tapRecognizer!)
     }
     
     func removeKeyboardDismissRecognizer() {
-        self.view.removeGestureRecognizer(tapRecognizer!)
+        view.removeGestureRecognizer(tapRecognizer!)
     }
     
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
 
     

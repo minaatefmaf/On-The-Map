@@ -25,7 +25,7 @@ extension UdacityClient {
         // Chain completion handlers for each request so that they run one after the other
         
         // 1. POSTing (Creating) a Session
-        self.postSession(username, password: password) { (success, uniqueKey, errorString) in
+        postSession(username, password: password) { (success, uniqueKey, errorString) in
             
             if success {
                 // 2. GETting Public User Data

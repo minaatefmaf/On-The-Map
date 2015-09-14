@@ -32,22 +32,22 @@ class BorderedButton: UIButton {
     
     private func setHighlightedBackingColor(highlightedBackingColor: UIColor) -> Void {
         self.highlightedBackingColor = highlightedBackingColor
-        self.backingColor = highlightedBackingColor
+        backingColor = highlightedBackingColor
     }
     
     // MARK: - Tracking
     
     override func beginTrackingWithTouch(touch: UITouch, withEvent: UIEvent) -> Bool {
-        self.backgroundColor = self.highlightedBackingColor
+        backgroundColor = highlightedBackingColor
         return true
     }
     
     override func endTrackingWithTouch(touch: UITouch, withEvent: UIEvent) {
-        self.backgroundColor = self.backingColor
+        backgroundColor = backingColor
     }
     
     override func cancelTrackingWithEvent(event: UIEvent?) {
-        self.backgroundColor = self.backingColor
+        backgroundColor = backingColor
     }
     
 }

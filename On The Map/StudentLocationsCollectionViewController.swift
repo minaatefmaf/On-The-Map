@@ -21,12 +21,12 @@ class StudentLocationsCollectionViewController: UIViewController {
         super.viewDidLoad()
         
         // Add observer to the reload notification
-        self.subscribeToReloadNotifications()
+        subscribeToReloadNotifications()
         
         // Add the right bar buttons
         var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
         var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
-        self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
+        navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
         // Populate the userData & uniqueKey with the data from the login scene
         userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
@@ -48,7 +48,7 @@ class StudentLocationsCollectionViewController: UIViewController {
         UdacityClient.sharedInstance().deleteSession()
         
         // Dismiss the view controller
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func refreshStudentLocations() {
@@ -62,7 +62,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     func openInformationPostingView() {
         // Open the information posting view
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
-        self.presentViewController(controller, animated: true, completion: nil)
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     func displayError(errorString: String?) {
@@ -80,8 +80,8 @@ class StudentLocationsCollectionViewController: UIViewController {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if self.appDelegate.studentsLocations != nil {
-            return self.appDelegate.studentsLocations!.count
+        if appDelegate.studentsLocations != nil {
+            return appDelegate.studentsLocations!.count
         } else {
             return 0
         }
@@ -91,7 +91,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MapStringCollectionCell", forIndexPath: indexPath) as! MapStringCollectionCell
-        let student = self.appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations![indexPath.row]
         
         // Set the map string
         cell.mapStringLabel.text = student.mapString
@@ -102,12 +102,12 @@ class StudentLocationsCollectionViewController: UIViewController {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
     {
         // Open the media url in safari
-        let student = self.appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations![indexPath.row]
         if let requestUrl = NSURL(string: student.mediaURL) {
             if UIApplication.sharedApplication().canOpenURL(requestUrl) {
                 UIApplication.sharedApplication().openURL(requestUrl)
             } else {
-                self.displayError("Invalid Link")
+                displayError("Invalid Link")
             }
         }
     }

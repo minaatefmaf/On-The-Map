@@ -33,7 +33,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
         
         // Add observer to the refresh notification
-        self.subscribeToRefreshNotifications()
+        subscribeToRefreshNotifications()
         
         // Make sure the black view & the activity indicators are on
         blackView.hidden = false
@@ -48,22 +48,22 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        self.loadStudentLocations()
+        loadStudentLocations()
     }
     
     @IBAction func logoutButton(sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
-        self.appDelegate.udacityUserData = nil
-        self.appDelegate.userUniqueID = nil
+        appDelegate.udacityUserData = nil
+        appDelegate.userUniqueID = nil
         
         UdacityClient.sharedInstance().deleteSession()
         
         // Dismiss the view controller
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func refreshStudentLocations() {
-        self.loadStudentLocations()
+        loadStudentLocations()
     }
     
     func openInformationPostingView() {
@@ -76,7 +76,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         if data != nil {
             // Open the information posting view
             let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
-            self.presentViewController(controller, animated: true, completion: nil)
+            presentViewController(controller, animated: true, completion: nil)
         }
     
     }
@@ -84,7 +84,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     func loadStudentLocations() {
         
         // Remove the previous annotaions
-        self.mapView.removeAnnotations(self.oldAnnotations)
+        mapView.removeAnnotations(oldAnnotations)
 
         // Switch the black view & the activity indicators on
         blackView.hidden = false
@@ -151,7 +151,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             annotations.append(annotation)
         }
         // Save the annotations to be able to remove it on updating the map.
-        self.oldAnnotations = annotations
+        oldAnnotations = annotations
         
         dispatch_async(dispatch_get_main_queue()) {
            
@@ -211,7 +211,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {
                 UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
             } else {
-                self.displayError("Invalid Link")
+                displayError("Invalid Link")
             }
         }
     }

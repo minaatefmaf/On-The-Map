@@ -50,32 +50,32 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         shareTextView.delegate = self
         
         // Configure the UI
-        self.configureUI()
+        configureUI()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.addKeyboardDismissRecognizer()
+        addKeyboardDismissRecognizer()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.removeKeyboardDismissRecognizer()
+        removeKeyboardDismissRecognizer()
     }
 
     
     @IBAction func cancelButton(sender: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func findLocationOnTheMap(sender: UIButton) {
         // Check first if the users has entered a location
-        if (self.locationTextView.text.isEmpty || self.locationTextView.text.isEqual("Enter Your Location Here")) {
+        if (locationTextView.text.isEmpty || locationTextView.text.isEqual("Enter Your Location Here")) {
             displayError("Must Enter a Location.")
         } else {
-            let location = self.locationTextView.text
+            let location = locationTextView.text
             findOnMapFromLocation(location)
         }
         
@@ -84,10 +84,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     @IBAction func submit(sender: UIButton) {
         
         // Check first if the users has entered a location
-        if (self.shareTextView.text.isEmpty || self.shareTextView.text.isEqual("Enter a Link to Share Here")) {
+        if (shareTextView.text.isEmpty || shareTextView.text.isEqual("Enter a Link to Share Here")) {
             displayError("Must Enter a Link.")
             // Check if the link is a valid link
-        } else if !UIApplication.sharedApplication().canOpenURL(NSURL(string: self.shareTextView.text)!) {
+        } else if !UIApplication.sharedApplication().canOpenURL(NSURL(string: shareTextView.text)!) {
             displayError("Invalid Link.")
         } else {
             
@@ -114,10 +114,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         userDataDictionary["uniqueKey"] = appDelegate.userUniqueID
         userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName
         userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName
-        userDataDictionary["mapString"] = self.locationTextView.text
-        userDataDictionary["mediaURL"] = self.shareTextView.text
-        userDataDictionary["latitude"] = self.placemarkLatitude
-        userDataDictionary["longitude"] = self.placemarkLongitude
+        userDataDictionary["mapString"] = locationTextView.text
+        userDataDictionary["mediaURL"] = shareTextView.text
+        userDataDictionary["latitude"] = placemarkLatitude
+        userDataDictionary["longitude"] = placemarkLongitude
         
         appDelegate.studentData = StudentLocation(dictionary: userDataDictionary)
         
@@ -128,8 +128,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         // If the location text field have some location
         
         // Start the activity indicator
-        self.activityIndicator.hidden = false
-        self.activityIndicator.startAnimating()
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
         
         // Get placemark for a given location (string)
         CLGeocoder().geocodeAddressString(addressString) {(placemarks, error) in
@@ -161,7 +161,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     func annotateTheLocation() {
         
         // Remove the previous annotaion
-        self.mapView.removeAnnotation(self.oldAnnotation)
+        mapView.removeAnnotation(oldAnnotation)
         
         let first = appDelegate.udacityUserData.firstName
         let last = appDelegate.udacityUserData.lastName
@@ -176,10 +176,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         }
         
         // Save the annotation to be able to remove it on updating the map.
-        self.oldAnnotation = annotation
+        oldAnnotation = annotation
         
         // When the array is complete, we add the annotations to the map.
-        self.mapView.addAnnotation(annotation)
+        mapView.addAnnotation(annotation)
 
     }
     
@@ -194,16 +194,16 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         let widerRegion = MKCoordinateRegionMake(coordinate, widerSpan)
         
         // Call setRegion function twice for animating the zooming feature
-        self.mapView.setRegion(widerRegion, animated: true)
-        self.mapView.setRegion(region, animated: true)
+        mapView.setRegion(widerRegion, animated: true)
+        mapView.setRegion(region, animated: true)
         
     }
     
     func getTheCoordinate() -> CLLocationCoordinate2D {
     
-    self.placemarkLatitude = CLLocationDegrees(self.placemark!.location.coordinate.latitude as Double)
-    self.placemarkLongitude = CLLocationDegrees(self.placemark!.location.coordinate.longitude as Double)
-    let coordinate = CLLocationCoordinate2D(latitude: self.placemarkLatitude, longitude: self.placemarkLongitude)
+    placemarkLatitude = CLLocationDegrees(placemark!.location.coordinate.latitude as Double)
+    placemarkLongitude = CLLocationDegrees(placemark!.location.coordinate.longitude as Double)
+    let coordinate = CLLocationCoordinate2D(latitude: placemarkLatitude, longitude: placemarkLongitude)
     
     return coordinate
     }
@@ -238,7 +238,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {
                 UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
             } else {
-                self.displayError("Invalid Link")
+                displayError("Invalid Link")
             }
         }
     }
@@ -298,15 +298,15 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     // MARK: - Keyboard Fixes
     
     func addKeyboardDismissRecognizer() {
-        self.view.addGestureRecognizer(tapRecognizer!)
+        view.addGestureRecognizer(tapRecognizer!)
     }
     
     func removeKeyboardDismissRecognizer() {
-        self.view.removeGestureRecognizer(tapRecognizer!)
+        view.removeGestureRecognizer(tapRecognizer!)
     }
     
     func handleSingleTap(recognizer: UITapGestureRecognizer) {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     
@@ -361,8 +361,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         submitButton.hidden = false
         
         // Start the activity indicator
-        self.activityIndicator.hidden = false
-        self.activityIndicator.stopAnimating()
+        activityIndicator.hidden = false
+        activityIndicator.stopAnimating()
         
         cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }

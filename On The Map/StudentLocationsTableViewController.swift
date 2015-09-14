@@ -21,7 +21,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         super.viewDidLoad()
         
         // Add observer to the reload notification
-        self.subscribeToReloadNotifications()
+        subscribeToReloadNotifications()
         
         // Add the right bar buttons
         var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
@@ -48,7 +48,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         UdacityClient.sharedInstance().deleteSession()
         
         // Dismiss the view controller
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func refreshStudentLocations() {
@@ -62,7 +62,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     func openInformationPostingView() {
         // Open the information posting view
         let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
-        self.presentViewController(controller, animated: true, completion: nil)
+        presentViewController(controller, animated: true, completion: nil)
     }
     
     func displayError(errorString: String?) {
@@ -80,8 +80,8 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if self.appDelegate.studentsLocations != nil {
-            return self.appDelegate.studentsLocations!.count
+        if appDelegate.studentsLocations != nil {
+            return appDelegate.studentsLocations!.count
         } else {
             return 0
         }
@@ -92,7 +92,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         let cell = tableView.dequeueReusableCellWithIdentifier("BasicTableCell") as! UITableViewCell
         
         // Set the name and the image
-        let student = self.appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations![indexPath.row]
         cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
        // cell.imageView?.image = UIImage(named: "pin")
         
@@ -101,12 +101,12 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Open the media url in safari
-        let student = self.appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations![indexPath.row]
         if let requestUrl = NSURL(string: student.mediaURL) {
             if UIApplication.sharedApplication().canOpenURL(requestUrl) {
                 UIApplication.sharedApplication().openURL(requestUrl)
             } else {
-                self.displayError("Invalid Link")
+                displayError("Invalid Link")
             }
         }
     }
