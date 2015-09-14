@@ -31,7 +31,6 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
-        
         // Add observer to the refresh notification
         subscribeToRefreshNotifications()
         
@@ -43,12 +42,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         userData = appDelegate.udacityUserData
         uniqueKey = appDelegate.userUniqueID
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
+        // load the students locations
         loadStudentLocations()
+        
     }
     
     @IBAction func logoutButton(sender: UIBarButtonItem) {
