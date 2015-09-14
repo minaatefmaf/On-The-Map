@@ -60,9 +60,18 @@ class StudentLocationsCollectionViewController: UIViewController {
     }
     
     func openInformationPostingView() {
-        // Open the information posting view
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
-        presentViewController(controller, animated: true, completion: nil)
+        
+        // Prepare a URL to use on checking for network availability
+        let url = NSURL(string: "http://www.google.com")!
+        let data = NSData(contentsOfURL: url)
+        
+        // If there's a network connection available, open the information posting view controller
+        if data != nil {
+            // Open the information posting view
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
+            presentViewController(controller, animated: true, completion: nil)
+        }
+        
     }
     
     func displayError(errorString: String?) {
