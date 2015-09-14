@@ -125,8 +125,6 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     func findOnMapFromLocation(addressString: String) {
         
-        // If the location text field have some location
-        
         // Start the activity indicator
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
