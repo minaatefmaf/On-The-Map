@@ -118,6 +118,10 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
                 displayError("Invalid Link")
             }
         }
+        
+        // Deselect the cell
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
     }
 
 }

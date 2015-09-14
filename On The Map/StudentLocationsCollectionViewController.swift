@@ -119,6 +119,10 @@ class StudentLocationsCollectionViewController: UIViewController {
                 displayError("Invalid Link")
             }
         }
+        
+        // Deselect the cell
+        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+        
     }
     
 }
