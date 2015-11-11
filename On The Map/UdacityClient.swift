@@ -198,23 +198,17 @@ class UdacityClient: NSObject {
     // Helper: Given raw JSON, return a usable Foundation object
     class func parseJSONWithCompletionHandler(data: NSData, completionHandler: (result: AnyObject!, error: NSError?) -> Void) {
         
-        var parsingError: NSError? = nil
-
         // subset response data!
         let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-        let parsedResult: AnyObject?
+        var parsedResult: AnyObject!
         do {
-            parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments)
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: .AllowFragments)
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
         }
         
-        if let error = parsingError {
-            completionHandler(result: nil, error: error)
-        } else {
-            completionHandler(result: parsedResult, error: nil)
-        }
+        completionHandler(result: parsedResult, error: nil)
     }
     
     // Helper function: Given a dictionary of parameters, convert to a string for a url

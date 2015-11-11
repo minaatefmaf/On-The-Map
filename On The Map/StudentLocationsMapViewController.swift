@@ -179,7 +179,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
         
@@ -204,8 +204,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {
-                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation!.subtitle!!)!) {
+                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
             } else {
                 displayError("Invalid Link")
             }

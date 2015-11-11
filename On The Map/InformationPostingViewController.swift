@@ -132,8 +132,9 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         // Get placemark for a given location (string)
         CLGeocoder().geocodeAddressString(addressString) {(placemarks, error) in
             
+            
             // Grab the first placemark
-            if let placemark = placemarks?[0] as? CLPlacemark {
+            if let placemark = placemarks?[0] as CLPlacemark! {
                 // Save the placemark in the global variable so other functions can access it
                 self.placemark = placemark
 
@@ -199,8 +200,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     func getTheCoordinate() -> CLLocationCoordinate2D {
     
-    placemarkLatitude = CLLocationDegrees(placemark!.location.coordinate.latitude as Double)
-    placemarkLongitude = CLLocationDegrees(placemark!.location.coordinate.longitude as Double)
+    placemarkLatitude = CLLocationDegrees(placemark!.location!.coordinate.latitude as Double)
+    placemarkLongitude = CLLocationDegrees(placemark!.location!.coordinate.longitude as Double)
     let coordinate = CLLocationCoordinate2D(latitude: placemarkLatitude, longitude: placemarkLongitude)
     
     return coordinate
@@ -209,7 +210,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
         
@@ -233,8 +234,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {
-                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation.subtitle!)!)
+            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation!.subtitle!!)!) {
+                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
             } else {
                 displayError("Invalid Link")
             }

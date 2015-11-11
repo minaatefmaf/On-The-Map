@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func loginButtonTouch(sender: BorderedButton) {
         // Attempt login only if there's an e-mail & a password
-        if !(emailTextField.text.isEmpty || passwordTextField.text.isEmpty) {
+        if !(emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty) {
             
             // Show the activity indicator to let the user know htat the data is being processed
             activityIndicator.hidden = false

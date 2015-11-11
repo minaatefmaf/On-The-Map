@@ -20,7 +20,7 @@ extension ParseClient {
         let mutableMethod = ""
         
         // 2. Make the request
-        let task = taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+        taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
@@ -54,13 +54,13 @@ extension ParseClient {
         ]
         
         // 2. Make the request
-        let task = taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
+        taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
                 completionHandler(success: false, errorString: error.localizedDescription)
             } else {
-                if let resultsForObjectID = JSONResult.valueForKey(ParseClient.JSONResponseKeys.ObjectId) as? String {
+                if let _ = JSONResult.valueForKey(ParseClient.JSONResponseKeys.ObjectId) as? String {
                     completionHandler(success: true, errorString: nil)
                 } else {
                     completionHandler(success: false, errorString: "Failed to Post Location.")

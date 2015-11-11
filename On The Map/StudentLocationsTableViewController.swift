@@ -98,7 +98,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BasicTableCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("BasicTableCell")! as UITableViewCell
         
         // Set the name and the image
         let student = appDelegate.studentsLocations![indexPath.row]
