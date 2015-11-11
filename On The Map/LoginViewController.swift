@@ -62,7 +62,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             self.completeLogin(uniqueKey, userData: userData)
                     }
                 } else {
-                    self.displayError(errorString)
+                    var newErrorString = errorString
+                    // If the status code == 403: status text: "Forbidden", description: "Client does not have access rights to the content so server is rejecting to give proper response."
+                    if ((newErrorString?.containsString("403")) != nil) {
+                        newErrorString = "Invalid Email or Password."
+                    }
+                    self.displayError(newErrorString)
                 }
                 
             }

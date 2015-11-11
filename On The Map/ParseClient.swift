@@ -44,15 +44,18 @@ class ParseClient: NSObject {
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? NSHTTPURLResponse {
-                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Response: '\(response)'"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else {
-                    print("Your request returned an invalid response!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response!"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 }
                 return
             }
-            
+        
             /* GUARD: Was there any data returned? */
             guard let data = data else {
                 print("No data was returned by the request!")
@@ -101,11 +104,14 @@ class ParseClient: NSObject {
             /* GUARD: Did we get a successful 2XX response? */
             guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? NSHTTPURLResponse {
-                    print("Your request returned an invalid response! Status code: \(response.statusCode)!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Response: '\(response)'"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else {
-                    print("Your request returned an invalid response!")
+                    let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response!"]
+                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 }
                 return
             }
