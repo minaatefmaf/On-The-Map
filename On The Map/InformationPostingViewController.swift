@@ -165,7 +165,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         let last = appDelegate.udacityUserData.lastName
         
         // Here we create the annotation and set its coordiate, title, and subtitle properties
-        var annotation = MKPointAnnotation()
+        let annotation = MKPointAnnotation()
         annotation.coordinate = getTheCoordinate()
         annotation.title = "\(first) \(last)"
         // Update the pin's subtitle only when the user starts entering a link to share.
@@ -209,7 +209,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         
         let reuseId = "pin"
         
@@ -219,7 +219,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.pinColor = .Red
-            pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -230,7 +230,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     /* This delegate method is implemented to respond to taps. It opens the system browser
     to the URL specified in the annotationViews subtitle property. */
-    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
             if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {

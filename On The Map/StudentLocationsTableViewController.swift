@@ -24,8 +24,8 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         subscribeToReloadNotifications()
         
         // Add the right bar buttons
-        var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
-        var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
+        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
         // Populate the userData & uniqueKey with the data from the login scene
@@ -68,7 +68,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         // If there's a network connection available, open the information posting view controller
         if data != nil {
             // Open the information posting view
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") 
             presentViewController(controller, animated: true, completion: nil)
         }
         

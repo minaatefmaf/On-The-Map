@@ -23,7 +23,7 @@ class ParseClient: NSObject {
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // 1. Set the parameters
-        var mutableParameters = parameters
+        let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method + ParseClient.escapedParameters(mutableParameters)
@@ -54,7 +54,7 @@ class ParseClient: NSObject {
     func taskForPOSTMethod(method: String, parameters: [String: AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // 1. Set the parameters
-        var mutableParameters = parameters
+        let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method + ParseClient.escapedParameters(mutableParameters)
@@ -65,7 +65,12 @@ class ParseClient: NSObject {
         request.addValue(ParseClient.Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+        do {
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(jsonBody, options: [])
+        } catch let error as NSError {
+            jsonifyError = error
+            request.HTTPBody = nil
+        }
         
         // 4. Make the request
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
@@ -93,7 +98,13 @@ class ParseClient: NSObject {
         var parsingError: NSError? = nil
         
         
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        } catch let error as NSError {
+            parsingError = error
+            parsedResult = nil
+        }
         
         if let error = parsingError {
             completionHandler(result: nil, error: error)
@@ -120,7 +131,7 @@ class ParseClient: NSObject {
             
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
 
 

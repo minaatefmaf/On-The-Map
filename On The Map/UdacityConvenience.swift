@@ -48,7 +48,7 @@ extension UdacityClient {
         
         // 1. Specify parameters, method
         let parameters = [String: String]()
-        var mutableMethod : String = Methods.Session
+        let mutableMethod : String = Methods.Session
         let jsonBody: [String: [String: String]] = [ "udacity": [
             UdacityClient.JSONBodyKeys.Username: username,
             UdacityClient.JSONBodyKeys.Password: password
@@ -109,14 +109,14 @@ extension UdacityClient {
         
         // 1. Specify parameters, method
         let parameters = [String: String]()
-        var mutableMethod : String = Methods.Session
+        let mutableMethod : String = Methods.Session
         
         // 2. Make the request
         let task = taskForDELETEMethod(mutableMethod, parameters: parameters) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                println(error.localizedDescription)
+                print(error.localizedDescription)
             } else {
                 if let resultsForSesion = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                    /* println("****************************")

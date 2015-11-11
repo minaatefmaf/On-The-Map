@@ -42,7 +42,7 @@ extension ParseClient {
         
         // 1. Specify parameters, method
         let parameters = [String: String]()
-        var mutableMethod  = ""
+        let mutableMethod  = ""
         let jsonBody: [String: AnyObject] = [
             ParseClient.JSONBodyKeys.UniqueKey: userData.uniqueKey,
             ParseClient.JSONBodyKeys.FirstName: userData.firstName,

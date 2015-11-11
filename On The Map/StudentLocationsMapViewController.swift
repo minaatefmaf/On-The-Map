@@ -27,8 +27,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Add the right bar buttons
-        var refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
-        var pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
+        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
         // Add observer to the refresh notification
@@ -71,7 +71,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         // If there's a network connection available, open the information posting view controller
         if data != nil {
             // Open the information posting view
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") as! UIViewController
+            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") 
             presentViewController(controller, animated: true, completion: nil)
         }
     
@@ -138,7 +138,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             let mediaURL = studentLocation.mediaURL
             
             // Create the annotation and set its coordiate, title, and subtitle properties
-            var annotation = MKPointAnnotation()
+            let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
             annotation.title = "\(first) \(last)"
             annotation.subtitle = mediaURL
@@ -179,7 +179,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         
         let reuseId = "pin"
         
@@ -189,7 +189,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.pinColor = .Red
-            pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -201,7 +201,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     /* This delegate method is implemented to respond to taps. It opens the system browser
     to the URL specified in the annotationViews subtitle property. */
-    func mapView(mapView: MKMapView!, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
             if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation.subtitle!)!) {

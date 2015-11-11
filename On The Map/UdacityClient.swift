@@ -23,7 +23,7 @@ class UdacityClient: NSObject {
     func taskForGETMethod(method: String, parameters: [String : AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // 1. Set the parameters
-        var mutableParameters = parameters
+        let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
@@ -52,7 +52,7 @@ class UdacityClient: NSObject {
     func taskForPOSTMethod(method: String, parameters: [String: AnyObject], jsonBody: [String:AnyObject], completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         
         // 1. Set the parameters
-        var mutableParameters = parameters
+        let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
         let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
@@ -62,7 +62,9 @@ class UdacityClient: NSObject {
         request.HTTPMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = NSJSONSerialization.dataWithJSONObject(jsonBody, options: nil, error: &jsonifyError)
+        do {
+            request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(jsonBody, options: .PrettyPrinted)
+        }
         
         // 4. Make the request
         let task = session.dataTaskWithRequest(request) {data, response, downloadError in
@@ -100,7 +102,7 @@ class UdacityClient: NSObject {
             if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
         }
         if let xsrfCookie = xsrfCookie {
-            request.setValue(xsrfCookie.value!, forHTTPHeaderField: "X-XSRF-TOKEN")
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
         }
         
         // 4. Make the request
@@ -139,7 +141,13 @@ class UdacityClient: NSObject {
 
         // subset response data!
         let newData = data.subdataWithRange(NSMakeRange(5, data.length - 5))
-        let parsedResult: AnyObject? = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments, error: &parsingError)
+        let parsedResult: AnyObject?
+        do {
+            parsedResult = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments)
+        } catch {
+            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
+            completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+        }
         
         if let error = parsingError {
             completionHandler(result: nil, error: error)
@@ -166,7 +174,7 @@ class UdacityClient: NSObject {
             
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + join("&", urlVars)
+        return (!urlVars.isEmpty ? "?" : "") + urlVars.joinWithSeparator("&")
     }
     
     
