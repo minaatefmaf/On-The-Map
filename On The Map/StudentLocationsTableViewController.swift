@@ -62,7 +62,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     func openInformationPostingView() {
         
         // Prepare a URL to use on checking for network availability
-        let url = NSURL(string: "http://www.google.com")!
+        let url = NSURL(string: "https://www.google.com")!
         let data = NSData(contentsOfURL: url)
         
         // If there's a network connection available, open the information posting view controller
