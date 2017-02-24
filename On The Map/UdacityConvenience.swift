@@ -20,7 +20,7 @@ extension UdacityClient {
         2. GETting Public User Data
     */
     
-    func authenticateAndGetUserData(hostViewController: UIViewController, username: String, password: String, completionHandler: (success: Bool, uniqueKey: String?, userData: UdacityUser?, errorString: String?) -> Void) {
+    func authenticateAndGetUserData(_ hostViewController: UIViewController, username: String, password: String, completionHandler: @escaping (_ success: Bool, _ uniqueKey: String?, _ userData: UdacityUser?, _ errorString: String?) -> Void) {
         
         // Chain completion handlers for each request so that they run one after the other
         
@@ -32,19 +32,19 @@ extension UdacityClient {
                 self.getPublicUserData(uniqueKey) { (success, uniqueKey, userData, errorString) in
                     
                     if success {
-                        completionHandler(success: true, uniqueKey: uniqueKey, userData: userData, errorString: nil)
+                        completionHandler(true, uniqueKey, userData, nil)
                     } else {
-                        completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: errorString)
+                        completionHandler(false, uniqueKey, nil, errorString)
                     }
                     
                 }
             } else {
-                completionHandler(success: false, uniqueKey: nil, userData: nil, errorString: errorString)
+                completionHandler(false, nil, nil, errorString)
             }
         }
     }
     
-    func postSession(username: String, password: String, completionHandler: (success: Bool, uniqueKey:String?, errorString: String?) -> Void) {
+    func postSession(_ username: String, password: String, completionHandler: @escaping (_ success: Bool, _ uniqueKey:String?, _ errorString: String?) -> Void) {
         
         // 1. Specify parameters, method
         let parameters = [String: String]()
@@ -62,8 +62,8 @@ extension UdacityClient {
             if let error = error {
                 completionHandler(success: false, uniqueKey: nil, errorString: error.localizedDescription)
             } else {
-                if let _ = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
-                    if let resultsForAccount = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
+                if let _ = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
+                    if let resultsForAccount = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
                         if resultsForAccount[UdacityClient.JSONResponseKeys.Registered] as! Int == 1 {
                             let key = resultsForAccount[UdacityClient.JSONResponseKeys.Key] as! String
                             completionHandler(success: true, uniqueKey: key, errorString: nil)
@@ -77,7 +77,7 @@ extension UdacityClient {
         
     }
     
-    func getPublicUserData(uniqueKey: String?, completionHandler:(success: Bool, uniqueKey: String?, userData: UdacityUser?, errorString: String?) -> Void) {
+    func getPublicUserData(_ uniqueKey: String?, completionHandler:@escaping (_ success: Bool, _ uniqueKey: String?, _ userData: UdacityUser?, _ errorString: String?) -> Void) {
         
         // 1. Specify parameters, method (if has {key})
         let parameters = [String: String]()
@@ -91,7 +91,7 @@ extension UdacityClient {
             if let error = error {
                 completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: error.localizedDescription)
             } else {
-                if let resultsForUser = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
+                if let resultsForUser = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
                     if let resultsForFirstName = resultsForUser[UdacityClient.JSONResponseKeys.FirstName] as? String,
                     let resultsForAccountLastName = resultsForUser[UdacityClient.JSONResponseKeys.LastName] as? String {
                         let userData = UdacityUser(firstName: resultsForFirstName, lastName: resultsForAccountLastName)
@@ -118,7 +118,7 @@ extension UdacityClient {
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                if let _ = JSONResult.valueForKey(UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
+                if let _ = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                    /* println("****************************")
                     println("Deleting the session")
                     println(resultsForSesion)

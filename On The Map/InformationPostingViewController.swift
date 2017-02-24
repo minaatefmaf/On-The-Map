@@ -40,7 +40,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     var placemarkLatitude: Double! = nil
     var placemarkLongitude: Double! = nil
     
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,41 +53,41 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         configureUI()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         addKeyboardDismissRecognizer()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         removeKeyboardDismissRecognizer()
     }
 
     
-    @IBAction func cancelButton(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func findLocationOnTheMap(sender: UIButton) {
+    @IBAction func findLocationOnTheMap(_ sender: UIButton) {
         // Check first if the users has entered a location
         if (locationTextView.text.isEmpty || locationTextView.text.isEqual("Enter Your Location Here")) {
             displayError("Must Enter a Location.")
         } else {
             let location = locationTextView.text
-            findOnMapFromLocation(location)
+            findOnMapFromLocation(location!)
         }
         
     }
     
-    @IBAction func submit(sender: UIButton) {
+    @IBAction func submit(_ sender: UIButton) {
         
         // Check first if the users has entered a location
         if (shareTextView.text.isEmpty || shareTextView.text.isEqual("Enter a Link to Share Here")) {
             displayError("Must Enter a Link.")
             // Check if the link is a valid link
-        } else if !UIApplication.sharedApplication().canOpenURL(NSURL(string: shareTextView.text)!) {
+        } else if !UIApplication.shared.canOpenURL(URL(string: shareTextView.text)!) {
             displayError("Invalid Link.")
         } else {
             
@@ -98,7 +98,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData){ (success, errorString) in
                 
                 if success {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     self.displayError(errorString)
                 }
@@ -110,23 +110,23 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     func prepareStudentData() {
         
         var userDataDictionary = [String: AnyObject]()
-        userDataDictionary["objectId"] = "" // We don't really need the actual value here
-        userDataDictionary["uniqueKey"] = appDelegate.userUniqueID
-        userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName
-        userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName
-        userDataDictionary["mapString"] = locationTextView.text
-        userDataDictionary["mediaURL"] = shareTextView.text
-        userDataDictionary["latitude"] = placemarkLatitude
-        userDataDictionary["longitude"] = placemarkLongitude
+        userDataDictionary["objectId"] = "" as AnyObject? // We don't really need the actual value here
+        userDataDictionary["uniqueKey"] = appDelegate.userUniqueID as AnyObject?
+        userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName as String
+        userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName as String
+        userDataDictionary["mapString"] = locationTextView.text as String
+        userDataDictionary["mediaURL"] = shareTextView.text as String
+        userDataDictionary["latitude"] = placemarkLatitude as AnyObject?
+        userDataDictionary["longitude"] = placemarkLongitude as AnyObject?
         
         appDelegate.studentData = StudentLocation(dictionary: userDataDictionary)
         
     }
     
-    func findOnMapFromLocation(addressString: String) {
+    func findOnMapFromLocation(_ addressString: String) {
         
         // Start the activity indicator
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
         // Get placemark for a given location (string)
@@ -150,7 +150,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             } else {
                 self.displayError("Could Not Geocode the String.")
                 self.activityIndicator.stopAnimating()
-                self.activityIndicator.hidden = true
+                self.activityIndicator.isHidden = true
             }
             
         }
@@ -210,17 +210,17 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
         
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinColor = .Red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            pinView!.pinColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -231,26 +231,26 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     /* This delegate method is implemented to respond to taps. It opens the system browser
     to the URL specified in the annotationViews subtitle property. */
-    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation!.subtitle!!)!) {
-                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
+            if UIApplication.shared.canOpenURL(URL(string: annotationView.annotation!.subtitle!!)!) {
+                UIApplication.shared.openURL(URL(string: annotationView.annotation!.subtitle!!)!)
             } else {
                 displayError("Invalid Link")
             }
         }
     }
     
-    func displayError(errorString: String?) {
+    func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
-            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 // Display the Alert view controller
-                self.presentViewController (alert, animated: true, completion: nil)
+                self.present (alert, animated: true, completion: nil)
             })
         }
     }
@@ -258,7 +258,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     // MARK: - UITextViewDelegate
 
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         
         // Should clear the initial value when a user clicks the textview for the first time.
         if firstEdit {
@@ -271,10 +271,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         return true
     }
     
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         var newText = textView.text as NSString
-        newText = newText.stringByReplacingCharactersInRange(range, withString: text)
+        newText = newText.replacingCharacters(in: range, with: text) as NSString
         
         // resignFirstResponder() if return is pressed
         if(text == "\n") {
@@ -285,7 +285,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         return true
     }
     
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
         // Annotate the pin with the new link
         annotateTheLocation()
@@ -304,7 +304,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
-    func handleSingleTap(recognizer: UITapGestureRecognizer) {
+    func handleSingleTap(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
@@ -314,35 +314,35 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     func configureUI() {
         
         // Prepare the elements that will appear first & hide the others
-        labelsSubview.hidden = false
-        locationTextView.hidden = false
-        findButonSubview.hidden = false
-        cancelButton.hidden = false
-        shareTextView.hidden = true
-        mapView.hidden = true
-        activityIndicator.hidden = true
-        submitButtonSubview.hidden = true
-        submitButton.hidden = true
+        labelsSubview.isHidden = false
+        locationTextView.isHidden = false
+        findButonSubview.isHidden = false
+        cancelButton.isHidden = false
+        shareTextView.isHidden = true
+        mapView.isHidden = true
+        activityIndicator.isHidden = true
+        submitButtonSubview.isHidden = true
+        submitButton.isHidden = true
         
         // Configure the buttons
         findOnTheMapButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 18.0)
-        findOnTheMapButton.backgroundColor = UIColor.whiteColor()
-        findOnTheMapButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), forState: .Normal)
+        findOnTheMapButton.backgroundColor = UIColor.white
+        findOnTheMapButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), for: UIControlState())
         findOnTheMapButton.layer.masksToBounds = true
         findOnTheMapButton.layer.cornerRadius = 10.0
         
         submitButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 18.0)
-        submitButton.backgroundColor = UIColor.whiteColor()
-        submitButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), forState: .Normal)
+        submitButton.backgroundColor = UIColor.white
+        submitButton.setTitleColor (UIColor(red: 0.064, green:0.396, blue:0.736, alpha: 1.0), for: UIControlState())
         submitButton.layer.masksToBounds = true
         submitButton.layer.cornerRadius = 10.0
         
         // Prepare the map view
-        mapView.scrollEnabled = false
-        mapView.zoomEnabled = false
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
         
         /* Configure tap recognizer */
-        tapRecognizer = UITapGestureRecognizer(target: self, action: "handleSingleTap:")
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(InformationPostingViewConroller.handleSingleTap(_:)))
         tapRecognizer?.numberOfTapsRequired = 1
         
     }
@@ -351,19 +351,19 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     func configureUIForSecondScene() {
         
         // Prepare the elements that will appear first & hide the others
-        labelsSubview.hidden = true
-        locationTextView.hidden = true
-        findButonSubview.hidden = true
-        shareTextView.hidden = false
-        mapView.hidden = false
-        submitButtonSubview.hidden = false
-        submitButton.hidden = false
+        labelsSubview.isHidden = true
+        locationTextView.isHidden = true
+        findButonSubview.isHidden = true
+        shareTextView.isHidden = false
+        mapView.isHidden = false
+        submitButtonSubview.isHidden = false
+        submitButton.isHidden = false
         
         // Start the activity indicator
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.stopAnimating()
         
-        cancelButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        cancelButton.setTitleColor(UIColor.white, for: UIControlState())
     }
     
 }

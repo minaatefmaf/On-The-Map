@@ -14,7 +14,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     // Varaibles to hold the user data & unique key
     var userData: UdacityUser!
     var uniqueKey: String!
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Variable to hold the old annotations
     var oldAnnotations = [MKPointAnnotation]()
@@ -27,15 +27,15 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Add the right bar buttons
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
-        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsMapViewController.refreshStudentLocations))
+        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(StudentLocationsMapViewController.openInformationPostingView))
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
         // Add observer to the refresh notification
         subscribeToRefreshNotifications()
         
         // Make sure the black view & the activity indicators are on
-        blackView.hidden = false
+        blackView.isHidden = false
         activityIndicator.startAnimating()
 
         // Populate the userData & uniqueKey with the data from the login scene
@@ -47,7 +47,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    @IBAction func logoutButton(sender: UIBarButtonItem) {
+    @IBAction func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
         appDelegate.udacityUserData = nil
         appDelegate.userUniqueID = nil
@@ -55,7 +55,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         UdacityClient.sharedInstance().deleteSession()
         
         // Dismiss the view controller
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func refreshStudentLocations() {
@@ -65,14 +65,14 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     func openInformationPostingView() {
         
         // Prepare a URL to use on checking for network availability
-        let url = NSURL(string: "https://www.google.com")!
-        let data = NSData(contentsOfURL: url)
+        let url = URL(string: "https://www.google.com")!
+        let data = try? Data(contentsOf: url)
         
         // If there's a network connection available, open the information posting view controller
         if data != nil {
             // Open the information posting view
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") 
-            presentViewController(controller, animated: true, completion: nil)
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostingViewConroller") 
+            present(controller, animated: true, completion: nil)
         }
     
     }
@@ -83,7 +83,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         mapView.removeAnnotations(oldAnnotations)
 
         // Switch the black view & the activity indicators on
-        blackView.hidden = false
+        blackView.isHidden = false
         activityIndicator.startAnimating()
         
         ParseClient.sharedInstance().getStudentLocations() { (success, StudentsLocations: [StudentLocation]?, errorString) in
@@ -94,7 +94,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     self.appDelegate.studentsLocations = StudentsLocations
                     
                     // Notify the other tabs to reload their ceels
-                    dispatch_async(dispatch_get_main_queue()) {
+                    DispatchQueue.main.async {
                         self.notifyOtherTabsToReloadCells()
                     }
                     
@@ -105,8 +105,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                 // Display an alert with the error for the user
                 self.displayError(errorString)
                 // Shutdown the black view & the activity indicator
-                dispatch_async(dispatch_get_main_queue()) {
-                self.blackView.hidden = true
+                DispatchQueue.main.async {
+                self.blackView.isHidden = true
                 self.activityIndicator.stopAnimating()
                 }
                 
@@ -119,7 +119,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     func notifyOtherTabsToReloadCells() {
         // Notify the Table and the Collection tabs to reload their cells
-        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationCenterKeys.DataIsReloadedSuccessfully, object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.DataIsReloadedSuccessfully), object: self)
     }
     
     func annotateTheMapWithLocations() {
@@ -149,28 +149,28 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         // Save the annotations to be able to remove it on updating the map.
         oldAnnotations = annotations
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
            
             // When the array is complete, we add the annotations to the map.
             self.mapView.addAnnotations(annotations)
            
             // Shutdown the black view & the activity indicator.
-            self.blackView.hidden = true
+            self.blackView.isHidden = true
             self.activityIndicator.stopAnimating()
             
         }
         
     }
     
-    func displayError(errorString: String?) {
+    func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
-            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 // Display the Alert view controller
-                self.presentViewController (alert, animated: true, completion: nil)
+                self.present (alert, animated: true, completion: nil)
             })
         }
     }
@@ -179,17 +179,17 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - MKMapViewDelegate
     
     // Create a view with a "right callout accessory view".
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
         
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinColor = .Red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            pinView!.pinColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
         else {
             pinView!.annotation = annotation
@@ -201,11 +201,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     /* This delegate method is implemented to respond to taps. It opens the system browser
     to the URL specified in the annotationViews subtitle property. */
-    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: annotationView.annotation!.subtitle!!)!) {
-                UIApplication.sharedApplication().openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
+            if UIApplication.shared.canOpenURL(URL(string: annotationView.annotation!.subtitle!!)!) {
+                UIApplication.shared.openURL(URL(string: annotationView.annotation!.subtitle!!)!)
             } else {
                 displayError("Invalid Link")
             }
@@ -218,7 +218,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
 extension StudentLocationsMapViewController {
     
     func subscribeToRefreshNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadStudentLocations", name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsMapViewController.loadStudentLocations), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: nil)
     }
     
    /* func unsubscribeToRefreshNotifications() {

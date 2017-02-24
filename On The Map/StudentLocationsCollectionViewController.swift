@@ -13,7 +13,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     // Varaibles to hold the user data & unique key
     var userData: UdacityUser!
     var uniqueKey: String!
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -24,36 +24,36 @@ class StudentLocationsCollectionViewController: UIViewController {
         subscribeToReloadNotifications()
         
         // Add the right bar buttons
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "refreshStudentLocations")
-        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.Plain, target: self, action: "openInformationPostingView")
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsCollectionViewController.refreshStudentLocations))
+        let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(StudentLocationsCollectionViewController.openInformationPostingView))
         navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
         // Populate the userData & uniqueKey with the data from the login scene
-        userData = (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData
-        uniqueKey = (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID
+        userData = (UIApplication.shared.delegate as! AppDelegate).udacityUserData
+        uniqueKey = (UIApplication.shared.delegate as! AppDelegate).userUniqueID
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         // Reload the cells of the collection view.
         collectionView.reloadData()
     }
     
-    @IBAction func logoutButton(sender: UIBarButtonItem) {
+    @IBAction func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
-        (UIApplication.sharedApplication().delegate as! AppDelegate).udacityUserData = nil
-        (UIApplication.sharedApplication().delegate as! AppDelegate).userUniqueID = nil
+        (UIApplication.shared.delegate as! AppDelegate).udacityUserData = nil
+        (UIApplication.shared.delegate as! AppDelegate).userUniqueID = nil
         
         UdacityClient.sharedInstance().deleteSession()
         
         // Dismiss the view controller
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func refreshStudentLocations() {
         // Notify the Map tab to reload the data
-        NSNotificationCenter.defaultCenter().postNotificationName(NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: self)
         
         // Reload the cells of the collection view.
         collectionView.reloadData()
@@ -62,32 +62,32 @@ class StudentLocationsCollectionViewController: UIViewController {
     func openInformationPostingView() {
         
         // Prepare a URL to use on checking for network availability
-        let url = NSURL(string: "https://www.google.com")!
-        let data = NSData(contentsOfURL: url)
+        let url = URL(string: "https://www.google.com")!
+        let data = try? Data(contentsOf: url)
         
         // If there's a network connection available, open the information posting view controller
         if data != nil {
             // Open the information posting view
-            let controller = self.storyboard!.instantiateViewControllerWithIdentifier("InformationPostingViewConroller") 
-            presentViewController(controller, animated: true, completion: nil)
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: "InformationPostingViewConroller") 
+            present(controller, animated: true, completion: nil)
         }
         
     }
     
-    func displayError(errorString: String?) {
+    func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
-            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .Alert)
-            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
+            let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 // Display the Alert view controller
-                self.presentViewController (alert, animated: true, completion: nil)
+                self.present (alert, animated: true, completion: nil)
             })
         }
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if appDelegate.studentsLocations != nil {
             return appDelegate.studentsLocations!.count
@@ -97,9 +97,9 @@ class StudentLocationsCollectionViewController: UIViewController {
     
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MapStringCollectionCell", forIndexPath: indexPath) as! MapStringCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapStringCollectionCell", for: indexPath) as! MapStringCollectionCell
         let student = appDelegate.studentsLocations![indexPath.row]
         
         // Set the map string
@@ -108,20 +108,20 @@ class StudentLocationsCollectionViewController: UIViewController {
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:IndexPath)
     {
         // Open the media url in safari
         let student = appDelegate.studentsLocations![indexPath.row]
-        if let requestUrl = NSURL(string: student.mediaURL) {
-            if UIApplication.sharedApplication().canOpenURL(requestUrl) {
-                UIApplication.sharedApplication().openURL(requestUrl)
+        if let requestUrl = URL(string: student.mediaURL) {
+            if UIApplication.shared.canOpenURL(requestUrl) {
+                UIApplication.shared.openURL(requestUrl)
             } else {
                 displayError("Invalid Link")
             }
         }
         
         // Deselect the cell
-        collectionView.deselectItemAtIndexPath(indexPath, animated: false)
+        collectionView.deselectItem(at: indexPath, animated: false)
         
     }
     
@@ -135,7 +135,7 @@ extension StudentLocationsCollectionViewController {
     }
     
     func subscribeToReloadNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadCells", name: NSNotificationCenterKeys.DataIsReloadedSuccessfully, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsCollectionViewController.reloadCells), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloadedSuccessfully), object: nil)
     }
     
     /* func unsubscribeToRefreshNotifications() {
