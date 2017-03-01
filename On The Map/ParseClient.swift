@@ -33,11 +33,12 @@ class ParseClient: NSObject {
         request.addValue(ParseClient.Constants.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         // 4. Make the request
-        let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
+        let task = session.dataTask(with: request as URLRequest
+            , completionHandler: {data, response, downloadError in
             
             /* GUARD: Was there an error? */
             guard (downloadError == nil) else {
-                completionHandler(result: nil, error: downloadError)
+                completionHandler(nil, downloadError as NSError?)
                 return
             }
             
@@ -45,13 +46,13 @@ class ParseClient: NSObject {
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? HTTPURLResponse {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else if let response = response {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Response: '\(response)'"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response!"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 }
                 return
             }
@@ -93,11 +94,11 @@ class ParseClient: NSObject {
         }
         
         // 4. Make the request
-        let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
+        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, downloadError in
             
             /* GUARD: Was there an error? */
             guard (downloadError == nil) else {
-                completionHandler(result: nil, error: downloadError)
+                completionHandler(nil, downloadError as NSError?)
                 return
             }
             
@@ -105,13 +106,13 @@ class ParseClient: NSObject {
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? HTTPURLResponse {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else if let response = response {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Response: '\(response)'"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 } else {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response!"]
-                    completionHandler(result: nil, error: NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
+                    completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))
                 }
                 return
             }
