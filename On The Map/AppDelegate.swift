@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var udacityUserData: UdacityUser!
     var userUniqueID: String!
-    var studentsLocations = [StudentLocation]?()
+    var studentsLocations = [StudentLocation]()
     var studentData: StudentLocation!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

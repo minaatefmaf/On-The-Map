@@ -89,8 +89,8 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if appDelegate.studentsLocations != nil {
-            return appDelegate.studentsLocations!.count
+        if !appDelegate.studentsLocations.isEmpty {
+            return appDelegate.studentsLocations.count
         } else {
             return 0
         }
@@ -101,7 +101,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "BasicTableCell")! as UITableViewCell
         
         // Set the name and the image
-        let student = appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations[indexPath.row]
         cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
        // cell.imageView?.image = UIImage(named: "pin")
         
@@ -110,7 +110,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Open the media url in safari
-        let student = appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations[indexPath.row]
         if let requestUrl = URL(string: student.mediaURL) {
             if UIApplication.shared.canOpenURL(requestUrl) {
                 UIApplication.shared.openURL(requestUrl)

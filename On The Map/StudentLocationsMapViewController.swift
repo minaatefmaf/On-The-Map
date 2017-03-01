@@ -124,7 +124,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     func annotateTheMapWithLocations() {
         
-        let locations = appDelegate.studentsLocations!
+        let locations = appDelegate.studentsLocations
         // Create MKPointAnnotation for each dictionary in "locations".
         var annotations = [MKPointAnnotation]()
         

@@ -89,8 +89,8 @@ class StudentLocationsCollectionViewController: UIViewController {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if appDelegate.studentsLocations != nil {
-            return appDelegate.studentsLocations!.count
+        if !appDelegate.studentsLocations.isEmpty {
+            return appDelegate.studentsLocations.count
         } else {
             return 0
         }
@@ -100,7 +100,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MapStringCollectionCell", for: indexPath) as! MapStringCollectionCell
-        let student = appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations[indexPath.row]
         
         // Set the map string
         cell.mapStringLabel.text = student.mapString
@@ -111,7 +111,7 @@ class StudentLocationsCollectionViewController: UIViewController {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:IndexPath)
     {
         // Open the media url in safari
-        let student = appDelegate.studentsLocations![indexPath.row]
+        let student = appDelegate.studentsLocations[indexPath.row]
         if let requestUrl = URL(string: student.mediaURL) {
             if UIApplication.shared.canOpenURL(requestUrl) {
                 UIApplication.shared.openURL(requestUrl)
