@@ -24,13 +24,13 @@ extension ParseClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, studentLocations: nil, errorString: error.localizedDescription)
+                completionHandler(false, nil, error.localizedDescription)
             } else {
-                if let results = JSONResult.value(forKey: ParseClient.JSONResponseKeys.Results) as? [[String: AnyObject]] {
+                if let results = JSONResult?.value(forKey: ParseClient.JSONResponseKeys.Results) as? [[String: AnyObject]] {
                     let studentsLocations = StudentLocation.studentsLocationsFromResults(results)
-                    completionHandler(success: true, studentLocations: studentsLocations, errorString: nil)
+                    completionHandler(true, studentsLocations, nil)
                 } else {
-                    completionHandler(success: false, studentLocations: nil, errorString: "Unable to get students locations.")
+                    completionHandler(false, nil, "Unable to get students locations.")
                 }
             }
         }
@@ -58,12 +58,12 @@ extension ParseClient {
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, errorString: error.localizedDescription)
+                completionHandler(false, error.localizedDescription)
             } else {
-                if let _ = JSONResult.value(forKey: ParseClient.JSONResponseKeys.ObjectId) as? String {
-                    completionHandler(success: true, errorString: nil)
+                if let _ = JSONResult?.value(forKey: ParseClient.JSONResponseKeys.ObjectId) as? String {
+                    completionHandler(true, nil)
                 } else {
-                    completionHandler(success: false, errorString: "Failed to Post Location.")
+                    completionHandler(false, "Failed to Post Location.")
                 }
             }
         }

@@ -56,21 +56,21 @@ extension UdacityClient {
         ]
         
         // 2. Make the request
-        taskForPOSTMethod(mutableMethod, parameters: parameters, jsonBody: jsonBody) { JSONResult, error in
+        taskForPOSTMethod(mutableMethod, parameters: parameters as [String : AnyObject], jsonBody: jsonBody as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, uniqueKey: nil, errorString: error.localizedDescription)
+                completionHandler(false, nil, error.localizedDescription)
             } else {
-                if let _ = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
-                    if let resultsForAccount = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
+                if let _ = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
+                    if let resultsForAccount = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
                         if resultsForAccount[UdacityClient.JSONResponseKeys.Registered] as! Int == 1 {
                             let key = resultsForAccount[UdacityClient.JSONResponseKeys.Key] as! String
-                            completionHandler(success: true, uniqueKey: key, errorString: nil)
+                            completionHandler(true, key, nil)
                         }
                     }
                 } else {
-                    completionHandler(success: false, uniqueKey: nil, errorString: "Invalid Email or Password.")
+                    completionHandler(false, nil, "Invalid Email or Password.")
                 }
             }
         }
@@ -85,20 +85,20 @@ extension UdacityClient {
         mutableMethod = UdacityClient.subtituteKeyInMethod(mutableMethod, key: UdacityClient.URLKeys.UserID, value: String(uniqueKey!))!
         
         // 2. Make the request
-        taskForGETMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+        taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
-                completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: error.localizedDescription)
+                completionHandler(false, uniqueKey, nil, error.localizedDescription)
             } else {
-                if let resultsForUser = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
+                if let resultsForUser = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.User) as? [String: AnyObject] {
                     if let resultsForFirstName = resultsForUser[UdacityClient.JSONResponseKeys.FirstName] as? String,
                     let resultsForAccountLastName = resultsForUser[UdacityClient.JSONResponseKeys.LastName] as? String {
                         let userData = UdacityUser(firstName: resultsForFirstName, lastName: resultsForAccountLastName)
-                        completionHandler(success: true, uniqueKey: uniqueKey, userData: userData, errorString: nil)
+                        completionHandler(true, uniqueKey, userData, nil)
                         }
                 } else {
-                    completionHandler(success: false, uniqueKey: uniqueKey, userData: nil, errorString: "Unable to get user data.")
+                    completionHandler(false, uniqueKey, nil, "Unable to get user data.")
                 }
             }
         }
@@ -112,13 +112,13 @@ extension UdacityClient {
         let mutableMethod : String = Methods.Session
         
         // 2. Make the request
-        taskForDELETEMethod(mutableMethod, parameters: parameters) { JSONResult, error in
+        taskForDELETEMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                if let _ = JSONResult.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
+                if let _ = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                    /* println("****************************")
                     println("Deleting the session")
                     println(resultsForSesion)

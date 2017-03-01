@@ -112,10 +112,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         var userDataDictionary = [String: AnyObject]()
         userDataDictionary["objectId"] = "" as AnyObject? // We don't really need the actual value here
         userDataDictionary["uniqueKey"] = appDelegate.userUniqueID as AnyObject?
-        userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName as String
-        userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName as String
-        userDataDictionary["mapString"] = locationTextView.text as String
-        userDataDictionary["mediaURL"] = shareTextView.text as String
+        userDataDictionary["firstName"] = appDelegate.udacityUserData.firstName as AnyObject?
+        userDataDictionary["lastName"] = appDelegate.udacityUserData.lastName as AnyObject?
+        userDataDictionary["mapString"] = locationTextView.text as AnyObject?
+        userDataDictionary["mediaURL"] = shareTextView.text as AnyObject?
         userDataDictionary["latitude"] = placemarkLatitude as AnyObject?
         userDataDictionary["longitude"] = placemarkLongitude as AnyObject?
         
