@@ -140,7 +140,7 @@ class ParseClient: NSObject {
         var parsingError: NSError? = nil
         
         
-        let parsedResult: AnyObject?
+        let parsedResult: Any?
         do {
             parsedResult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
         } catch let error as NSError {
@@ -151,7 +151,7 @@ class ParseClient: NSObject {
         if let error = parsingError {
             completionHandler(nil, error)
         } else {
-            completionHandler(parsedResult, nil)
+            completionHandler(parsedResult as AnyObject?, nil)
         }
     }
     
