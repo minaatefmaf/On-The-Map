@@ -211,11 +211,11 @@ class UdacityClient: NSObject {
     class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // subset response data!
-        let range = Range(uncheckedBounds: (5, data.count - 5))
+        let range = Range(uncheckedBounds: (5, data.count))
         let newData = data.subdata(in: range)
-        var parsedResult: Any!
+        var parsedResult: AnyObject! = nil
         do {
-            parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments)
+            parsedResult = try JSONSerialization.jsonObject(with: newData, options: .allowFragments) as AnyObject
         } catch {
             let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
             completionHandler(nil, NSError(domain: "parseJSONWithCompletionHandler", code: 1, userInfo: userInfo))

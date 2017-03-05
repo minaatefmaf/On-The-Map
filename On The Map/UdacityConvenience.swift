@@ -64,7 +64,7 @@ extension UdacityClient {
             } else {
                 if let _ = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
                     if let resultsForAccount = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Account) as? [String: AnyObject] {
-                        if resultsForAccount[UdacityClient.JSONResponseKeys.Registered] as! Int == 1 {
+                        if resultsForAccount[UdacityClient.JSONResponseKeys.Registered] as! Bool == true {
                             let key = resultsForAccount[UdacityClient.JSONResponseKeys.Key] as! String
                             completionHandler(true, key, nil)
                         }
