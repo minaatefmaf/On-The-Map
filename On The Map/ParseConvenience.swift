@@ -17,7 +17,7 @@ extension ParseClient {
         
         // 1. Specify parameters, methods
         let parameters = [String: String]()
-        let mutableMethod = ""
+        let mutableMethod = ParseClient.Methods.StudentLocationPath
         
         // 2. Make the request
         taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
@@ -42,7 +42,7 @@ extension ParseClient {
         
         // 1. Specify parameters, method
         let parameters = [String: String]()
-        let mutableMethod  = ""
+        let mutableMethod = ParseClient.Methods.StudentLocationPath
         let jsonBody: [String: AnyObject] = [
             ParseClient.JSONBodyKeys.UniqueKey: userData.uniqueKey as AnyObject,
             ParseClient.JSONBodyKeys.FirstName: userData.firstName as AnyObject,

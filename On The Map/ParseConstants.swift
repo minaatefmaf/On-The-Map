@@ -26,6 +26,9 @@ extension ParseClient {
         // MARK: Session
         static let ObjectId = "objectId"
         
+        // Mark: Methods
+        static let StudentLocationPath = "/StudentLocation"
+        
     }
     
     
