@@ -34,10 +34,28 @@ struct StudentLocation {
         var studentsLocations = [StudentLocation]()
         
         for result in results {
-            studentsLocations.append(StudentLocation(dictionary: result))
+            // Add the result to the studentsLocations array if it is a valid one (contains all of the parameters)
+            if isValid(dictionary: result) {
+                studentsLocations.append(StudentLocation(dictionary: result))
+            }
         }
         
         return studentsLocations
     }
-
+    
+    private static func isValid(dictionary: [String : AnyObject]) -> Bool {
+        // Return true if the result contain all of the parameters
+        if let _ = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.LastName] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.MapString] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.MediaURL] as? String,
+            let _ = dictionary[ParseClient.JSONResponseKeys.Latitude] as? Double,
+            let _ = dictionary[ParseClient.JSONResponseKeys.Longitude] as? Double
+        { return true }
+        
+        return false
+    }
+    
 }
