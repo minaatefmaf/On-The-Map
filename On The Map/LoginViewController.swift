@@ -47,6 +47,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func loginButtonTouch(_ sender: BorderedButton) {
+        // Dismiss the keyboard of it's still active
+        view.endEditing(true)
+        
         // Attempt login only if there's an e-mail & a password
         if !(emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty) {
             
