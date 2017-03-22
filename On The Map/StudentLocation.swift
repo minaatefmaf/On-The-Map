@@ -25,6 +25,10 @@ struct StudentLocation {
         lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as! String
         mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
         mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
+        // If the mediaURL is an empty string, set it to a default value
+        if mediaURL.isEmpty {
+            mediaURL = "No Media URL"
+        }
         latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as! Double
         longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as! Double
     }
@@ -44,7 +48,7 @@ struct StudentLocation {
     }
     
     private static func isValid(dictionary: [String : AnyObject]) -> Bool {
-        // Return true if the result contain all of the parameters
+        // Return true if the result contains all of the parameters
         if let _ = dictionary[ParseClient.JSONResponseKeys.ObjectId] as? String,
             let _ = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String,
             let _ = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String,

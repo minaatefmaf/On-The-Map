@@ -103,6 +103,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         // Set the name and the image
         let student = appDelegate.studentsLocations[indexPath.row]
         cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
+        cell.detailTextLabel?.text = student.mediaURL
        // cell.imageView?.image = UIImage(named: "pin")
         
         return cell
