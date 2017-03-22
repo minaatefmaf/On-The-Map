@@ -15,8 +15,11 @@ extension UdacityClient {
         static let FacebookAppID: String = "365362206864879"
         
         // MARK: URLs
-        static let BaseURL: String = "http://www.udacity.com/api/"
-        static let BaseURLSecure: String = "https://www.udacity.com/api/"
+        static let ApiScheme = "https"
+        static let ApiHost = "www.udacity.com"
+        static let ApiPath = "/api"
+        
+        static let SignUpURL = "https://www.udacity.com/account/auth#!/signup"
         
     }
     
@@ -24,10 +27,10 @@ extension UdacityClient {
     struct Methods {
         
         // MARK: Session
-        static let Session = "session"
+        static let Session = "/session"
         
         // MARK: Public user data
-        static let UserId = "users/{id}"
+        static let UserId = "/users/{id}"
         
     }
     

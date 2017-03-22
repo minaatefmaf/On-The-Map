@@ -26,12 +26,10 @@ class UdacityClient: NSObject {
         let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
-        let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
-        let url = URL(string: urlString)!
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: udacityURLFromParameters(mutableParameters, withMethod: method))
         
         // 4. Make the request
-        let task = session.dataTask(with: request, completionHandler: {data, response, downloadError in
+        let task = session.dataTask(with: request , completionHandler: {data, response, downloadError in
             
             // GUARD: Was there an error?
             guard (downloadError == nil) else {
@@ -78,9 +76,8 @@ class UdacityClient: NSObject {
         let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
-        let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
-        let url = URL(string: urlString)!
-        let request = NSMutableURLRequest(url: url)
+        let request = NSMutableURLRequest(url: udacityURLFromParameters(mutableParameters, withMethod: method))
+        
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -139,9 +136,7 @@ class UdacityClient: NSObject {
         let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
-        let urlString = Constants.BaseURLSecure + method + UdacityClient.escapedParameters(mutableParameters)
-        let url = URL(string: urlString)!
-        let request = NSMutableURLRequest(url: url)
+        let request = NSMutableURLRequest(url: udacityURLFromParameters(mutableParameters, withMethod: method))
 
         request.httpMethod = "DELETE"
         var xsrfCookie: HTTPCookie? = nil
@@ -224,25 +219,28 @@ class UdacityClient: NSObject {
         completionHandler(parsedResult as AnyObject?, nil)
     }
     
-    // Helper function: Given a dictionary of parameters, convert to a string for a url
-    class func escapedParameters(_ parameters: [String : AnyObject]) -> String {
+    // Create a URL from parameters
+    private func udacityURLFromParameters(_ parameters: [String:AnyObject], withMethod: String? = nil) -> URL {
         
-        var urlVars = [String]()
+        var components = URLComponents()
+        components.scheme = UdacityClient.Constants.ApiScheme
+        components.host = UdacityClient.Constants.ApiHost
+        components.path = UdacityClient.Constants.ApiPath + (withMethod ?? "")
+        components.queryItems = [URLQueryItem]()
         
         for (key, value) in parameters {
-            
-            /* Make sure that it is a string value */
+            // Make sure that it is a string value
             let stringValue = "\(value)"
             
-            /* Escape it */
+            // Escape it
             let escapedValue = stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
-            /* Append it */
-            urlVars += [key + "=" + "\(escapedValue!)"]
-            
+            // Append it
+            let queryItem = URLQueryItem(name: key, value: escapedValue)
+            components.queryItems!.append(queryItem)
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + urlVars.joined(separator: "&")
+        return components.url!
     }
     
     
