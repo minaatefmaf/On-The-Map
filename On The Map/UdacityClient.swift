@@ -211,7 +211,7 @@ class UdacityClient: NSObject {
     class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // subset response data!
-        let range = Range(uncheckedBounds: (5, data.count))
+        let range = Range(5 ..< data.count)
         let newData = data.subdata(in: range)
         var parsedResult: AnyObject! = nil
         do {
