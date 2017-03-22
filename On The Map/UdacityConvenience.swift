@@ -56,7 +56,7 @@ extension UdacityClient {
         ]
         
         // 2. Make the request
-        taskForPOSTMethod(mutableMethod, parameters: parameters as [String : AnyObject], jsonBody: jsonBody as [String : AnyObject]) { JSONResult, error in
+        let _ = taskForPOSTMethod(mutableMethod, parameters: parameters as [String : AnyObject], jsonBody: jsonBody as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
@@ -85,7 +85,7 @@ extension UdacityClient {
         mutableMethod = UdacityClient.subtituteKeyInMethod(mutableMethod, key: UdacityClient.URLKeys.UserID, value: String(uniqueKey!))!
         
         // 2. Make the request
-        taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
+        let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
@@ -112,7 +112,7 @@ extension UdacityClient {
         let mutableMethod : String = Methods.Session
         
         // 2. Make the request
-        taskForDELETEMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
+        let _ = taskForDELETEMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
