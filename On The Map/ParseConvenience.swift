@@ -20,7 +20,7 @@ extension ParseClient {
         let mutableMethod = ParseClient.Methods.StudentLocationPath
         
         // 2. Make the request
-        taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
+        let _ = taskForGETMethod(mutableMethod, parameters: parameters as [String : AnyObject]) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
@@ -54,7 +54,7 @@ extension ParseClient {
         ]
         
         // 2. Make the request
-        taskForPOSTMethod(mutableMethod, parameters: parameters as [String : AnyObject], jsonBody: jsonBody) { JSONResult, error in
+        let _ = taskForPOSTMethod(mutableMethod, parameters: parameters as [String : AnyObject], jsonBody: jsonBody) { JSONResult, error in
             
             // 3. Send the desired value(s) to completion handler
             if let error = error {
