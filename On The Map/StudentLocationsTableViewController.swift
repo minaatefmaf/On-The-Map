@@ -40,6 +40,11 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         tableView.reloadData()
     }
     
+    deinit {
+        // Remove the observer to the reload notification
+        unsubscribeToReloadNotifications()
+    }
+    
     @IBAction func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
         (UIApplication.shared.delegate as! AppDelegate).udacityUserData = nil
@@ -80,10 +85,10 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 // Display the Alert view controller
                 self.present (alert, animated: true, completion: nil)
-            })
+            }
         }
     }
     
@@ -138,8 +143,8 @@ extension StudentLocationsTableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsTableViewController.reloadCells), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloadedSuccessfully), object: nil)
     }
     
-    /* func unsubscribeToRefreshNotifications() {
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
-    } */
+    func unsubscribeToReloadNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloadedSuccessfully), object: nil)
+    }
     
 }

@@ -95,7 +95,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             prepareStudentData()
             
             // Post the location
-            ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData){ (success, errorString) in
+            ParseClient.sharedInstance().postStudentLocation(appDelegate.studentData) { (success, errorString) in
                 
                 if success {
                     self.dismiss(animated: true, completion: nil)
@@ -229,8 +229,8 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         return pinView
     }
     
-    /* This delegate method is implemented to respond to taps. It opens the system browser
-    to the URL specified in the annotationViews subtitle property. */
+    // This delegate method is implemented to respond to taps.
+    // It opens the system browser to the URL specified in the annotationViews subtitle property. */
     func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
@@ -248,10 +248,10 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 // Display the Alert view controller
                 self.present (alert, animated: true, completion: nil)
-            })
+            }
         }
     }
     
@@ -341,7 +341,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         mapView.isScrollEnabled = false
         mapView.isZoomEnabled = false
         
-        /* Configure tap recognizer */
+        // Configure tap recognizer 
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(InformationPostingViewConroller.handleSingleTap(_:)))
         tapRecognizer?.numberOfTapsRequired = 1
         

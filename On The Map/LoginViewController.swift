@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // Attempt login only if there's an e-mail & a password
         if !(emailTextField.text!.isEmpty || passwordTextField.text!.isEmpty) {
             
-            // Show the activity indicator to let the user know htat the data is being processed
+            // Show the activity indicator to let the user know that the data is being processed
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             
@@ -86,10 +86,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         (UIApplication.shared.delegate as! AppDelegate).udacityUserData = userData
         (UIApplication.shared.delegate as! AppDelegate).userUniqueID = uniqueKey
         
-         DispatchQueue.main.async(execute: {
+         DispatchQueue.main.async {
             let controller = self.storyboard!.instantiateViewController(withIdentifier: "StudentsLocationsTabbedBar") as! UITabBarController
             self.present(controller, animated: true, completion: nil)
-        })
+        }
 
     }
     
@@ -99,14 +99,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 if self.activityIndicator.isAnimating{
                     self.activityIndicator.isHidden = true
                     self.activityIndicator.stopAnimating()
                 }
                 // Display the Alert view controller
                 self.present (alert, animated: true, completion: nil)
-            })
+            }
         }
     }
     
@@ -186,7 +186,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         loginButton.layer.masksToBounds = true
         loginButton.layer.cornerRadius = borderedButtonCornerRadius
         
-        /* Configure tap recognizer */
+        // Configure tap recognizer
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.handleSingleTap(_:)))
         tapRecognizer?.numberOfTapsRequired = 1
         

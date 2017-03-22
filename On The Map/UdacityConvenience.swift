@@ -15,7 +15,8 @@ extension UdacityClient {
     
     // MARK: - Authentication
     
-    /* Steps:
+    /*
+     Steps:
         1. POSTing (Creating) a Session
         2. GETting Public User Data
     */
@@ -119,10 +120,10 @@ extension UdacityClient {
                 print(error.localizedDescription)
             } else {
                 if let _ = JSONResult?.value(forKey: UdacityClient.JSONResponseKeys.Session) as? [String: AnyObject] {
-                   /* println("****************************")
-                    println("Deleting the session")
-                    println(resultsForSesion)
-                    println("****************************") */
+                    // println("****************************")
+                    // println("Deleting the session")
+                    // println(resultsForSesion)
+                    // println("****************************")
                 } else {
                    // println("Unable to delete the session.")
                 }

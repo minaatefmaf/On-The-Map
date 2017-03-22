@@ -146,7 +146,7 @@
             <objects>
                 <navigationController id="8Hx-7m-Pkt" userLabel="Map Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="JjB-CW-M3a" userLabel="Map"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5m-hN-gsz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="p5m-hN-gsz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -231,19 +231,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HW-g8-K2y">
-                                        <rect key="frame" x="98" y="75" width="180.5" height="33"/>
+                                        <rect key="frame" x="101.5" y="75" width="174" height="33"/>
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="28"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ll8-zb-3C7">
-                                        <rect key="frame" x="137.5" y="106" width="99.5" height="30.5"/>
+                                        <rect key="frame" x="136.5" y="106" width="101.5" height="30.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="26"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="today?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mkw-yb-0vz">
-                                        <rect key="frame" x="147.5" y="139" width="80" height="30.5"/>
+                                        <rect key="frame" x="150.5" y="139" width="74" height="30.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="26"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -276,7 +276,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ets-Wi-T8e">
-                                <rect key="frame" x="309" y="20" width="50" height="31"/>
+                                <rect key="frame" x="310" y="20" width="49" height="31"/>
                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -394,7 +394,7 @@
             <objects>
                 <navigationController id="d8N-49-p0d" userLabel="Table Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="list" id="eU0-0d-i29" userLabel="List"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aco-Rb-keV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aco-Rb-keV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -485,7 +485,7 @@
             <objects>
                 <navigationController id="hbg-Kf-T2i" userLabel="Collection Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Collection" image="collection" id="dj2-hJ-s25" userLabel="Collection"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Em-g4-ATx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3Em-g4-ATx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

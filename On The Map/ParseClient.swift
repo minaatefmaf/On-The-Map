@@ -36,13 +36,13 @@ class ParseClient: NSObject {
         let task = session.dataTask(with: request as URLRequest
             , completionHandler: {data, response, downloadError in
             
-            /* GUARD: Was there an error? */
+            // GUARD: Was there an error?
             guard (downloadError == nil) else {
                 completionHandler(nil, downloadError as NSError?)
                 return
             }
             
-            /* GUARD: Did we get a successful 2XX response? */
+            // GUARD: Did we get a successful 2XX response?
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? HTTPURLResponse {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
@@ -57,7 +57,7 @@ class ParseClient: NSObject {
                 return
             }
         
-            /* GUARD: Was there any data returned? */
+            // GUARD: Was there any data returned?
             guard let data = data else {
                 print("No data was returned by the request!")
                 return
@@ -96,13 +96,13 @@ class ParseClient: NSObject {
         // 4. Make the request
         let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, downloadError in
             
-            /* GUARD: Was there an error? */
+            // GUARD: Was there an error?
             guard (downloadError == nil) else {
                 completionHandler(nil, downloadError as NSError?)
                 return
             }
             
-            /* GUARD: Did we get a successful 2XX response? */
+            // GUARD: Did we get a successful 2XX response?
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 if let response = response as? HTTPURLResponse {
                     let userInfo = [NSLocalizedDescriptionKey: "Your request returned an invalid response! Status code: '\(response.statusCode)'"]
@@ -117,7 +117,7 @@ class ParseClient: NSObject {
                 return
             }
             
-            /* GUARD: Was there any data returned? */
+            // GUARD: Was there any data returned?
             guard let data = data else {
                 print("No data was returned by the request!")
                 return

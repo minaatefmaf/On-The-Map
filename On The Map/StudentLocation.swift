@@ -16,7 +16,7 @@ struct StudentLocation {
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     
-    /* Construct a StudentLocation from a dictionary */
+    // Construct a StudentLocation from a dictionary
     init(dictionary: [String : AnyObject]) {
         
         objectId = dictionary[ParseClient.JSONResponseKeys.ObjectId] as! String
@@ -33,7 +33,7 @@ struct StudentLocation {
         longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as! Double
     }
     
-    /* Helper: Given an array of dictionaries, convert them to an array of StudentLocation objects */
+    // Helper: Given an array of dictionaries, convert them to an array of StudentLocation objects
     static func studentsLocationsFromResults(_ results: [[String: AnyObject]]) -> [StudentLocation] {
         var studentsLocations = [StudentLocation]()
         

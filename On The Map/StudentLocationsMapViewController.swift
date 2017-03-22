@@ -47,6 +47,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    deinit {
+        // Remove the observer to the refresh notification
+        unsubscribeToRefreshNotifications()
+    }
+    
     @IBAction func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
         appDelegate.udacityUserData = nil
@@ -168,10 +173,10 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
             let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(dismissAction)
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 // Display the Alert view controller
                 self.present (alert, animated: true, completion: nil)
-            })
+            }
         }
     }
     
@@ -199,8 +204,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    /* This delegate method is implemented to respond to taps. It opens the system browser
-    to the URL specified in the annotationViews subtitle property. */
+    // This delegate method is implemented to respond to taps.
+    // It opens the system browser to the URL specified in the annotationViews subtitle property.
     func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
@@ -221,8 +226,8 @@ extension StudentLocationsMapViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsMapViewController.loadStudentLocations), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: nil)
     }
     
-   /* func unsubscribeToRefreshNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification, object: nil)
-    } */
+   func unsubscribeToRefreshNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: nil)
+    }
 
 }
