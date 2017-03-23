@@ -17,7 +17,7 @@ class StudentLocationsCollectionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet private weak var flowLayout: UICollectionViewFlowLayout!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,8 @@ class StudentLocationsCollectionViewController: UIViewController {
         flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
 
+        // Add observer to the reload mode being on notification
+        subscribeToReloadModeStatusNotifications()
         
         // Add observer to the reload notification
         subscribeToReloadNotifications()
@@ -53,6 +55,9 @@ class StudentLocationsCollectionViewController: UIViewController {
     }
     
     deinit {
+        // Remove the observer to the reload Mode being on notification
+        unsubscribeToReloadModeStatusNotifications()
+        
         // Remove the observer to the reload notification
         unsubscribeToReloadNotifications()
     }
@@ -146,7 +151,23 @@ class StudentLocationsCollectionViewController: UIViewController {
 
 extension StudentLocationsCollectionViewController {
     
+    func setLoadingModeOn() {
+        // Animate the activity controllar
+        activityIndicator.startAnimating()
+    }
+    
+    func subscribeToReloadModeStatusNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsCollectionViewController.setLoadingModeOn), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloading), object: nil)
+    }
+    
+    func unsubscribeToReloadModeStatusNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloading), object: nil)
+    }
+    
     func reloadCells() {
+        // Stop the activity indicator
+        activityIndicator.stopAnimating()
+        
         // Reload the cells of the collection view.
         collectionView.reloadData()
     }

@@ -231,13 +231,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HW-g8-K2y">
-                                        <rect key="frame" x="100.5" y="75" width="174" height="33"/>
+                                        <rect key="frame" x="101" y="75" width="174" height="33"/>
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="28"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="studying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ll8-zb-3C7">
-                                        <rect key="frame" x="137" y="106" width="102" height="31"/>
+                                        <rect key="frame" x="137.5" y="106" width="101.5" height="31"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="26"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
