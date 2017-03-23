@@ -26,9 +26,7 @@ class ParseClient: NSObject {
         let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
-        let urlString = Constants.BaseURLSecure + method + ParseClient.escapedParameters(mutableParameters)
-        let url = URL(string: urlString)!
-        let request = NSMutableURLRequest(url: url)
+        let request = NSMutableURLRequest(url: parseURLFromParameters(mutableParameters, withMethod: method))
         request.addValue(ParseClient.Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         
@@ -81,13 +79,12 @@ class ParseClient: NSObject {
         let mutableParameters = parameters
         
         // 2/3. Build the URL and configure the request
-        let urlString = Constants.BaseURLSecure + method + ParseClient.escapedParameters(mutableParameters)
-        let url = URL(string: urlString)!
-        let request = NSMutableURLRequest(url: url)
+        let request = NSMutableURLRequest(url: parseURLFromParameters(mutableParameters, withMethod: method))
         request.httpMethod = "POST"
         request.addValue(ParseClient.Constants.ParseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(ParseClient.Constants.RESTAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
      
         do {
             request.httpBody = try! JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
@@ -156,27 +153,29 @@ class ParseClient: NSObject {
         }
     }
     
-    // Helper function: Given a dictionary of parameters, convert to a string for a url
-    class func escapedParameters(_ parameters: [String : AnyObject]) -> String {
+    // Create a URL from parameters
+    private func parseURLFromParameters(_ parameters: [String:AnyObject], withMethod: String? = nil) -> URL {
         
-        var urlVars = [String]()
+        var components = URLComponents()
+        components.scheme = ParseClient.Constants.ApiScheme
+        components.host = ParseClient.Constants.ApiHost
+        components.path = ParseClient.Constants.ApiPath + (withMethod ?? "")
+        components.queryItems = [URLQueryItem]()
         
         for (key, value) in parameters {
-            
-            /* Make sure that it is a string value */
+            // Make sure that it is a string value
             let stringValue = "\(value)"
             
-            /* Escape it */
+            // Escape it
             let escapedValue = stringValue.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
             
-            /* Append it */
-            urlVars += [key + "=" + "\(escapedValue!)"]
-            
+            // Append it
+            let queryItem = URLQueryItem(name: key, value: escapedValue)
+            components.queryItems!.append(queryItem)
         }
         
-        return (!urlVars.isEmpty ? "?" : "") + urlVars.joined(separator: "&")
+        return components.url!
     }
-
 
     // MARK: - Shared Instance
     
