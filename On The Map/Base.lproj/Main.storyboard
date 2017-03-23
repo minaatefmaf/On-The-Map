@@ -146,7 +146,7 @@
             <objects>
                 <navigationController id="8Hx-7m-Pkt" userLabel="Map Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="JjB-CW-M3a" userLabel="Map"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5m-hN-gsz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="p5m-hN-gsz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -231,7 +231,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HW-g8-K2y">
-                                        <rect key="frame" x="102" y="75" width="174" height="33"/>
+                                        <rect key="frame" x="100.5" y="75" width="174" height="33"/>
                                         <fontDescription key="fontDescription" name="Roboto-Thin" family="Roboto" pointSize="28"/>
                                         <color key="textColor" red="0.069283351302146912" green="0.32415136694908142" blue="0.71316438913345337" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -254,10 +254,10 @@
                                     <constraint firstItem="0HW-g8-K2y" firstAttribute="top" secondItem="elK-KK-3Um" secondAttribute="top" constant="75" id="2zC-yv-FKX"/>
                                     <constraint firstItem="Mkw-yb-0vz" firstAttribute="top" secondItem="0HW-g8-K2y" secondAttribute="bottom" constant="31" id="96a-gb-LPi"/>
                                     <constraint firstItem="ll8-zb-3C7" firstAttribute="centerX" secondItem="Mkw-yb-0vz" secondAttribute="centerX" id="F3e-PD-uIX"/>
-                                    <constraint firstAttribute="trailing" secondItem="0HW-g8-K2y" secondAttribute="trailing" constant="99" id="IKd-i7-UX2"/>
                                     <constraint firstAttribute="bottom" secondItem="Mkw-yb-0vz" secondAttribute="bottom" constant="30" id="iXl-YD-2M1"/>
                                     <constraint firstItem="Mkw-yb-0vz" firstAttribute="top" secondItem="ll8-zb-3C7" secondAttribute="bottom" constant="2" id="o9a-iP-9V2"/>
                                     <constraint firstItem="ll8-zb-3C7" firstAttribute="centerX" secondItem="elK-KK-3Um" secondAttribute="centerX" id="q7M-R4-jn9"/>
+                                    <constraint firstItem="0HW-g8-K2y" firstAttribute="centerX" secondItem="elK-KK-3Um" secondAttribute="centerX" id="rAX-gD-c00"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Your Location Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="17C-Tc-4Ad" userLabel="Location Text View">
@@ -388,7 +388,7 @@
             <objects>
                 <navigationController id="d8N-49-p0d" userLabel="Table Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="list" id="eU0-0d-i29" userLabel="List"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aco-Rb-keV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aco-Rb-keV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -479,7 +479,7 @@
             <objects>
                 <navigationController id="hbg-Kf-T2i" userLabel="Collection Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Collection" image="collection" id="dj2-hJ-s25" userLabel="Collection"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Em-g4-ATx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3Em-g4-ATx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
