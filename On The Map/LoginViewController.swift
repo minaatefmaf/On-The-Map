@@ -10,12 +10,12 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: BorderedButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var loginButton: BorderedButton!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var tapRecognizer: UITapGestureRecognizer? = nil
+    private var tapRecognizer: UITapGestureRecognizer? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         removeKeyboardDismissRecognizer()
     }
 
-    @IBAction func loginButtonTouch(_ sender: BorderedButton) {
+    @IBAction private func loginButtonTouch(_ sender: BorderedButton) {
         // Dismiss the keyboard of it's still active
         view.endEditing(true)
         
@@ -80,7 +80,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func completeLogin(_ uniqueKey: String, userData: UdacityUser) {
+    private func completeLogin(_ uniqueKey: String, userData: UdacityUser) {
         
         // Save the user data & its unique id to the app delegate
         (UIApplication.shared.delegate as! AppDelegate).udacityUserData = userData
@@ -93,7 +93,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    func displayError(_ errorString: String?) {
+    private func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
@@ -110,7 +110,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func signUpForUdacity(_ sender: UIButton) {
+    @IBAction private func signUpForUdacity(_ sender: UIButton) {
         // Open a link to the udacity page in safari
         if let requestUrl = URL(string: UdacityClient.Constants.SignUpURL) {
             UIApplication.shared.openURL(requestUrl)
@@ -128,11 +128,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Keyboard Fixes
     
-    func addKeyboardDismissRecognizer() {
+    private func addKeyboardDismissRecognizer() {
         view.addGestureRecognizer(tapRecognizer!)
     }
     
-    func removeKeyboardDismissRecognizer() {
+    private func removeKeyboardDismissRecognizer() {
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI Configurations
     
-    func configureUI() {
+    private func configureUI() {
         // Configure background gradient
         self.view.backgroundColor = UIColor.clear
         let colorTop = UIColor(red: 0.977, green: 0.586, blue: 0.125, alpha: 1.0).cgColor

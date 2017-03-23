@@ -7,14 +7,14 @@
 //
 
 struct StudentLocation {
-    var objectId = ""
-    var uniqueKey = ""
-    var firstName = ""
-    var lastName = ""
-    var mapString = ""
-    var mediaURL = ""
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
+    public private(set) var objectId = ""
+    public private(set) var uniqueKey = ""
+    public private(set) var firstName = ""
+    public private(set) var lastName = ""
+    public private(set) var mapString = ""
+    public private(set) var mediaURL = ""
+    public private(set) var latitude: Double = 0.0
+    public private(set) var longitude: Double = 0.0
     
     // Construct a StudentLocation from a dictionary
     init(dictionary: [String : AnyObject]) {

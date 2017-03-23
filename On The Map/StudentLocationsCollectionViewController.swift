@@ -11,12 +11,12 @@ import UIKit
 class StudentLocationsCollectionViewController: UIViewController {
     
     // Varaibles to hold the user data & unique key
-    var userData: UdacityUser!
-    var uniqueKey: String!
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private var userData: UdacityUser!
+    private var uniqueKey: String!
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet private weak var flowLayout: UICollectionViewFlowLayout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class StudentLocationsCollectionViewController: UIViewController {
         unsubscribeToReloadNotifications()
     }
     
-    @IBAction func logoutButton(_ sender: UIBarButtonItem) {
+    @IBAction private func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
         (UIApplication.shared.delegate as! AppDelegate).udacityUserData = nil
         (UIApplication.shared.delegate as! AppDelegate).userUniqueID = nil
@@ -90,7 +90,7 @@ class StudentLocationsCollectionViewController: UIViewController {
         
     }
     
-    func displayError(_ errorString: String?) {
+    private func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)

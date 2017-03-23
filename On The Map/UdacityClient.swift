@@ -11,7 +11,7 @@ import Foundation
 class UdacityClient: NSObject {
     
     // Shared session
-    var session: URLSession
+    private var session: URLSession
     
     override init() {
         session = URLSession.shared
@@ -203,7 +203,7 @@ class UdacityClient: NSObject {
     }
     
     // Helper: Given raw JSON, return a usable Foundation object
-    class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // subset response data!
         let range = Range(5 ..< data.count)

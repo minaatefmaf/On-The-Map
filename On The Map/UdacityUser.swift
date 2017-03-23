@@ -7,8 +7,8 @@
 //
 
 struct UdacityUser {
-    var firstName = ""
-    var lastName = ""
+    public private(set) var firstName = ""
+    public private(set) var lastName = ""
     
     // Construct a UdacityUser from a dictionary
     init(firstName: String, lastName: String) {

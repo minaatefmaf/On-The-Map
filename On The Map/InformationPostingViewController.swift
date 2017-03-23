@@ -11,36 +11,36 @@ import MapKit
 
 class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITextViewDelegate {
     
-    @IBOutlet weak var labelsSubview: UIView!
-    @IBOutlet weak var findButonSubview: UIView!
-    @IBOutlet weak var submitButtonSubview: UIView!
-    @IBOutlet weak var locationTextView: UITextView!
-    @IBOutlet weak var shareTextView: UITextView!
-    @IBOutlet weak var findOnTheMapButton: UIButton!
-    @IBOutlet weak var submitButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var labelsSubview: UIView!
+    @IBOutlet private weak var findButonSubview: UIView!
+    @IBOutlet private weak var submitButtonSubview: UIView!
+    @IBOutlet private weak var locationTextView: UITextView!
+    @IBOutlet private weak var shareTextView: UITextView!
+    @IBOutlet private weak var findOnTheMapButton: UIButton!
+    @IBOutlet private weak var submitButton: UIButton!
+    @IBOutlet private weak var cancelButton: UIButton!
+    @IBOutlet private weak var mapView: MKMapView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
-    var tapRecognizer: UITapGestureRecognizer? = nil
+    private var tapRecognizer: UITapGestureRecognizer? = nil
 
     // Add a reference to the delegate
-    let locationTextViewDelegate = LocationTextViewDelegate()
+    private let locationTextViewDelegate = LocationTextViewDelegate()
     
     // Should clear the initial value when a user clicks the textview for the first time.
-    var firstEdit = true
+    private var firstEdit = true
     
     // Variable to hold the old annotation
-    var oldAnnotation = MKPointAnnotation()
+    private var oldAnnotation = MKPointAnnotation()
     
     // A variable to hold the location's lat & long of the user's entered location
-    var placemark: CLPlacemark! = nil
+    private var placemark: CLPlacemark! = nil
     
     // Save the lat & long
-    var placemarkLatitude: Double! = nil
-    var placemarkLongitude: Double! = nil
+    private var placemarkLatitude: Double! = nil
+    private var placemarkLongitude: Double! = nil
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +66,11 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     }
 
     
-    @IBAction func cancelButton(_ sender: UIButton) {
+    @IBAction private func cancelButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func findLocationOnTheMap(_ sender: UIButton) {
+    @IBAction private func findLocationOnTheMap(_ sender: UIButton) {
         // Check first if the users has entered a location
         if (locationTextView.text.isEmpty || locationTextView.text.isEqual("Enter Your Location Here")) {
             displayError("Must Enter a Location.")
@@ -81,7 +81,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         
     }
     
-    @IBAction func submit(_ sender: UIButton) {
+    @IBAction private func submit(_ sender: UIButton) {
         
         // Check first if the users has entered a location
         if (shareTextView.text.isEmpty || shareTextView.text.isEqual("Enter a Link to Share Here")) {
@@ -107,7 +107,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         }
     }
     
-    func prepareStudentData() {
+    private func prepareStudentData() {
         
         var userDataDictionary = [String: AnyObject]()
         userDataDictionary["objectId"] = "" as AnyObject? // We don't really need the actual value here
@@ -123,7 +123,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         
     }
     
-    func findOnMapFromLocation(_ addressString: String) {
+    private func findOnMapFromLocation(_ addressString: String) {
         
         // Start the activity indicator
         activityIndicator.isHidden = false
@@ -157,7 +157,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         
     }
     
-    func annotateTheLocation() {
+    private func annotateTheLocation() {
         
         // Remove the previous annotaion
         mapView.removeAnnotation(oldAnnotation)
@@ -182,7 +182,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
 
     }
     
-    func getLocationOnMap() {
+    private func getLocationOnMap() {
         
         let coordinate = getTheCoordinate()
         
@@ -198,7 +198,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         
     }
     
-    func getTheCoordinate() -> CLLocationCoordinate2D {
+    private func getTheCoordinate() -> CLLocationCoordinate2D {
     
     placemarkLatitude = CLLocationDegrees(placemark!.location!.coordinate.latitude as Double)
     placemarkLongitude = CLLocationDegrees(placemark!.location!.coordinate.longitude as Double)
@@ -242,7 +242,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
         }
     }
     
-    func displayError(_ errorString: String?) {
+    private func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
@@ -296,11 +296,11 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     // MARK: - Keyboard Fixes
     
-    func addKeyboardDismissRecognizer() {
+    private func addKeyboardDismissRecognizer() {
         view.addGestureRecognizer(tapRecognizer!)
     }
     
-    func removeKeyboardDismissRecognizer() {
+    private func removeKeyboardDismissRecognizer() {
         view.removeGestureRecognizer(tapRecognizer!)
     }
     
@@ -311,7 +311,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     
     // MARK: - UI Configurations
     
-    func configureUI() {
+    private func configureUI() {
         
         // Prepare the elements that will appear first & hide the others
         labelsSubview.isHidden = false
@@ -348,7 +348,7 @@ class InformationPostingViewConroller: UIViewController, MKMapViewDelegate, UITe
     }
     
     
-    func configureUIForSecondScene() {
+    private func configureUIForSecondScene() {
         
         // Prepare the elements that will appear first & hide the others
         labelsSubview.isHidden = true

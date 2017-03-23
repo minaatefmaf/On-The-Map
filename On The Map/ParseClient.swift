@@ -11,7 +11,7 @@ import Foundation
 class ParseClient: NSObject {
     
     // Shared session
-    var session: URLSession
+    private var session: URLSession
     
     override init() {
         session = URLSession.shared
@@ -133,7 +133,7 @@ class ParseClient: NSObject {
     // MARK: - Helpers
 
     // Helper: Given raw JSON, return a usable Foundation object
-    class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    private class func parseJSONWithCompletionHandler(_ data: Data, completionHandler: (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         var parsingError: NSError? = nil
         

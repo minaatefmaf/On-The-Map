@@ -12,16 +12,16 @@ import MapKit
 class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     
     // Varaibles to hold the user data & unique key
-    var userData: UdacityUser!
-    var uniqueKey: String!
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private var userData: UdacityUser!
+    private var uniqueKey: String!
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Variable to hold the old annotations
-    var oldAnnotations = [MKPointAnnotation]()
+    private var oldAnnotations = [MKPointAnnotation]()
     
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var blackView: UIView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var mapView: MKMapView!
+    @IBOutlet private weak var blackView: UIView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         unsubscribeToRefreshNotifications()
     }
     
-    @IBAction func logoutButton(_ sender: UIBarButtonItem) {
+    @IBAction private func logoutButton(_ sender: UIBarButtonItem) {
         // Clear the user data saved in the app delegate
         appDelegate.udacityUserData = nil
         appDelegate.userUniqueID = nil
@@ -122,12 +122,12 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    func notifyOtherTabsToReloadCells() {
+    private func notifyOtherTabsToReloadCells() {
         // Notify the Table and the Collection tabs to reload their cells
         NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.DataIsReloadedSuccessfully), object: self)
     }
     
-    func annotateTheMapWithLocations() {
+    private func annotateTheMapWithLocations() {
         
         let locations = appDelegate.studentsLocations
         // Create MKPointAnnotation for each dictionary in "locations".
@@ -167,7 +167,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    func displayError(_ errorString: String?) {
+    private func displayError(_ errorString: String?) {
         if let errorString = errorString {
             // Prepare the Alert view controller with the error message to display
             let alert = UIAlertController(title: "", message: errorString, preferredStyle: .alert)
