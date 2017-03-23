@@ -16,6 +16,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

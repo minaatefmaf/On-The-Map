@@ -146,7 +146,7 @@
             <objects>
                 <navigationController id="8Hx-7m-Pkt" userLabel="Map Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="JjB-CW-M3a" userLabel="Map"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5m-hN-gsz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="p5m-hN-gsz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -388,7 +388,7 @@
             <objects>
                 <navigationController id="d8N-49-p0d" userLabel="Table Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="list" id="eU0-0d-i29" userLabel="List"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aco-Rb-keV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aco-Rb-keV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -450,7 +450,7 @@
                                     <outlet property="delegate" destination="HxA-w2-PBT" id="Qxr-Mw-MGs"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="T4q-pd-Hik" userLabel="Large Black Activity Indicator">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="T4q-pd-Hik" userLabel="Large Black Activity Indicator">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
@@ -473,6 +473,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="T4q-pd-Hik" id="bcm-L1-cMj"/>
                         <outlet property="tableView" destination="RJe-UP-QxK" id="Brv-OV-KMB"/>
                     </connections>
                 </viewController>
@@ -485,7 +486,7 @@
             <objects>
                 <navigationController id="hbg-Kf-T2i" userLabel="Collection Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Collection" image="collection" id="dj2-hJ-s25" userLabel="Collection"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Em-g4-ATx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3Em-g4-ATx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -559,7 +560,7 @@
                                     <outlet property="delegate" destination="eOG-ud-NE2" id="UdA-FL-aQX"/>
                                 </connections>
                             </collectionView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sis-70-uYh" userLabel="Large Black Activity Indicator">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sis-70-uYh" userLabel="Large Black Activity Indicator">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
                                 <color key="color" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
@@ -582,6 +583,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="sis-70-uYh" id="vJH-HZ-rRr"/>
                         <outlet property="collectionView" destination="h5X-uY-Cii" id="5b3-TE-1uk"/>
                         <outlet property="flowLayout" destination="6hz-V3-MDj" id="bDl-j1-vla"/>
                     </connections>
