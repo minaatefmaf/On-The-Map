@@ -14,6 +14,8 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     private var userData: UdacityUser!
     private var uniqueKey: String!
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    // Add a refernce to the refresh button here to be able to disable it while loading new dada later
+    var refreshButton: UIBarButtonItem! = nil
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -28,7 +30,7 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         subscribeToReloadNotifications()
         
         // Add the right bar buttons
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsTableViewController.refreshStudentLocations))
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsTableViewController.refreshStudentLocations))
         let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(StudentLocationsTableViewController.openInformationPostingView))
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
@@ -64,6 +66,9 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     func refreshStudentLocations() {
+        // Deactivate the refresh button
+        refreshButton.isEnabled = false
+        
         // Notify the Map tab to reload the data
         NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: self)
         
@@ -178,6 +183,8 @@ extension StudentLocationsTableViewController {
         // Reload the rows and sections of the table view
         tableView.reloadData()
         
+        // Activate the refresh button
+        refreshButton.isEnabled = true
     }
     
     func subscribeToReloadNotifications() {
