@@ -83,6 +83,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadStudentLocations() {
+        // Notify the other tabs that new data is being reloaded
+        self.notifyOtherTabsToSetloadingModeOn()
         
         // Remove the previous annotaions
         mapView.removeAnnotations(oldAnnotations)
@@ -120,6 +122,11 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         }
         
         
+    }
+    
+    private func notifyOtherTabsToSetloadingModeOn() {
+        // Notify the Table and the Collection tabs to reload their cells
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.DataIsReloading), object: self)
     }
     
     private func notifyOtherTabsToReloadCells() {

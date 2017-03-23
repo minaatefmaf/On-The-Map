@@ -16,10 +16,13 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Add observer to the reload mode being on notification
+        subscribeToReloadModeStatusNotifications()
         
         // Add observer to the reload notification
         subscribeToReloadNotifications()
@@ -42,6 +45,9 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
     }
     
     deinit {
+        // Remove the observer to the reload Mode being on notification
+        unsubscribeToReloadModeStatusNotifications()
+        
         // Remove the observer to the reload notification
         unsubscribeToReloadNotifications()
     }
@@ -152,9 +158,26 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
 
 extension StudentLocationsTableViewController {
     
+    func setLoadingModeOn() {
+        // Animate the activity controllar
+        activityIndicator.startAnimating()
+    }
+    
+    func subscribeToReloadModeStatusNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(StudentLocationsTableViewController.setLoadingModeOn), name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloading), object: nil)
+    }
+    
+    func unsubscribeToReloadModeStatusNotifications() {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NSNotificationCenterKeys.DataIsReloading), object: nil)
+    }
+    
     func reloadCells() {
-        // Reload the rows and sections of the table view.
+        // Stop the activity indicator
+        activityIndicator.stopAnimating()
+        
+        // Reload the rows and sections of the table view
         tableView.reloadData()
+        
     }
     
     func subscribeToReloadNotifications() {
