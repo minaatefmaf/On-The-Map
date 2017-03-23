@@ -25,10 +25,6 @@ struct StudentLocation {
         lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as! String
         mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
         mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
-        // If the mediaURL is an empty string, set it to a default value
-        if mediaURL.isEmpty {
-            mediaURL = "No Media URL"
-        }
         latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as! Double
         longitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as! Double
     }

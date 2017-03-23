@@ -107,8 +107,23 @@ class StudentLocationsTableViewController: UIViewController, UITableViewDataSour
         
         // Set the name and the image
         let student = appDelegate.studentsLocations[indexPath.row]
-        cell.textLabel?.text = "\(student.firstName) \(student.lastName)"
-        cell.detailTextLabel?.text = student.mediaURL
+        
+        // If the full name is empty, set it to a default value
+        var fullName = ""
+        if student.firstName.isEmpty && student.lastName.isEmpty {
+            fullName = "No Name"
+        } else {
+            fullName = "\(student.firstName) \(student.lastName)"
+        }
+        // If the mediaURL is an empty string, set it to a default value
+        var mediaURL = student.mediaURL
+        if student.mediaURL.isEmpty {
+            mediaURL = "No Media URL"
+        }
+        
+        // Set the values to the cell's labels
+        cell.textLabel?.text = fullName
+        cell.detailTextLabel?.text = mediaURL
        // cell.imageView?.image = UIImage(named: "pin")
         
         return cell
