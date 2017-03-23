@@ -146,7 +146,7 @@
             <objects>
                 <navigationController id="8Hx-7m-Pkt" userLabel="Map Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="JjB-CW-M3a" userLabel="Map"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="p5m-hN-gsz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5m-hN-gsz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -388,7 +388,7 @@
             <objects>
                 <navigationController id="d8N-49-p0d" userLabel="Table Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="list" id="eU0-0d-i29" userLabel="List"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aco-Rb-keV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aco-Rb-keV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -450,9 +450,15 @@
                                     <outlet property="delegate" destination="HxA-w2-PBT" id="Qxr-Mw-MGs"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="T4q-pd-Hik" userLabel="Large Black Activity Indicator">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="T4q-pd-Hik" firstAttribute="centerX" secondItem="uhJ-d0-u4a" secondAttribute="centerX" id="7V0-nC-Kie"/>
+                            <constraint firstItem="T4q-pd-Hik" firstAttribute="centerY" secondItem="uhJ-d0-u4a" secondAttribute="centerY" id="EN5-Ee-heF"/>
                             <constraint firstAttribute="bottom" secondItem="RJe-UP-QxK" secondAttribute="bottom" id="NUM-Dq-bKZ"/>
                             <constraint firstItem="RJe-UP-QxK" firstAttribute="leading" secondItem="uhJ-d0-u4a" secondAttribute="leading" id="Q67-Xs-83X"/>
                             <constraint firstItem="RJe-UP-QxK" firstAttribute="top" secondItem="uhJ-d0-u4a" secondAttribute="top" id="kvX-vH-KhR"/>
@@ -479,7 +485,7 @@
             <objects>
                 <navigationController id="hbg-Kf-T2i" userLabel="Collection Tab" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Collection" image="collection" id="dj2-hJ-s25" userLabel="Collection"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3Em-g4-ATx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Em-g4-ATx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -553,11 +559,17 @@
                                     <outlet property="delegate" destination="eOG-ud-NE2" id="UdA-FL-aQX"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sis-70-uYh" userLabel="Large Black Activity Indicator">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="h5X-uY-Cii" firstAttribute="leading" secondItem="wC6-XE-8fh" secondAttribute="leading" id="Cuu-Mf-3a5"/>
                             <constraint firstAttribute="trailing" secondItem="h5X-uY-Cii" secondAttribute="trailing" id="DUc-oB-FLr"/>
+                            <constraint firstItem="sis-70-uYh" firstAttribute="centerX" secondItem="wC6-XE-8fh" secondAttribute="centerX" id="G2V-sQ-PK3"/>
+                            <constraint firstItem="sis-70-uYh" firstAttribute="centerY" secondItem="wC6-XE-8fh" secondAttribute="centerY" id="LIK-Oh-DoH"/>
                             <constraint firstItem="h5X-uY-Cii" firstAttribute="top" secondItem="wC6-XE-8fh" secondAttribute="top" id="dSn-xX-Y4W"/>
                             <constraint firstItem="h5X-uY-Cii" firstAttribute="bottom" secondItem="jq5-am-faj" secondAttribute="top" id="ymR-fD-1Tm"/>
                         </constraints>
