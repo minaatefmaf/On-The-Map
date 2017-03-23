@@ -76,9 +76,6 @@ class StudentLocationsCollectionViewController: UIViewController {
     }
     
     func refreshStudentLocations() {
-        // Deactivate the refresh button
-        refreshButton.isEnabled = false
-        
         // Notify the Map tab to reload the data
         NotificationCenter.default.post(name: Notification.Name(rawValue: NSNotificationCenterKeys.RefreshButtonIsRealeasedNotification), object: self)
         
@@ -157,6 +154,9 @@ class StudentLocationsCollectionViewController: UIViewController {
 extension StudentLocationsCollectionViewController {
     
     func setLoadingModeOn() {
+        // Deactivate the refresh button
+        refreshButton.isEnabled = false
+        
         // Animate the activity controllar
         activityIndicator.startAnimating()
     }

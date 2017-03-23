@@ -66,9 +66,6 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func refreshStudentLocations() {
-        // Deactivate the refresh button
-        refreshButton.isEnabled = false
-        
         // Start loading the new data
         loadStudentLocations()
     }
@@ -89,6 +86,9 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func loadStudentLocations() {
+        // Deactivate the refresh button
+        refreshButton.isEnabled = false
+        
         // Notify the other tabs that new data is being reloaded
         self.notifyOtherTabsToSetloadingModeOn()
         
