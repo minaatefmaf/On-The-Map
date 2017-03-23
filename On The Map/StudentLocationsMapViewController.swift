@@ -15,6 +15,8 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     private var userData: UdacityUser!
     private var uniqueKey: String!
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    // Add a refernce to the refresh button here to be able to disable it while loading new dada later
+    private var refreshButton: UIBarButtonItem! = nil
     
     // Variable to hold the old annotations
     private var oldAnnotations = [MKPointAnnotation]()
@@ -27,7 +29,7 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         // Add the right bar buttons
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsMapViewController.refreshStudentLocations))
+        refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(StudentLocationsMapViewController.refreshStudentLocations))
         let pinButton: UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "pin"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(StudentLocationsMapViewController.openInformationPostingView))
         self.navigationItem.setRightBarButtonItems([refreshButton, pinButton], animated: true)
         
@@ -64,6 +66,10 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func refreshStudentLocations() {
+        // Deactivate the refresh button
+        refreshButton.isEnabled = false
+        
+        // Start loading the new data
         loadStudentLocations()
     }
     
@@ -103,10 +109,13 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
                     // Notify the other tabs to reload their ceels
                     DispatchQueue.main.async {
                         self.notifyOtherTabsToReloadCells()
+                        
+                        // Annotate the map view with the locations
+                        self.annotateTheMapWithLocations()
+                        
+                        // Activate the refresh button
+                        self.refreshButton.isEnabled = true
                     }
-                    
-                    // Annotate the map view with the locations
-                    self.annotateTheMapWithLocations()
                 }
             } else {
                 // Display an alert with the error for the user
@@ -160,17 +169,13 @@ class StudentLocationsMapViewController: UIViewController, MKMapViewDelegate {
         }
         // Save the annotations to be able to remove it on updating the map.
         oldAnnotations = annotations
-        
-        DispatchQueue.main.async {
            
-            // When the array is complete, we add the annotations to the map.
-            self.mapView.addAnnotations(annotations)
+        // When the array is complete, we add the annotations to the map.
+        mapView.addAnnotations(annotations)
            
-            // Shutdown the black view & the activity indicator.
-            self.blackView.isHidden = true
-            self.activityIndicator.stopAnimating()
-            
-        }
+        // Shutdown the black view & the activity indicator.
+        blackView.isHidden = true
+        activityIndicator.stopAnimating()
         
     }
     
